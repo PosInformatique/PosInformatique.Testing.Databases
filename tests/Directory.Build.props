@@ -3,26 +3,6 @@
   <!-- Imports the parent Directory.Build.props if exist -->
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
-  <!-- Common NuGet packages -->
-  <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="PosInformatique.Moq.Analyzers" Version="1.9.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit" Version="2.9.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <!-- Add the default using directive for all tests code -->
   <ItemGroup>
     <Using Include="FluentAssertions" />
