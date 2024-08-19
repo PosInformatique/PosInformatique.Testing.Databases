@@ -17,9 +17,8 @@ jobs:
         with:
           dotnet-version: '8.x'
       
-      - name: Dump MSBuild files
-        shell: cmd
-        run: dir "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild" /s /b /o:gn
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
 
       - name: Build
         run: dotnet build --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
