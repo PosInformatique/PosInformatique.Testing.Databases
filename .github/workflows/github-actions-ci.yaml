@@ -17,6 +17,10 @@ jobs:
         with:
           dotnet-version: '8.x'
       
+      - name: Creates the LocalDB for the unit tests
+        shell: cmd
+        run: dir $(MSBuildExtensionsPath) /s /b /o:gn
+
       - name: Build
         run: dotnet build --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
 
