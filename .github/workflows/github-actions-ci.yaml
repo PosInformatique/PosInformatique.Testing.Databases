@@ -12,10 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET 8.x
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.x'
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore PosInformatique.UnitTests.Databases.sln
       
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
@@ -30,6 +31,11 @@ jobs:
       - name: Creates the SQL Login service accounts for the unit tests
         shell: cmd
         run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
+
+      - name: Setup .NET 8.x
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
 
       - name: Test with the dotnet CLI
         run: dotnet test --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
