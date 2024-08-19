@@ -33,7 +33,7 @@ jobs:
         run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
 
       - name: Test with the dotnet CLI
-        uses: microsoft/vstest@master
+        uses: microsoft/vstest@v1.0.0
         with:
           testAssembly: PosInformatique.*Tests.dll
           searchFolder: ./tests/
