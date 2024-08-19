@@ -17,9 +17,9 @@ jobs:
         with:
           dotnet-version: '8.x'
       
-      - name: Creates the LocalDB for the unit tests
+      - name: Dump MSBuild files
         shell: cmd
-        run: dir $(MSBuildExtensionsPath) /s /b /o:gn
+        run: dir "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild" /s /b /o:gn
 
       - name: Build
         run: dotnet build --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
