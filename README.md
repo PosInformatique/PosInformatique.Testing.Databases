@@ -1,0 +1,2 @@
+# PosInformatique.UnitTests.SqlServer
+PosInformatique.UnitTests.Databases is a set of tools for unit testing databases. It simplifies writing and executing tests, helping ensure your database and data access code is reliable and bug-free. Ideal for developers who want to validate data access based on SQL Server code during their development.

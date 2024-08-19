@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\UnitTests.Databases.SqlServer.Tests.DacPac\bin\Debug\UnitTests.Databases.SqlServer.Tests.DacPac.dacpac" Link="UnitTests.Databases.SqlServer.Tests.DacPac.dacpac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UnitTests.Databases.SqlServer\UnitTests.Databases.SqlServer.csproj" />
+    <ProjectReference Include="..\UnitTests.Databases.SqlServer.Tests.DacPac\UnitTests.Databases.SqlServer.Tests.DacPac.sqlproj" />
+  </ItemGroup>
+
+</Project>

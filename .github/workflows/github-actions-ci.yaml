@@ -1,0 +1,32 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "releases/**" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8.x
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      
+      - name: Build
+        run: dotnet build --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
+
+      - name: Creates the LocalDB for the unit tests
+        shell: cmd
+        run: SqlLocalDB create posinfo-unit-tests
+
+      - name: Creates the SQL Login service accounts for the unit tests
+        shell: cmd
+        run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
+
+      - name: Test with the dotnet CLI
+        run: dotnet test --property:Configuration=Debug "PosInformatique.UnitTests.Databases.sln"
