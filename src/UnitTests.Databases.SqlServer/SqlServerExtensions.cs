@@ -18,7 +18,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 options.CreateNewDatabase = true;
                 options.ExcludeObjectTypes = [ObjectType.Logins];
 
-                var services = new DacServices(server.ConnectionString);
+                var services = new DacServices(server.Master.ConnectionString);
                 services.Deploy(package, databaseName, true, options: options);
             }
 

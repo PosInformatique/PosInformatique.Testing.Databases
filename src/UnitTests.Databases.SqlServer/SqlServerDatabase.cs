@@ -20,7 +20,18 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
         public int ExecuteNonQuery(string command)
         {
-            return SqlServer.ExecuteNonQuery(command, this.ConnectionString);
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.ConnectionString = this.ConnectionString;
+                connection.Open();
+
+                using (var dbCommand = connection.CreateCommand())
+                {
+                    dbCommand.CommandText = command;
+
+                    return dbCommand.ExecuteNonQuery();
+                }
+            }
         }
 
         public DataTable ExecuteQuery(string query)

@@ -22,23 +22,23 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             connectionStringMaster.Remove("User ID");
             connectionStringMaster.Remove("Password");
 
-            this.ConnectionString = connectionStringMaster.ToString();
+            this.Master = new SqlServerDatabase(connectionStringMaster.ToString());
         }
 
-        public string ConnectionString { get; }
+        public SqlServerDatabase Master { get; }
 
         public SqlServerDatabase CreateEmptyDatabase(string name)
         {
             this.DeleteDatabase(name);
-            this.ExecuteNonQuery($"CREATE DATABASE [{name}]");
+            this.Master.ExecuteNonQuery($"CREATE DATABASE [{name}]");
 
             return this.GetDatabase(name);
         }
 
         public void DeleteDatabase(string name)
         {
-            this.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') ALTER DATABASE [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
-            this.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') DROP DATABASE [{name}]");
+            this.Master.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') ALTER DATABASE [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+            this.Master.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') DROP DATABASE [{name}]");
         }
 
         public SqlServerDatabase GetDatabase(string name)
@@ -49,33 +49,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return new SqlServerDatabase(databaseConnectionString.ToString());
         }
 
-        internal static int ExecuteNonQuery(string command, string connectionString)
+        internal SqlServerDatabase GetDatabaseWithAdministratorCredentials(string name)
         {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.ConnectionString = connectionString;
-                connection.Open();
-
-                using (var dbCommand = connection.CreateCommand())
-                {
-                    dbCommand.CommandText = command;
-
-                    return dbCommand.ExecuteNonQuery();
-                }
-            }
-        }
-
-        internal SqlServerDatabase GetDatabaseWithMasterCredentials(string name)
-        {
-            var databaseConnectionString = new SqlConnectionStringBuilder(this.ConnectionString);
+            var databaseConnectionString = new SqlConnectionStringBuilder(this.Master.ConnectionString);
             databaseConnectionString.InitialCatalog = name;
 
             return new SqlServerDatabase(databaseConnectionString.ToString());
-        }
-
-        internal int ExecuteNonQuery(string command)
-        {
-            return ExecuteNonQuery(command, this.ConnectionString);
         }
     }
 }

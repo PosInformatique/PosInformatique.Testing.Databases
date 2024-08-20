@@ -25,7 +25,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             {
                 if (!string.IsNullOrWhiteSpace(connectionStringBuilder.UserID))
                 {
-                    server.ExecuteNonQuery($@"
+                    server.Master.ExecuteNonQuery($@"
                         IF SUSER_ID ('{connectionStringBuilder.UserID}') IS NULL
                             CREATE LOGIN [{connectionStringBuilder.UserID}] WITH PASSWORD = '{connectionStringBuilder.Password}'");
                 }
@@ -39,7 +39,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
             }
 
-            ClearAllData(server.GetDatabaseWithMasterCredentials(connectionStringBuilder.InitialCatalog));
+            ClearAllData(server.GetDatabaseWithAdministratorCredentials(connectionStringBuilder.InitialCatalog));
 
             return database;
         }
@@ -62,7 +62,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             var database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
 
-            ClearAllData(database);
+            ClearAllData(server.GetDatabaseWithAdministratorCredentials(connectionStringBuilder.InitialCatalog));
 
             return database;
         }
