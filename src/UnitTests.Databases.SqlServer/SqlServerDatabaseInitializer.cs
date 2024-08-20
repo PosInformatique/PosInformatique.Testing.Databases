@@ -47,20 +47,31 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         public SqlServerDatabase Initialize<TContext>(TContext context)
             where TContext : DbContext
         {
-            var connectionStringBuilder = new SqlConnectionStringBuilder(context.Database.GetDbConnection().ConnectionString);
+            var connectionString = context.Database.GetConnectionString();
 
-            var server = new SqlServer(context.Database.GetDbConnection().ConnectionString);
+            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+
+            var server = new SqlServer(connectionString!);
+            var database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
 
             if (!this.isDeployed)
             {
                 server.DeleteDatabase(connectionStringBuilder.InitialCatalog);
 
+                // Change the connection with administrator rights.
+                context.Database.SetConnectionString(database.AsAdministrator().ConnectionString);
                 context.Database.EnsureCreated();
+                context.Database.SetConnectionString(connectionString);
+
+                if (!string.IsNullOrWhiteSpace(connectionStringBuilder.UserID))
+                {
+                    server.Master.ExecuteNonQuery($@"
+                        IF SUSER_ID ('{connectionStringBuilder.UserID}') IS NULL
+                            CREATE LOGIN [{connectionStringBuilder.UserID}] WITH PASSWORD = '{connectionStringBuilder.Password}'");
+                }
 
                 this.isDeployed = true;
             }
-
-            var database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
 
             ClearAllData(database.AsAdministrator());
 

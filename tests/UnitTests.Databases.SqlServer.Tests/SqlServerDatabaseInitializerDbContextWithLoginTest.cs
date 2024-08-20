@@ -6,6 +6,8 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
+    using Microsoft.EntityFrameworkCore;
+
     [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerDbContextWithLoginTest : IClassFixture<SqlServerDatabaseInitializer>
     {
@@ -15,7 +17,16 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
         public SqlServerDatabaseInitializerDbContextWithLoginTest(SqlServerDatabaseInitializer initializer)
         {
-            this.database = initializer.Initialize("UnitTests.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
+            var optionsBuilder = new DbContextOptionsBuilder<DbContextTest>()
+                .UseSqlServer(ConnectionString);
+
+            using var context = new DbContextTest(optionsBuilder.Options);
+
+            this.database = initializer.Initialize(context);
+
+            this.database.AsAdministrator().ExecuteNonQuery("IF NOT EXISTS (SELECT 1 FROM [sys].[sysusers] WHERE name = 'ServiceAccountUser') CREATE USER [ServiceAccountUser] FOR LOGIN [ServiceAccountLogin]");
+            this.database.AsAdministrator().ExecuteNonQuery("GRANT CONNECT TO [ServiceAccountUser]");
+            this.database.AsAdministrator().ExecuteNonQuery("GRANT SELECT, INSERT ON [MyTable] TO [ServiceAccountUser]");
 
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
 
@@ -65,6 +76,37 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             // Insert a row which should not be use in other tests.
             this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next unit test" });
+        }
+
+        private sealed class DbContextTest : DbContext
+        {
+            public DbContextTest(DbContextOptions<DbContextTest> options)
+                : base(options)
+            {
+            }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                modelBuilder.Entity<Table>(t =>
+                {
+                    t.ToTable("MyTable");
+
+                    t.Property(t => t.Id)
+                        .ValueGeneratedNever();
+
+                    t.Property(t => t.Name)
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false);
+                });
+            }
+        }
+
+        private sealed class Table
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
         }
     }
 }
