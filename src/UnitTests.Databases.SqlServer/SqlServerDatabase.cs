@@ -11,12 +11,15 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
     public sealed class SqlServerDatabase
     {
-        internal SqlServerDatabase(string connectionString)
+        internal SqlServerDatabase(SqlServer server, string connectionString)
         {
             this.ConnectionString = connectionString;
+            this.Server = server;
         }
 
         public string ConnectionString { get; }
+
+        public SqlServer Server { get; }
 
         public int ExecuteNonQuery(string command)
         {

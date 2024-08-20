@@ -9,19 +9,26 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     [Collection(nameof(SqlServerDatabaseExtensionsTest))]
     public class SqlServerDatabaseExtensionsTest
     {
-        private const string MasterConnectionString = "Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog=master; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
 
-        private const string DatabaseConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
+        [Fact]
+        public void AsAdministrator()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.GetDatabase("TheDatabase");
+
+            database.AsAdministrator().ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-unit-tests;Initial Catalog=TheDatabase;Integrated Security=True");
+        }
 
         [Fact]
         public void InsertInto_EnableIdentity()
         {
-            var masterDatabase = new SqlServerDatabase(MasterConnectionString);
+            var server = new SqlServer(ConnectionString);
 
-            CreateEmptyDatabase(masterDatabase, "SqlServerDatabaseExtensionsTest");
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            masterDatabase.ExecuteNonQuery("IF EXISTS (SELECT 1 FROM [sys].[tables] WHERE [name] = 'TableTest') DROP TABLE [TableTest];");
-            masterDatabase.ExecuteNonQuery(@"
+            database.AsAdministrator().ExecuteNonQuery(@"
                 CREATE TABLE TableTest
                 (
                     Id          INT             NOT NULL IDENTITY(1, 1),
@@ -30,8 +37,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
                     BooleanNull BIT             NULL,
                     Binary      VARBINARY(MAX)  NULL,
                 )");
-
-            var database = new SqlServerDatabase(MasterConnectionString);
 
             database.InsertInto(
                 "TableTest",
@@ -59,12 +64,11 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         [Fact]
         public void InsertInto_DisableIdentity()
         {
-            var masterDatabase = new SqlServerDatabase(MasterConnectionString);
+            var server = new SqlServer(ConnectionString);
 
-            CreateEmptyDatabase(masterDatabase, "SqlServerDatabaseExtensionsTest");
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            masterDatabase.ExecuteNonQuery("IF EXISTS (SELECT 1 FROM [sys].[tables] WHERE [name] = 'TableTest') DROP TABLE [TableTest];");
-            masterDatabase.ExecuteNonQuery(@"
+            database.AsAdministrator().ExecuteNonQuery(@"
                 CREATE TABLE TableTest
                 (
                     Id      INT             NOT NULL IDENTITY(1, 1),
@@ -73,8 +77,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
                     BooleanNull BIT         NULL,
                     Binary  VARBINARY(MAX)  NULL,
                 )");
-
-            var database = new SqlServerDatabase(MasterConnectionString);
 
             database.InsertInto(
                 "TableTest",
@@ -97,13 +99,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             table.Rows[1]["Binary"].Should().Be(DBNull.Value);
             table.Rows[1]["Boolean"].As<bool>().Should().Be(false);
             table.Rows[1]["BooleanNull"].Should().Be(DBNull.Value);
-        }
-
-        private static void CreateEmptyDatabase(SqlServerDatabase database, string databaseName)
-        {
-            database.ExecuteQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{databaseName}') ALTER DATABASE [{databaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
-            database.ExecuteQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{databaseName}') DROP DATABASE [{databaseName}]");
-            database.ExecuteQuery($"CREATE DATABASE [{databaseName}]");
         }
     }
 }

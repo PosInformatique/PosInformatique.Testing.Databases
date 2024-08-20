@@ -22,7 +22,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             connectionStringMaster.Remove("User ID");
             connectionStringMaster.Remove("Password");
 
-            this.Master = new SqlServerDatabase(connectionStringMaster.ToString());
+            this.Master = new SqlServerDatabase(this, connectionStringMaster.ToString());
         }
 
         public SqlServerDatabase Master { get; }
@@ -46,15 +46,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             var databaseConnectionString = new SqlConnectionStringBuilder(this.originalConnectionString);
             databaseConnectionString.InitialCatalog = name;
 
-            return new SqlServerDatabase(databaseConnectionString.ToString());
-        }
-
-        internal SqlServerDatabase GetDatabaseWithAdministratorCredentials(string name)
-        {
-            var databaseConnectionString = new SqlConnectionStringBuilder(this.Master.ConnectionString);
-            databaseConnectionString.InitialCatalog = name;
-
-            return new SqlServerDatabase(databaseConnectionString.ToString());
+            return new SqlServerDatabase(this, databaseConnectionString.ToString());
         }
     }
 }

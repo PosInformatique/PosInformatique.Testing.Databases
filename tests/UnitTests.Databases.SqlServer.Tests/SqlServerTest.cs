@@ -16,6 +16,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             var server = new SqlServer(connectionString);
 
             server.Master.ConnectionString.Should().Be(expectedMasterConnectionString);
+            server.Master.Server.Should().BeSameAs(server);
         }
     }
 }

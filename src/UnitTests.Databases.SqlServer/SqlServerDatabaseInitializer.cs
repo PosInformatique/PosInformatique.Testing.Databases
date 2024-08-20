@@ -39,7 +39,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
             }
 
-            ClearAllData(server.GetDatabaseWithAdministratorCredentials(connectionStringBuilder.InitialCatalog));
+            ClearAllData(database.AsAdministrator());
 
             return database;
         }
@@ -62,7 +62,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             var database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
 
-            ClearAllData(server.GetDatabaseWithAdministratorCredentials(connectionStringBuilder.InitialCatalog));
+            ClearAllData(database.AsAdministrator());
 
             return database;
         }
