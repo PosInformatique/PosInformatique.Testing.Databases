@@ -11,7 +11,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     {
         private const string MasterConnectionString = "Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog=master; Integrated Security=True";
 
-        private const string DatabaseConnectionString = "Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog=SqlServerDatabaseTest; Integrated Security=True";
+        private const string DatabaseConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
 
         [Fact]
         public void InsertInto_EnableIdentity()

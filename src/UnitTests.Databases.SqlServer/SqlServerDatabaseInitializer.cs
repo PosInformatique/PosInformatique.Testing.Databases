@@ -7,6 +7,7 @@
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
     using Microsoft.Data.SqlClient;
+    using Microsoft.EntityFrameworkCore;
 
     public class SqlServerDatabaseInitializer
     {
@@ -43,10 +44,31 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return database;
         }
 
+        public SqlServerDatabase Initialize<TContext>(TContext context, string connectionString)
+            where TContext : DbContext
+        {
+            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+
+            var server = new SqlServer(connectionString);
+
+            if (!this.isDeployed)
+            {
+                server.DeleteDatabase(connectionStringBuilder.InitialCatalog);
+
+                context.Database.EnsureCreated();
+
+                this.isDeployed = true;
+            }
+
+            var database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
+
+            ClearAllData(database);
+
+            return database;
+        }
+
         private static void ClearAllData(SqlServerDatabase database)
         {
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? DROP CONSTRAINT IF EXISTS [CK_Fake]'");
-
             database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'");
 
             database.ExecuteNonQuery("EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'");

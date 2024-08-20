@@ -1,19 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlServerDatabaseInitializerWithoutLogin.cs" company="P.O.S Informatique">
+// <copyright file="SqlServerDatabaseInitializerDbContextWithLoginTest.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
-    [Collection(nameof(SqlServerDatabaseInitializerWithoutLogin))]
-    public class SqlServerDatabaseInitializerWithoutLogin : IClassFixture<SqlServerDatabaseInitializer>
+    [Collection(nameof(SqlServerDatabaseInitializerDbContextWithLoginTest))]
+    public class SqlServerDatabaseInitializerDbContextWithLoginTest : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = "Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog=SqlServerDatabaseInitializerWithoutLogin; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextWithLoginTest)}; User ID=ServiceAccountLogin; Password=P@ssw0rd";
 
         private SqlServerDatabase database;
 
-        public SqlServerDatabaseInitializerWithoutLogin(SqlServerDatabaseInitializer initializer)
+        public SqlServerDatabaseInitializerDbContextWithLoginTest(SqlServerDatabaseInitializer initializer)
         {
             this.database = initializer.Initialize("UnitTests.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
 
@@ -29,7 +29,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         public void Test1()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be("ServiceAccountLogin");
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
@@ -50,7 +50,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         public void Test2()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be("ServiceAccountLogin");
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
