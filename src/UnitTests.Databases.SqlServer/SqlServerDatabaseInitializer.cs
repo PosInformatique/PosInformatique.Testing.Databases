@@ -44,12 +44,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return database;
         }
 
-        public SqlServerDatabase Initialize<TContext>(TContext context, string connectionString)
+        public SqlServerDatabase Initialize<TContext>(TContext context)
             where TContext : DbContext
         {
-            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+            var connectionStringBuilder = new SqlConnectionStringBuilder(context.Database.GetDbConnection().ConnectionString);
 
-            var server = new SqlServer(connectionString);
+            var server = new SqlServer(context.Database.GetDbConnection().ConnectionString);
 
             if (!this.isDeployed)
             {

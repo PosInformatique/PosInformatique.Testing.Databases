@@ -13,7 +13,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextWithoutLogin)}; Integrated Security=True";
 
-        private SqlServerDatabase database;
+        private readonly SqlServerDatabase database;
 
         public SqlServerDatabaseInitializerDbContextWithoutLogin(SqlServerDatabaseInitializer initializer)
         {
@@ -22,7 +22,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             using var context = new DbContextTest(optionsBuilder.Options);
 
-            this.database = initializer.Initialize(context, ConnectionString);
+            this.database = initializer.Initialize(context);
 
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
 

@@ -11,7 +11,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDacPacWithLoginTest)}; User ID=ServiceAccountLogin; Password=P@ssw0rd";
 
-        private SqlServerDatabase database;
+        private readonly SqlServerDatabase database;
 
         public SqlServerDatabaseInitializerDacPacWithLoginTest(SqlServerDatabaseInitializer initializer)
         {
