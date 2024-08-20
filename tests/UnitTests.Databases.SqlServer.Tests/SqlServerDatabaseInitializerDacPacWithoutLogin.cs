@@ -6,7 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
-    [Collection(nameof(SqlServerDatabaseInitializerDacPacWithoutLogin))]
+    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerDacPacWithoutLogin : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDacPacWithoutLogin)}; Integrated Security=True";

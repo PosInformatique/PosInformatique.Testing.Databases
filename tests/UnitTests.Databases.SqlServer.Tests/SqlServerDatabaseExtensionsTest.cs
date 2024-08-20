@@ -6,7 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
-    [Collection(nameof(SqlServerDatabaseExtensionsTest))]
+    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseExtensionsTest
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";

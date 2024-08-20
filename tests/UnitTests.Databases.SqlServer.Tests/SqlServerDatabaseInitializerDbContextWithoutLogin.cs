@@ -8,7 +8,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
     using Microsoft.EntityFrameworkCore;
 
-    [Collection(nameof(SqlServerDatabaseInitializerDbContextWithoutLogin))]
+    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerDbContextWithoutLogin : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextWithoutLogin)}; Integrated Security=True";

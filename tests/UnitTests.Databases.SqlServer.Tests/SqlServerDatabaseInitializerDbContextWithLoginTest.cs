@@ -6,7 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
-    [Collection(nameof(SqlServerDatabaseInitializerDbContextWithLoginTest))]
+    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerDbContextWithLoginTest : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextWithLoginTest)}; User ID=ServiceAccountLogin; Password=P@ssw0rd";
