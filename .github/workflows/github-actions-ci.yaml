@@ -32,8 +32,9 @@ jobs:
         shell: cmd
         run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
 
+      # Use this fix https://github.com/microsoft/vstest-action/issues/31#issuecomment-2159463764
       - name: Test with the dotnet CLI
-        uses: microsoft/vstest-action@v1.0.0
+        uses: rusty-bender/vstest-action@main
         with:
           searchFolder: .\
           testAssembly: |
