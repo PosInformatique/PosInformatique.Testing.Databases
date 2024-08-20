@@ -39,7 +39,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
             }
 
-            ClearAllData(database.AsAdministrator());
+            ClearAllData(database);
 
             return database;
         }
@@ -58,10 +58,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             {
                 server.DeleteDatabase(connectionStringBuilder.InitialCatalog);
 
-                // Change the connection with administrator rights.
-                context.Database.SetConnectionString(database.AsAdministrator().ConnectionString);
                 context.Database.EnsureCreated();
-                context.Database.SetConnectionString(connectionString);
 
                 if (!string.IsNullOrWhiteSpace(connectionStringBuilder.UserID))
                 {
@@ -73,7 +70,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.isDeployed = true;
             }
 
-            ClearAllData(database.AsAdministrator());
+            ClearAllData(database);
 
             return database;
         }

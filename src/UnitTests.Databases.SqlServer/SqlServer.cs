@@ -27,9 +27,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             var connectionStringMaster = new SqlConnectionStringBuilder(connectionString);
             connectionStringMaster.InitialCatalog = "master";
-            connectionStringMaster.IntegratedSecurity = true;
-            connectionStringMaster.Remove("User ID");
-            connectionStringMaster.Remove("Password");
 
             this.Master = new SqlServerDatabase(this, connectionStringMaster.ToString());
         }

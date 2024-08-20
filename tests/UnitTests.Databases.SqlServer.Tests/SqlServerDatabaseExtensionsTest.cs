@@ -12,23 +12,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
 
         [Fact]
-        public void AsAdministrator()
-        {
-            var server = new SqlServer(ConnectionString);
-
-            var database = server.GetDatabase("TheDatabase");
-
-            database.AsAdministrator().ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-unit-tests;Initial Catalog=TheDatabase;Integrated Security=True");
-        }
-
-        [Fact]
         public void InsertInto_EnableIdentity()
         {
             var server = new SqlServer(ConnectionString);
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            database.AsAdministrator().ExecuteNonQuery(@"
+            database.ExecuteNonQuery(@"
                 CREATE TABLE TableTest
                 (
                     Id          INT             NOT NULL IDENTITY(1, 1),
@@ -68,7 +58,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            database.AsAdministrator().ExecuteNonQuery(@"
+            database.ExecuteNonQuery(@"
                 CREATE TABLE TableTest
                 (
                     Id      INT             NOT NULL IDENTITY(1, 1),

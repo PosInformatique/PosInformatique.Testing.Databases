@@ -70,16 +70,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return database.ExecuteNonQuery(statement);
         }
 
-        public static SqlServerDatabase AsAdministrator(this SqlServerDatabase database)
-        {
-            var databaseConnectionString = new SqlConnectionStringBuilder(database.ConnectionString);
-
-            var masterConnectionString = new SqlConnectionStringBuilder(database.Server.Master.ConnectionString);
-            masterConnectionString.InitialCatalog = databaseConnectionString.InitialCatalog;
-
-            return new SqlServerDatabase(database.Server, masterConnectionString.ToString());
-        }
-
         private sealed class SqlInsertStatementBuilder
         {
             private readonly string tableName;

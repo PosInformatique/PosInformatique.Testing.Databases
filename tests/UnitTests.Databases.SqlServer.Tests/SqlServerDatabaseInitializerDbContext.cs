@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlServerDatabaseInitializerDbContextWithoutLogin.cs" company="P.O.S Informatique">
+// <copyright file="SqlServerDatabaseInitializerDbContext.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -9,13 +9,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     using Microsoft.EntityFrameworkCore;
 
     [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
-    public class SqlServerDatabaseInitializerDbContextWithoutLogin : IClassFixture<SqlServerDatabaseInitializer>
+    public class SqlServerDatabaseInitializerDbContext : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextWithoutLogin)}; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContext)}; Integrated Security=True";
 
         private readonly SqlServerDatabase database;
 
-        public SqlServerDatabaseInitializerDbContextWithoutLogin(SqlServerDatabaseInitializer initializer)
+        public SqlServerDatabaseInitializerDbContext(SqlServerDatabaseInitializer initializer)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DbContextTest>()
                 .UseSqlServer(ConnectionString);
