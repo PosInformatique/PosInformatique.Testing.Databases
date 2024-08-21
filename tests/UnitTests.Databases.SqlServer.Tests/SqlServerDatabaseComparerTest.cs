@@ -6,6 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
+    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseComparerTest
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Integrated Security=True";
