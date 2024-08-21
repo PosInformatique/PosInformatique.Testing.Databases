@@ -37,7 +37,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 	            [fk].[name], [pc].[column_id]";
 
         public SqlServerForeignKeysComparer()
-            : base("ForeignKeys", Sql, ["ForeignKeyName"])
+            : base("ForeignKeys", Sql, ["TableName", "ForeignKeyName", "ColumnName"])
         {
         }
     }
