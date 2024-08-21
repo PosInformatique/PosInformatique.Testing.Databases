@@ -15,8 +15,8 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         {
             var server = new SqlServer(ConnectionString);
 
-            var sourceDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", "SqlDatabaseComparerTest_Source");
-            var targetDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", "SqlDatabaseComparerTest_Target");
+            var sourceDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source");
+            var targetDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target");
 
             var comparer = new SqlServerDatabaseComparer();
 
@@ -76,17 +76,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             // Indexes
             differences.Objects[5].Type.Should().Be("Indexes");
 
-            differences.Objects[5].Differences.Should().HaveCount(10);
+            differences.Objects[5].Differences.Should().HaveCount(6);
             differences.Objects[5].Differences[0].ToString().Should().Be("TableDifference.IndexDifference.Type:\r\n- Position: (Source: 1, Target: 2)");
             differences.Objects[5].Differences[1].ToString().Should().Be("TableDifference.IndexDifference.ForeignKeyId:\r\n- Position: (Source: 2, Target: 1)");
-            differences.Objects[5].Differences[2].ToString().Should().Be("TableDifference.UniqueConstraintDifference.MaxLength:\r\n- Position: (Source: 1, Target: 2)");
-            differences.Objects[5].Differences[3].ToString().Should().Be("TableDifference.UniqueConstraintDifference.Type:\r\n- Position: (Source: 2, Target: 1)");
-            differences.Objects[5].Differences[4].ToString().Should().Be("(Missing) <=> TableTarget.IndexTarget.TargetName");
-            differences.Objects[5].Differences[5].ToString().Should().Be("(Missing) <=> TableTarget.PrimaryKeyTarget.Id");
-            differences.Objects[5].Differences[6].ToString().Should().Be("(Missing) <=> TableTarget.UniqueConstraintTarget.Id");
-            differences.Objects[5].Differences[7].ToString().Should().Be("TableSource.IndexSource.SourceName <=> (Missing)");
-            differences.Objects[5].Differences[8].ToString().Should().Be("TableSource.PrimaryKeySource.Id <=> (Missing)");
-            differences.Objects[5].Differences[9].ToString().Should().Be("TableSource.UniqueConstraintSource.Id <=> (Missing)");
+            differences.Objects[5].Differences[2].ToString().Should().Be("(Missing) <=> TableTarget.IndexTarget.TargetName");
+            differences.Objects[5].Differences[3].ToString().Should().Be("(Missing) <=> TableTarget.PrimaryKeyTarget.Id");
+            differences.Objects[5].Differences[4].ToString().Should().Be("TableSource.IndexSource.SourceName <=> (Missing)");
+            differences.Objects[5].Differences[5].ToString().Should().Be("TableSource.PrimaryKeySource.Id <=> (Missing)");
 
             // CheckConstraints
             differences.Objects[6].Type.Should().Be("CheckConstraints");
