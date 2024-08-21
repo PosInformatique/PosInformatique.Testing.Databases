@@ -57,14 +57,8 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
-    <Folder Include="Security" />
-    <Folder Include="Security\Users" />
-    <Folder Include="_Server" />
-    <Folder Include="_Server\Logins" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\MyTable.sql" />
-    <Build Include="_Server\Logins\ServiceAccountLogin.sql" />
-    <Build Include="Security\Users\ServiceAccountUser.sql" />
   </ItemGroup>
 </Project>
