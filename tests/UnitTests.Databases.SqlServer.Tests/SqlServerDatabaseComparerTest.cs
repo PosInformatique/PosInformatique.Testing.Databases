@@ -70,9 +70,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Objects[4].Type.Should().Be("ForeignKeys");
 
             differences.Objects[4].Differences.Should().HaveCount(3);
-            differences.Objects[4].Differences[0].ToString().Should().Be("ForeignKeyDifference:\r\n- DeleteAction: (Source: CASCADE, Target: NO_ACTION)\r\n- UpdateAction: (Source: CASCADE, Target: SET_NULL)");
-            differences.Objects[4].Differences[1].ToString().Should().Be("(Missing) <=> ForeignKeyTarget");
-            differences.Objects[4].Differences[2].ToString().Should().Be("ForeignKeySource <=> (Missing)");
+            differences.Objects[4].Differences[0].ToString().Should().Be("TableDifference.ForeignKeyDifference.ForeignKeyId:\r\n- DeleteAction: (Source: CASCADE, Target: NO_ACTION)\r\n- UpdateAction: (Source: CASCADE, Target: SET_NULL)");
+            differences.Objects[4].Differences[1].ToString().Should().Be("(Missing) <=> TableTarget.ForeignKeyTarget.TargetForeignKeyId");
+            differences.Objects[4].Differences[2].ToString().Should().Be("TableSource.ForeignKeySource.SourceForeignKeyId <=> (Missing)");
 
             // Indexes
             differences.Objects[5].Type.Should().Be("Indexes");
