@@ -12,7 +12,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             SELECT
 				[s].[name] AS [Schema],
 				[v].[name] AS [Name],
-				REPLACE(REPLACE(REPLACE(REPLACE([sm].[definition], ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '') AS [definition]
+				[sm].[definition] AS [Code]
 			FROM
 				[sys].[schemas] AS [s],
 				[sys].[views] AS [v],
@@ -27,6 +27,16 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         public SqlServerViewsComparer()
             : base("Views", Sql, ["Schema", "Name"])
         {
+        }
+
+        protected override bool AreEqual(object source, object target, string columnName)
+        {
+            if (columnName == "Code")
+            {
+                return TsqlCodeHelper.AreEqual((string)source, (string)target);
+            }
+
+            return base.AreEqual(source, target, columnName);
         }
     }
 }

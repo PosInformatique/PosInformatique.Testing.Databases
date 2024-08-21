@@ -102,25 +102,17 @@
       <Link>Tables\Indexes\IndexIdentical.sql</Link>
     </Build>
     <Build Include="Tables\Indexes\IndexDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\CheckConstraints\CheckConstraintIdentical.sql">
-      <Link>Tables\CheckConstraints\CheckConstraintIdentical.sql</Link>
-    </Build>
     <Build Include="Tables\CheckConstraints\CheckConstraintTarget.sql" />
     <Build Include="Tables\CheckConstraints\CheckConstraintDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Programmability\Stored Procedures\StoredProcedureIdentical.sql">
-      <Link>Programmability\Stored Procedures\StoredProcedureIdentical.sql</Link>
-    </Build>
     <Build Include="Programmability\Stored Procedures\StoredProcedureTarget.sql" />
     <Build Include="Programmability\Stored Procedures\StoredProcedureDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\Triggers\TriggerIdentical.sql">
-      <Link>Tables\Triggers\TriggerIdentical.sql</Link>
-    </Build>
     <Build Include="Tables\Triggers\TriggerTarget.sql" />
     <Build Include="Tables\Triggers\TriggerDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Views\ViewIdentical.sql">
-      <Link>Views\ViewIdentical.sql</Link>
-    </Build>
     <Build Include="Views\ViewTarget.sql" />
     <Build Include="Views\ViewDifference.sql" />
+    <Build Include="Views\ViewIdentical.sql" />
+    <Build Include="Programmability\Stored Procedures\StoredProcedureIdentical.sql" />
+    <Build Include="Tables\CheckConstraints\CheckConstraintIdentical.sql" />
+    <Build Include="Tables\Triggers\TriggerIdentical.sql" />
   </ItemGroup>
 </Project>

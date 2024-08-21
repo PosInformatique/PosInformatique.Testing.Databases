@@ -13,7 +13,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 				[t].[name] AS [TableName],
 				[tr].[name] AS [Name],
 				[tr].[is_instead_of_trigger] AS [IsInsteadOfTrigger],
-				REPLACE(REPLACE(REPLACE(REPLACE([c].[text], ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '')
+				[c].[text] AS [Code]
 			FROM
 				[sys].[triggers] AS [tr],
 				[sys].[tables] AS [t],
@@ -26,6 +26,16 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         public SqlServerTriggersComparer()
             : base("Triggers", Sql, ["TableName", "Name"])
         {
+        }
+
+        protected override bool AreEqual(object source, object target, string columnName)
+        {
+            if (columnName == "Code")
+            {
+                return TsqlCodeHelper.AreEqual((string)source, (string)target);
+            }
+
+            return base.AreEqual(source, target, columnName);
         }
     }
 }

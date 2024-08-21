@@ -48,7 +48,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 else
                 {
                     // Compare the rows
-                    var difference = Compare(sourceRow, targetRow, keyValue);
+                    var difference = this.Compare(sourceRow, targetRow, keyValue);
 
                     if (difference is not null)
                     {
@@ -72,13 +72,23 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return new SqlDatabaseObjectDifferences(this.name, differences);
         }
 
-        private static SqlDatabaseObjectDifference? Compare(DataRow row, DataRow target, object[] keyValue)
+        protected virtual bool AreEqual(object source, object target, string columnName)
+        {
+            if (Equals(source, target))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private SqlDatabaseObjectDifference? Compare(DataRow source, DataRow target, object[] keyValue)
         {
             for (var i = 0; i < target.Table.Columns.Count; i++)
             {
-                if (!Equals(target[i], row[i]))
+                if (!this.AreEqual(source[i], target[i], target.Table.Columns[i].ColumnName))
                 {
-                    return new SqlDatabaseObjectDifference(target, row, SqlDatabaseObjectDifferenceType.Different, keyValue);
+                    return new SqlDatabaseObjectDifference(target, source, SqlDatabaseObjectDifferenceType.Different, keyValue);
                 }
             }
 

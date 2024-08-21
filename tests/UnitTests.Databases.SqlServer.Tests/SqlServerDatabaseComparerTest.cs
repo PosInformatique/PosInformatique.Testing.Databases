@@ -11,7 +11,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Integrated Security=True";
 
         [Fact]
-        public void Constructor()
+        public void Compare()
         {
             var server = new SqlServer(ConnectionString);
 
@@ -88,7 +88,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Objects[6].Type.Should().Be("CheckConstraints");
 
             differences.Objects[6].Differences.Should().HaveCount(3);
-            differences.Objects[6].Differences[0].ToString().Should().Be("CheckConstraintDifference:\r\n- Definition: (Source: ([Type]=(2) OR [Type]=(1)), Target: ([Type]>(0)))");
+            differences.Objects[6].Differences[0].ToString().Should().Be("CheckConstraintDifference:\r\n- Code: (Source: ([Type]=(2) OR [Type]=(1)), Target: ([Type]>(0)))");
             differences.Objects[6].Differences[1].ToString().Should().Be("(Missing) <=> CheckConstraintTarget");
             differences.Objects[6].Differences[2].ToString().Should().Be("CheckConstraintSource <=> (Missing)");
 
@@ -96,7 +96,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Objects[7].Type.Should().Be("StoredProcedures");
 
             differences.Objects[7].Differences.Should().HaveCount(3);
-            differences.Objects[7].Differences[0].ToString().Should().Be("dbo.StoredProcedureDifference:\r\n- definition: (Source: CREATEPROCEDURE[dbo].[StoredProcedureDifference]@param1int=0,@param2intASSELECT@param1RETURN0, Target: CREATEPROCEDURE[dbo].[StoredProcedureDifference]@param1int=0,@param2intASSELECT@param2RETURN0)");
+            differences.Objects[7].Differences[0].ToString().Should().Be("dbo.StoredProcedureDifference:\r\n- Code: (Source: CREATE PROCEDURE [dbo].[StoredProcedureDifference]\r\n\t@param1 int = 0,\r\n\t@param2 int\r\nAS\r\n\tSELECT @param1\r\nRETURN 0, Target: CREATE PROCEDURE [dbo].[StoredProcedureDifference]\r\n\t@param1 int = 0,\r\n\t@param2 int\r\nAS\r\n\tSELECT @param2\r\nRETURN 0)");
             differences.Objects[7].Differences[1].ToString().Should().Be("(Missing) <=> dbo.StoredProcedureTarget");
             differences.Objects[7].Differences[2].ToString().Should().Be("dbo.StoredProcedureSource <=> (Missing)");
 
@@ -104,7 +104,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Objects[8].Type.Should().Be("Triggers");
 
             differences.Objects[8].Differences.Should().HaveCount(3);
-            differences.Objects[8].Differences[0].ToString().Should().Be("TableDifference.TriggerDifference:\r\n- IsInsteadOfTrigger: (Source: False, Target: True)\r\n- Column1: (Source: CREATETRIGGER[TriggerDifference]ON[dbo].[TableDifference]FORINSERTASBEGINPRINT'Fromtarget'END, Target: CREATETRIGGER[TriggerDifference]ON[dbo].[TableDifference]INSTEADOFINSERTASBEGINPRINT'Fromsource'END)");
+            differences.Objects[8].Differences[0].ToString().Should().Be("TableDifference.TriggerDifference:\r\n- IsInsteadOfTrigger: (Source: False, Target: True)\r\n- Code: (Source: CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tFOR INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From target'\r\n\tEND, Target: CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tINSTEAD OF INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From source'\r\n\tEND)");
             differences.Objects[8].Differences[1].ToString().Should().Be("(Missing) <=> TableTarget.TriggerTarget");
             differences.Objects[8].Differences[2].ToString().Should().Be("TableSource.TriggerSource <=> (Missing)");
 
@@ -112,7 +112,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Objects[9].Type.Should().Be("Views");
 
             differences.Objects[9].Differences.Should().HaveCount(3);
-            differences.Objects[9].Differences[0].ToString().Should().Be("dbo.ViewDifference:\r\n- definition: (Source: CREATEVIEW[dbo].[ViewDifference]ASSELECT*FROM[TableDifference]WHERE[Type]='Thetype', Target: CREATEVIEW[dbo].[ViewDifference]ASSELECT*FROM[TableDifference]WHERE[Type]=10)");
+            differences.Objects[9].Differences[0].ToString().Should().Be("dbo.ViewDifference:\r\n- Code: (Source: CREATE VIEW [dbo].[ViewDifference]\r\n\tAS SELECT * FROM [TableDifference] WHERE [Type] = 'The type', Target: CREATE VIEW [dbo].[ViewDifference]\r\n\tAS SELECT * FROM [TableDifference] WHERE [Type] = 10)");
             differences.Objects[9].Differences[1].ToString().Should().Be("(Missing) <=> dbo.ViewTarget");
             differences.Objects[9].Differences[2].ToString().Should().Be("dbo.ViewSource <=> (Missing)");
         }

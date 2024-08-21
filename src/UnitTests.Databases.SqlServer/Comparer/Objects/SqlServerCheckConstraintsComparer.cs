@@ -12,7 +12,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             SELECT
 				[t].[name] AS [TableName],
 				[c].[name] AS [Name],
-				[c].[definition] AS [Definition]
+				[c].[definition] AS [Code]
 			FROM
 				[sys].[check_constraints] AS [c],
 				[sys].[tables] AS [t]
@@ -26,6 +26,16 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         public SqlServerCheckConstraintsComparer()
             : base("CheckConstraints", Sql, ["Name"])
         {
+        }
+
+        protected override bool AreEqual(object source, object target, string columnName)
+        {
+            if (columnName == "Code")
+            {
+                return TsqlCodeHelper.AreEqual((string)source, (string)target);
+            }
+
+            return base.AreEqual(source, target, columnName);
         }
     }
 }
