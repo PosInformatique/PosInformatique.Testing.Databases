@@ -1,0 +1,7 @@
+﻿CREATE TRIGGER [TriggerSource]
+	ON [dbo].[TableSource]
+	FOR DELETE, INSERT, UPDATE
+	AS
+	BEGIN
+		SET NOCOUNT ON
+	END

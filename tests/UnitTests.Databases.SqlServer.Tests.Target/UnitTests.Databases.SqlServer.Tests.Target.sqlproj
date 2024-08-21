@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>UnitTests.Databases.SqlServer.Tests.Target</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{6cd3f177-053f-4816-a37e-5ca6f293d34c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>UnitTests.Databases.SqlServer.Tests.Target</RootNamespace>
+    <AssemblyName>UnitTests.Databases.SqlServer.Tests.Target</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="Tables\PrimaryKey" />
+    <Folder Include="Programmability" />
+    <Folder Include="Programmability\Types" />
+    <Folder Include="Tables\UniqueConstraints" />
+    <Folder Include="Tables\ForeignKeys" />
+    <Folder Include="Tables\Indexes" />
+    <Folder Include="Tables\CheckConstraints" />
+    <Folder Include="Programmability\Stored Procedures" />
+    <Folder Include="Tables\Triggers" />
+    <Folder Include="Views" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\TableIdentical.sql">
+      <Link>Tables\TableIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\TableTarget.sql" />
+    <Build Include="Tables\TableDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\PrimaryKeys\PrimaryKeyIdentical.sql">
+      <Link>Tables\PrimaryKey\PrimaryKeyIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\PrimaryKey\PrimaryKeyTarget.sql" />
+    <Build Include="Tables\PrimaryKey\PrimaryKeyDifference.sql" />
+    <Build Include="Programmability\Types\TypeTarget.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Programmability\Types\TypeIdentical.sql">
+      <Link>Programmability\Types\TypeIdentical.sql</Link>
+    </Build>
+    <Build Include="Programmability\Types\TypeDifference.sql" />
+    <Build Include="Tables\UniqueConstraints\UniqueConstraintTarget.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\UniqueConstraints\UniqueConstraintIdentical.sql">
+      <Link>Tables\UniqueConstraints\UniqueConstraintIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\UniqueConstraints\UniqueConstraintDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\ReferencedTable.sql">
+      <Link>Tables\ReferencedTable.sql</Link>
+    </Build>
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\ForeignKeys\ForeignKeyIdentical.sql">
+      <Link>Tables\ForeignKeys\ForeignKeyIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\ForeignKeys\ForeignKeyTarget.sql" />
+    <Build Include="Tables\ForeignKeys\ForeignKeyDifference.sql" />
+    <Build Include="Tables\Indexes\IndexTarget.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\Indexes\IndexIdentical.sql">
+      <Link>Tables\Indexes\IndexIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\Indexes\IndexDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\CheckConstraints\CheckConstraintIdentical.sql">
+      <Link>Tables\CheckConstraints\CheckConstraintIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\CheckConstraints\CheckConstraintTarget.sql" />
+    <Build Include="Tables\CheckConstraints\CheckConstraintDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Programmability\Stored Procedures\StoredProcedureIdentical.sql">
+      <Link>Programmability\Stored Procedures\StoredProcedureIdentical.sql</Link>
+    </Build>
+    <Build Include="Programmability\Stored Procedures\StoredProcedureTarget.sql" />
+    <Build Include="Programmability\Stored Procedures\StoredProcedureDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\Triggers\TriggerIdentical.sql">
+      <Link>Tables\Triggers\TriggerIdentical.sql</Link>
+    </Build>
+    <Build Include="Tables\Triggers\TriggerTarget.sql" />
+    <Build Include="Tables\Triggers\TriggerDifference.sql" />
+    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Views\ViewIdentical.sql">
+      <Link>Views\ViewIdentical.sql</Link>
+    </Build>
+    <Build Include="Views\ViewTarget.sql" />
+    <Build Include="Views\ViewDifference.sql" />
+  </ItemGroup>
+</Project>
