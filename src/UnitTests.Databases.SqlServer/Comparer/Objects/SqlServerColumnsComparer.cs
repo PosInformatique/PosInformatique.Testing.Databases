@@ -12,7 +12,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             SELECT
 				[t].[name] AS [TableName],
 				[c].[name] AS [ColumnName],
-				[c].[column_id] AS [Position],
+				ROW_NUMBER() OVER(PARTITION BY [t].[name] ORDER BY [t].[name], [c].[column_id]) AS [Position],
 				[c].[system_type_id] AS [SystemTypeId],
 				[ty].[name] AS [TypeName],
 				[c].[max_length] AS [MaxLength],
