@@ -25,12 +25,19 @@ jobs:
         with:
           dotnet-version: '8.x'
       
-      - name: Build
+      - name: Build UnitTests.Databases.SqlServer
         run: dotnet pack 
           --property:Configuration=Release
           --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
           "src/UnitTests.Databases.SqlServer/UnitTests.Databases.SqlServer.csproj"
+
+      - name: Build UnitTests.Databases.SqlServer.EntityFramework
+        run: dotnet pack 
+          --property:Configuration=Release
+          --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
+          --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
+          "src/UnitTests.Databases.SqlServer.EntityFramework/UnitTests.Databases.SqlServer.EntityFramework.csproj"
 
       - name: Publish the package to nuget.org
         run: dotnet nuget push "src/**/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
