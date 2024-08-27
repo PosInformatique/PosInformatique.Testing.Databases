@@ -6,7 +6,7 @@
     <Company>P.O.S Informatique</Company>
     <Product>P.O.S Informatique</Product>
     <Copyright>Copyright (c) P.O.S Informatique. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/PosInformatique/UnitTests.SqlServer</RepositoryUrl>
+    <RepositoryUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Enable the last version of C# -->
@@ -34,7 +34,7 @@
   
   <!-- Common NuGet packages -->
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+    <PackageReference Include="StyleCop.Analyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

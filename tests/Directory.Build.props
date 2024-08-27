@@ -6,7 +6,6 @@
   <!-- Add the default using directive for all tests code -->
   <ItemGroup>
     <Using Include="FluentAssertions" />
-    <Using Include="Moq" />
     <Using Include="Xunit" />
   </ItemGroup>
 
