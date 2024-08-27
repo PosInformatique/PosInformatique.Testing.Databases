@@ -70,6 +70,38 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return database.ExecuteNonQuery(statement);
         }
 
+        public static void ClearAllData(this SqlServerDatabase database)
+        {
+            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'");
+
+            database.ExecuteNonQuery("EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'");
+
+            // Re-initialize the seed of the IDENTITY columns.
+            // For each table which contains an IDENTITY column, execute the following SQL statement:
+            //   DBCC CHECKIDENT ('[<schema>].[<table>]', RESEED, <seed>)
+            database.ExecuteNonQuery(@"
+                DECLARE @sqlcmd VARCHAR(MAX);
+
+                SET @sqlcmd = (
+	                SELECT STRING_AGG(CAST('DBCC CHECKIDENT (''[' + [s].[name] + '].[' + [t].[name] + ']'', RESEED, ' + CAST([ic].[seed_value] AS VARCHAR(20)) + ')' AS NVARCHAR(MAX)),';' + CHAR(10)) WITHIN GROUP (ORDER BY [t].[name])
+	                FROM
+		                [sys].[schemas] AS [s],
+		                [sys].[tables] AS [t],
+		                [sys].[columns] AS [c],
+		                [sys].[identity_columns] AS [ic]
+	                WHERE
+			                [s].[schema_id] = [t].[schema_id]
+		                AND [t].[object_id] = [c].[object_id]
+		                AND [c].[is_identity] = 1
+		                AND [c].[object_id] = [ic].[object_id]
+		                AND [c].[column_id] = [ic].[column_id]
+                )
+
+                EXEC (@sqlcmd)");
+
+            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'");
+        }
+
         private sealed class SqlInsertStatementBuilder
         {
             private readonly string tableName;

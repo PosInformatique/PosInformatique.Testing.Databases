@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlServerDatabaseInitializerDacPacTest.cs" company="P.O.S Informatique">
+// <copyright file="SqlServerDatabaseInitializerTest.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,13 +7,13 @@
 namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 {
     [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
-    public class SqlServerDatabaseInitializerDacPacTest : IClassFixture<SqlServerDatabaseInitializer>
+    public class SqlServerDatabaseInitializerTest : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDacPacTest)}; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerTest)}; Integrated Security=True";
 
         private readonly SqlServerDatabase database;
 
-        public SqlServerDatabaseInitializerDacPacTest(SqlServerDatabaseInitializer initializer)
+        public SqlServerDatabaseInitializerTest(SqlServerDatabaseInitializer initializer)
         {
             this.database = initializer.Initialize("UnitTests.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
 

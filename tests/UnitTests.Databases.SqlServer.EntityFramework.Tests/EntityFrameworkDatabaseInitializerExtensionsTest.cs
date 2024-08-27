@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlServerDatabaseInitializerDbContextTest.cs" company="P.O.S Informatique">
+// <copyright file="EntityFrameworkDatabaseInitializerExtensionsTest.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -9,13 +9,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     using Microsoft.EntityFrameworkCore;
 
     [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
-    public class SqlServerDatabaseInitializerDbContextTest : IClassFixture<SqlServerDatabaseInitializer>
+    public class EntityFrameworkDatabaseInitializerExtensionsTest : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerDbContextTest)}; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(EntityFrameworkDatabaseInitializerExtensionsTest)}; Integrated Security=True";
 
         private readonly SqlServerDatabase database;
 
-        public SqlServerDatabaseInitializerDbContextTest(SqlServerDatabaseInitializer initializer)
+        public EntityFrameworkDatabaseInitializerExtensionsTest(SqlServerDatabaseInitializer initializer)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DbContextTest>()
                 .UseSqlServer(ConnectionString);
