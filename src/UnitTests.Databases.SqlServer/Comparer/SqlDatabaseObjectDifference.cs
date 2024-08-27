@@ -9,6 +9,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
     using System.Data;
     using System.Text;
 
+    /// <summary>
+    /// Represents a difference between 2 database objects.
+    /// </summary>
     public class SqlDatabaseObjectDifference
     {
         private readonly object[] keyValue;
@@ -21,12 +24,24 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             this.keyValue = keyValue;
         }
 
+        /// <summary>
+        /// Gets schema information of the source database. If <see langword="null"/> it is mean
+        /// that the object exists in the target database but does not exists in the source database.
+        /// </summary>
         public DataRow? Source { get; }
 
+        /// <summary>
+        /// Gets schema information of the target database. If <see langword="null"/> it is mean
+        /// that the object exists in the source database but does not exists in the target database.
+        /// </summary>
         public DataRow? Target { get; }
 
+        /// <summary>
+        /// Gets the of the difference between the <see cref="Source"/> and the <see cref="Target"/>.
+        /// </summary>
         public SqlDatabaseObjectDifferenceType Type { get; }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             var keyValueString = string.Join(".", this.keyValue);

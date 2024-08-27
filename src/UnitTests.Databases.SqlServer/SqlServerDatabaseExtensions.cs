@@ -8,8 +8,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 {
     using System.Globalization;
     using System.Text;
-    using Microsoft.Data.SqlClient;
 
+    /// <summary>
+    /// Contains extensions methods on the <see cref="SqlServerDatabase"/> class.
+    /// </summary>
     public static class SqlServerDatabaseExtensions
     {
         private const string Tab = "  ";
@@ -24,11 +26,33 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             typeof(decimal?),
         ];
 
+        /// <summary>
+        /// Insert data into the table specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>The number of the rows inserted.</returns>
         public static int InsertInto<T>(this SqlServerDatabase database, string tableName, params T[] objects)
         {
             return InsertInto(database, tableName, false, objects);
         }
 
+        /// <summary>
+        /// Insert data into the table specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="disableIdentityInsert"><see langword="true"/> to disable auto incrementation of the <c>IDENTITY</c> column. In this case, the object must contains explicitely the value of the <c>IDENTITY</c>
+        /// column to insert.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>The number of the rows inserted.</returns>
         public static int InsertInto<T>(this SqlServerDatabase database, string tableName, bool disableIdentityInsert, params T[] objects)
         {
             var builder = new SqlInsertStatementBuilder(tableName);
@@ -70,6 +94,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return database.ExecuteNonQuery(statement);
         }
 
+        /// <summary>
+        /// Clear all in the database.
+        /// </summary>
+        /// <param name="database">SQL Server database which the data have to be deleted.</param>
         public static void ClearAllData(this SqlServerDatabase database)
         {
             database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'");
@@ -113,15 +141,15 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             public SqlInsertStatementBuilder(string tableName)
             {
                 this.tableName = tableName;
-                this.columns = new();
-                this.currentRecord = new();
-                this.records = new();
+                this.columns = [];
+                this.currentRecord = [];
+                this.records = [];
             }
 
             public SqlInsertStatementBuilder NewRecord()
             {
                 this.records.Add(this.currentRecord);
-                this.currentRecord = new();
+                this.currentRecord = [];
 
                 return this;
             }

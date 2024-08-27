@@ -8,10 +8,26 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 {
     using Microsoft.Data.SqlClient;
 
+    /// <summary>
+    /// Initializer used to initialize the database for the unit tests.
+    /// Call the <see cref="Initialize(string, string)"/> method to initialize a database from
+    /// a DACPAC file.
+    /// </summary>
+    /// <remarks>The database will be created the call of the <see cref="Initialize(string, string)"/> method. For the next calls
+    /// the database is preserved but all the data are deleted.</remarks>
     public class SqlServerDatabaseInitializer
     {
-        public bool IsDeployed { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether if the database has been initialized.
+        /// </summary>
+        public bool IsInitialized { get; set; }
 
+        /// <summary>
+        /// Initialize a SQL Server database from a DACPAC file.
+        /// </summary>
+        /// <param name="packageName">Full path of the DACPAC file.</param>
+        /// <param name="connectionString">Connection string to the SQL Server with administrator rights.</param>
+        /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
         public SqlServerDatabase Initialize(string packageName, string connectionString)
         {
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
@@ -20,7 +36,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             SqlServerDatabase database;
 
-            if (!this.IsDeployed)
+            if (!this.IsInitialized)
             {
                 if (!string.IsNullOrWhiteSpace(connectionStringBuilder.UserID))
                 {
@@ -31,7 +47,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
                 database = server.DeployDacPackage(packageName, connectionStringBuilder.InitialCatalog);
 
-                this.IsDeployed = true;
+                this.IsInitialized = true;
             }
             else
             {
