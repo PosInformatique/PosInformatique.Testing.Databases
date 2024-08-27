@@ -33,4 +33,4 @@ jobs:
           "src/UnitTests.Databases.SqlServer/UnitTests.Databases.SqlServer.csproj"
 
       - name: Publish the package to nuget.org
-        run: dotnet nuget push "src/UnitTests.Databases.SqlServer/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "src/**/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
