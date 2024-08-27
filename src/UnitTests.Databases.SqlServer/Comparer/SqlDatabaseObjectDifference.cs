@@ -14,27 +14,30 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
     /// </summary>
     public class SqlDatabaseObjectDifference
     {
-        private readonly object[] keyValue;
-
         internal SqlDatabaseObjectDifference(DataRow? source, DataRow? target, SqlDatabaseObjectDifferenceType type, object[] keyValue)
         {
-            this.Source = source;
-            this.Target = target;
+            this.Source = DataRowToDictionary(source);
+            this.Target = DataRowToDictionary(target);
             this.Type = type;
-            this.keyValue = keyValue;
+            this.Name = string.Join(".", keyValue);
         }
 
         /// <summary>
-        /// Gets schema information of the source database. If <see langword="null"/> it is mean
-        /// that the object exists in the target database but does not exists in the source database.
+        /// Gets the name of the object.
         /// </summary>
-        public DataRow? Source { get; }
+        public string Name { get; }
 
         /// <summary>
-        /// Gets schema information of the target database. If <see langword="null"/> it is mean
+        /// Gets schema information of the source object. If <see langword="null"/> it is mean
+        /// that the object exists in the target database but does not exists in the source database.
+        /// </summary>
+        public IReadOnlyDictionary<string, object>? Source { get; }
+
+        /// <summary>
+        /// Gets schema information of the target object. If <see langword="null"/> it is mean
         /// that the object exists in the source database but does not exists in the target database.
         /// </summary>
-        public DataRow? Target { get; }
+        public IReadOnlyDictionary<string, object>? Target { get; }
 
         /// <summary>
         /// Gets the of the difference between the <see cref="Source"/> and the <see cref="Target"/>.
@@ -44,41 +47,52 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// <inheritdoc />
         public override string ToString()
         {
-            var keyValueString = string.Join(".", this.keyValue);
-
             if (this.Type == SqlDatabaseObjectDifferenceType.MissingInSource)
             {
-                return $"(Missing) <=> {keyValueString}";
+                return $"(Missing) <=> {this.Name}";
             }
             else if (this.Type == SqlDatabaseObjectDifferenceType.MissingInTarget)
             {
-                return $"{keyValueString} <=> (Missing)";
+                return $"{this.Name} <=> (Missing)";
             }
             else
             {
-                var stringBuilder = new StringBuilder(keyValueString);
-                stringBuilder.Append(":");
+                var stringBuilder = new StringBuilder(this.Name);
+                stringBuilder.Append(':');
 
-                foreach (var sourceColumn in this.Source!.Table.Columns.Cast<DataColumn>())
+                foreach (var key in this.Source!.Keys)
                 {
-                    var sourceValue = this.Source[sourceColumn];
-                    var targetValue = this.Target![sourceColumn.ColumnName];
+                    var sourceValue = this.Source[key];
+                    var targetValue = this.Target![key];
 
                     if (!Equals(sourceValue, targetValue))
                     {
                         stringBuilder.AppendLine();
                         stringBuilder.Append("- ");
-                        stringBuilder.Append(sourceColumn.ColumnName);
+                        stringBuilder.Append(key);
                         stringBuilder.Append(": (Source: ");
                         stringBuilder.Append(sourceValue);
                         stringBuilder.Append(", Target: ");
                         stringBuilder.Append(targetValue);
-                        stringBuilder.Append(")");
+                        stringBuilder.Append(')');
                     }
                 }
 
                 return stringBuilder.ToString();
             }
+        }
+
+        private static Dictionary<string, object>? DataRowToDictionary(DataRow? dataRow)
+        {
+            if (dataRow is null)
+            {
+                return null;
+            }
+
+            return dataRow.Table.Columns.Cast<DataColumn>()
+                .ToDictionary(
+                    c => c.ColumnName,
+                    c => dataRow[c]);
         }
     }
 }
