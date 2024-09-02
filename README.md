@@ -3,7 +3,7 @@ PosInformatique.UnitTests.Databases is a set of tools for unit testing databases
 It simplifies writing and executing tests, helping ensure your database and data access code is reliable and bug-free.
 Ideal for developers who want to validate data access based on SQL Server code during their development.
 
-These set of tools support to perform unit tests of the data access layer based on SQL Server. Any kind of the
+This set of tools support to perform unit tests of the data access layer based on SQL Server. Any kind of the
 data access framework can be used with theses tools:
 - Raw ADO .NET queries.
 - Entity Framework
@@ -48,11 +48,11 @@ see the [Write unit tests to test the Data Access Layer](./docs/WriteUnitTests.m
 
 ## What provides the PosInformatique.UnitTests.Databases tools?
 
-Using the previous approach, the [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/PosInformatique.UnitTests.Databases) library allows to:
+Using the previous approach, the [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/PosInformatique.UnitTests.Databases) libraries allows to:
 
 - Deploy easily a database before each unit tests execution.
-  Database and the schema creation is an operation that can take lot of time (around 5 to 10 seconds), the [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/PosInformatique.UnitTests.Databases) library
-  create physically the database at the first unit test execution. For the other unit test execution, all the data are deleted in the database which allows to increase the speed of the unit tests execution.
+  Database and the schema creation is an operation that can take lot of time (around 5 to 10 seconds), the [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/PosInformatique.UnitTests.Databases) libraries
+  create physically the database at the first unit test execution. For the other unit tests execution, all the data are deleted in the database which allows to increase the speed of the unit tests execution.
 
 - Provides a simple syntax to fill the tables with sample of data.
 
