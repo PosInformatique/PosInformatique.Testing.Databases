@@ -1,0 +1,55 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="SqlServerDatabaseInitializer.cs" company="P.O.S Informatique">
+//     Copyright (c) P.O.S Informatique. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace PosInformatique.UnitTests.Databases.SqlServer
+{
+    using Microsoft.Data.SqlClient;
+
+    /// <summary>
+    /// Initializer used to initialize the database for the unit tests.
+    /// Call the <see cref="Initialize(string, string)"/> method to initialize a database from
+    /// a DACPAC file.
+    /// </summary>
+    /// <remarks>The database will be created the call of the <see cref="Initialize(string, string)"/> method. For the next calls
+    /// the database is preserved but all the data are deleted.</remarks>
+    public class SqlServerDatabaseInitializer
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether if the database has been initialized.
+        /// </summary>
+        public bool IsInitialized { get; set; }
+
+        /// <summary>
+        /// Initialize a SQL Server database from a DACPAC file.
+        /// </summary>
+        /// <param name="packageName">Full path of the DACPAC file.</param>
+        /// <param name="connectionString">Connection string to the SQL Server with administrator rights.</param>
+        /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
+        public SqlServerDatabase Initialize(string packageName, string connectionString)
+        {
+            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+
+            var server = new SqlServer(connectionString);
+
+            SqlServerDatabase database;
+
+            if (!this.IsInitialized)
+            {
+                database = server.DeployDacPackage(packageName, connectionStringBuilder.InitialCatalog);
+
+                this.IsInitialized = true;
+            }
+            else
+            {
+                database = server.GetDatabase(connectionStringBuilder.InitialCatalog);
+            }
+
+            database.ClearAllData();
+
+            return database;
+        }
+    }
+}

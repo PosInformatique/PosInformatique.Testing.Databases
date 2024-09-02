@@ -1,0 +1,74 @@
+<mxfile host="app.diagrams.net" modified="2024-09-02T14:09:05.848Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" etag="vwvow3jGbsEjk7Y88DOV" version="24.4.13" type="device">
+  <diagram name="Page-1" id="QPbXzzLTBWISDKUypI0Z">
+    <mxGraphModel dx="1728" dy="915" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;strokeWidth=1;" edge="1" parent="1" source="fzyzF6r53QvBfYvWiB2a-1" target="fzyzF6r53QvBfYvWiB2a-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-1" value="Data Access Layer (repository) code" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="240" y="500" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-2" value="Entity Framework mapping" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="620" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-3" value="SQL Server database" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="240" y="740" width="480" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-4" value="NULL/NOT NULL" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="800" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-5" value="Triggers" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="800" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-6" value="UNIQUE CONSTRAINT" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="800" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-7" value="..." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="800" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-8" value="Mock / In memory tests coverage" style="rounded=0;whiteSpace=wrap;html=1;textDirection=vertical-rl;rotation=-180;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="180" y="500" width="40" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;shape=flexArrow;strokeWidth=1;" edge="1" parent="1" source="fzyzF6r53QvBfYvWiB2a-2" target="fzyzF6r53QvBfYvWiB2a-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;strokeWidth=1;" edge="1" parent="1" source="fzyzF6r53QvBfYvWiB2a-14" target="fzyzF6r53QvBfYvWiB2a-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-14" value="Data Access Layer (repository) code" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-15" value="Entity Framework mapping" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="220" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-16" value="SQL Server database" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="240" y="340" width="480" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-17" value="NULL/NOT NULL" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="400" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-18" value="Triggers" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="400" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-19" value="UNIQUE CONSTRAINT" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-20" value="..." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="400" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-21" value="PosInformatique.UnitTests.Databases unit test approach" style="rounded=0;whiteSpace=wrap;html=1;textDirection=vertical-rl;rotation=-180;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="180" y="100" width="40" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="fzyzF6r53QvBfYvWiB2a-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;shape=flexArrow;strokeWidth=1;" edge="1" parent="1" source="fzyzF6r53QvBfYvWiB2a-15" target="fzyzF6r53QvBfYvWiB2a-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

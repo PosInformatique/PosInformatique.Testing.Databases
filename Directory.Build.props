@@ -1,0 +1,49 @@
+<Project>
+
+  <!-- Common properties -->
+  <PropertyGroup>
+    <Authors>Gilles TOURREAU</Authors>
+    <Company>P.O.S Informatique</Company>
+    <Product>P.O.S Informatique</Product>
+    <Copyright>Copyright (c) P.O.S Informatique. All rights reserved.</Copyright>
+    <RepositoryUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- Enable the last version of C# -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Enable implict usings -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Disable the Analyzers in Release configuration -->
+    <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
+
+    <!-- Disable the StyleCop 'XML comment analysis is disabled due to project configuration' warning. -->
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
+
+    <!-- By default prefix all the assemblies name with ChantierConnect -->
+    <AssemblyName>PosInformatique.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>PosInformatique.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+  
+  <!-- Common NuGet packages -->
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Add the default using directive for all the code -->
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
+
+</Project>

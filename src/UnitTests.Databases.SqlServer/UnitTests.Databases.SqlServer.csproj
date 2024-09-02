@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <Description>UnitTests.Databases.SqlServer is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on SQL Server.</Description>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>
+      1.0.0
+      - Initial version
+    </PackageReleaseNotes>
+    <PackageTags>unittest sqlserver repository tdd dataaccesslayer</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.DacFx" />
+  </ItemGroup>
+
+</Project>

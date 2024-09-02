@@ -1,0 +1,49 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "releases/**" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore PosInformatique.UnitTests.Databases.sln
+      
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build
+        run: msbuild "PosInformatique.UnitTests.Databases.sln" /p:Configuration=Debug
+        
+      - name: Restore NuGet packages
+        run: nuget restore "samples/PosInformatique.UnitTests.Databases.Samples.sln"
+
+      - name: Build the samples
+        run: msbuild "samples/PosInformatique.UnitTests.Databases.Samples.sln" /p:Configuration=Debug
+
+      - name: Creates the LocalDB for the unit tests
+        shell: cmd
+        run: SqlLocalDB create posinfo-unit-tests
+
+      - name: Creates the SQL Login service accounts for the unit tests
+        shell: cmd
+        run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
+
+      # Use this fix https://github.com/microsoft/vstest-action/issues/31#issuecomment-2159463764
+      - name: Test with the dotnet CLI
+        uses: rusty-bender/vstest-action@main
+        with:
+          searchFolder: .\
+          testAssembly: |
+            /tests/**/*tests.dll
+            !./**/*TestAdapter.dll
+            !./**/obj/**

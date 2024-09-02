@@ -1,0 +1,12 @@
+<Project>
+
+  <!-- Imports the parent Directory.Build.props if exist -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <!-- Add the default using directive for all tests code -->
+  <ItemGroup>
+    <Using Include="FluentAssertions" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>
