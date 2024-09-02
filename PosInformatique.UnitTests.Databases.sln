@@ -45,9 +45,14 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UnitTests.Databases.SqlServ
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UnitTests.Databases.SqlServer.Tests.Target", "tests\UnitTests.Databases.SqlServer.Tests.Target\UnitTests.Databases.SqlServer.Tests.Target.sqlproj", "{6CD3F177-053F-4816-A37E-5CA6F293D34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Databases.SqlServer.EntityFramework", "src\UnitTests.Databases.SqlServer.EntityFramework\UnitTests.Databases.SqlServer.EntityFramework.csproj", "{157DDF0D-9410-4646-94B9-9CEE4C140F5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests.Databases.SqlServer.EntityFramework", "src\UnitTests.Databases.SqlServer.EntityFramework\UnitTests.Databases.SqlServer.EntityFramework.csproj", "{157DDF0D-9410-4646-94B9-9CEE4C140F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Databases.SqlServer.EntityFramework.Tests", "tests\UnitTests.Databases.SqlServer.EntityFramework.Tests\UnitTests.Databases.SqlServer.EntityFramework.Tests.csproj", "{04A7AE8F-FE77-435B-9250-600388BB8065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests.Databases.SqlServer.EntityFramework.Tests", "tests\UnitTests.Databases.SqlServer.EntityFramework.Tests\UnitTests.Databases.SqlServer.EntityFramework.Tests.csproj", "{04A7AE8F-FE77-435B-9250-600388BB8065}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8500A9B6-CAA0-432C-BABB-DDC86CE08994}"
+	ProjectSection(SolutionItems) = preProject
+		docs\WriteUnitTests.md = docs\WriteUnitTests.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +103,7 @@ Global
 		{49103176-7D08-4386-B445-76E9823503F8} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
 		{91BFD2B1-6AB6-4B07-9D2E-430C93F150D4} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
 		{F8700AE9-9613-4CFE-B870-FAD786607D53} = {91BFD2B1-6AB6-4B07-9D2E-430C93F150D4}
+		{8500A9B6-CAA0-432C-BABB-DDC86CE08994} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FAC64573-D665-48A8-AC75-7B82B692EC9E}
