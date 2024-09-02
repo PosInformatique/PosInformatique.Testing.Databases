@@ -106,7 +106,7 @@ sqllocaldb c <instance name>
 With:
 - `<instance name>`: The name of the instance to create. For example: `demoapp`.
 
-## Create an unit tests project
+## Create the unit tests project
 
 To test the `CustomerRepository`, we create an `xUnit Test Project` in Visual Studio which reference our project that contains the
 Data Access Layer to test.
@@ -198,7 +198,7 @@ public static class UnitTestsConnectionStrings
 depending of the SQL Server instance your target. It is also very useful if you plan to execute the unit tests
 in a CI process (Git Actions, Azure Pipelines,...).
 
-### Parallelism execution of the unit tests
+### Parallel execution of the unit tests
 
 By default, with XUnit all the unit tests will be executed in parallel. Also, our unit tests in the `CustomerRepositoryTest`
 will works on the same database. It will not work of course, so it is mean that our unit tests must be executed in series
