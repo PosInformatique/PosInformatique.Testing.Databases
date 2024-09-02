@@ -20,9 +20,9 @@ The main approach of these tools is to perform unit tests without using mocking 
 - Around 30% to 40% of the code in applications is located in the Data Access layer or repository components. Because it is hard to unit test, developers often skip testing,
 resulting in lower code coverage.
 - When using a mock or in-memory approach for a `DbContext`, you don't truly test the Entity Framework mapping to your database, especially additional SQL constraints like nullability, uniqueness, foreign key cascades, etc.
-You also miss technical behaviors like transactions, connection management, etc.
+You also miss technical behaviors like transactions, connection management, triggers, etc.
 - When inserting data, it is crucial to ensure that the data in the columns are stored correctly (null/not null values, enum values to numerical values, custom or JSON serialized data, etc.).
-- If you use Entity Framework, you can detect warnings/errors raised by the `DbContext` that might not appear in logs when deploying the application.
+- If you use Entity Framework, you can detect warnings/errors raised by the `DbContext` during the development.
 - You perform unit test cases, meaning you write simple tests to validate small features instead of writing complex integration tests.
 
 ## How to unit test a Data Access Layer
