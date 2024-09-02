@@ -24,6 +24,9 @@ jobs:
       - name: Build
         run: msbuild "PosInformatique.UnitTests.Databases.sln" /p:Configuration=Debug
 
+      - name: Build the samples
+        run: msbuild "samples/PosInformatique.UnitTests.Databases.Samples.sln" /p:Configuration=Debug
+
       - name: Creates the LocalDB for the unit tests
         shell: cmd
         run: SqlLocalDB create posinfo-unit-tests
@@ -38,6 +41,6 @@ jobs:
         with:
           searchFolder: .\
           testAssembly: |
-            /**/*tests.dll
+            /tests/**/*tests.dll
             !./**/*TestAdapter.dll
             !./**/obj/**
