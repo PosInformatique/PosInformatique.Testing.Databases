@@ -57,7 +57,7 @@ public class CustomerRepository
 
 Which use the following `DbContext` implementation:
 
-```json
+```csharp
 public class DemoAppDbContext : DbContext
 {
     public DemoAppDbContext(DbContextOptions<DemoAppDbContext> options)
