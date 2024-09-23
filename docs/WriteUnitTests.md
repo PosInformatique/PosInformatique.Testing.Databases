@@ -57,7 +57,7 @@ public class CustomerRepository
 
 Which use the following `DbContext` implementation:
 
-```json
+```csharp
 public class DemoAppDbContext : DbContext
 {
     public DemoAppDbContext(DbContextOptions<DemoAppDbContext> options)
@@ -282,6 +282,7 @@ this.database.InsertCustomer(id: 10, firstName: "John", lastName: "DOE");
 
 In the end, if we want to insert 3 `Customer` rows in the database, the `CustomerRepositoryTest` constructor should look like this code:
 
+```csharp
 public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
 {
     using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
@@ -292,6 +293,7 @@ public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
     this.database.InsertCustomer(id: 15, firstName: "Marcel", lastName: "DUPONT", revenue: 4852.45);
     this.database.InsertCustomer(id: 20, firstName: "Andres", lastName: "GARCIA");
 }
+```
 
 Now, every time we will execute an unit test in the `CustomerRepositoryTest` class,
 a database will be deployed with these 3 `Customer` before the execution of the unit test.
