@@ -63,12 +63,12 @@ Using the previous approach, the [PosInformatique.UnitTests.Databases](https://g
 
 The [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/PosInformatique.UnitTests.Databases) tools are provided in two NuGet packages:
 
-- [![Nuget](https://img.shields.io/nuget/v/PosInformatique.UnitTests.Databases.SqlServer)](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer) which contains:
+- [PosInformatique.UnitTests.Databases.SqlServer](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer) NuGet package which contains:
   - Tools to deploy a SQL Server database using a DACPAC file before each unit test.
   - Helpers to initialize SQL Server databases with sample data.
   - Helpers to easily query SQL Server databases.
 
-- [![Nuget](https://img.shields.io/nuget/v/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework)](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework) which contains:
+- [PosInformatique.UnitTests.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework) NuGet package which contains:
   - Tools to deploy a SQL Server database using a DbContext.
   
   This package uses and includes the previous [PosInformatique.UnitTests.Databases.SqlServer](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer) NuGet package.
