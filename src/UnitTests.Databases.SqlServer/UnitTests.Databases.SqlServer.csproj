@@ -10,8 +10,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
-      1.0.0
-      - Initial version
+        1.0.1
+        - Fix the documentation
+        
+        1.0.0
+        - Initial version
     </PackageReleaseNotes>
     <PackageTags>unittest sqlserver repository tdd dataaccesslayer</PackageTags>
   </PropertyGroup>
