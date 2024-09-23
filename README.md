@@ -75,13 +75,13 @@ The [PosInformatique.UnitTests.Databases](https://github.com/PosInformatique/Pos
 
 ## Samples / Demo
 
-A complete sample solution is available in this repository in the [./samples](./samples) folder.
+A complete sample solution is available in this repository inside the [samples](./samples) folder.
 
-The solution contains the following projects:
+The solution contains the following sample projects:
 - [DemoApp.Domain](./samples/DemoApp.Domain/DemoApp.Domain.csproj): Represents the domain of the application with a set of sample business entities.
 - [DemoApp.DataAccessLayer](./samples/DemoApp.DataAccessLayer/DemoApp.DataAccessLayer.csproj): Represents a Data Access Layer with a set of repositories to unit test.
 - [DemoApp.DataAccessLayer.Tests](./samples/DemoApp.DataAccessLayer.Tests/DemoApp.DataAccessLayer.Tests.csproj): Unit test project to test the [DemoApp.DataAccessLayer](./samples/DemoApp.DataAccessLayer/DemoApp.DataAccessLayer.csproj)
-- project using the [PosInformatique.UnitTests.Databases.SqlServer](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer) package.
+project using the [PosInformatique.UnitTests.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework) package.
 
 ## Writing unit tests for a Data Access Layer
 
