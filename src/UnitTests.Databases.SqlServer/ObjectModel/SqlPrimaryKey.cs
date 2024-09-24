@@ -35,5 +35,11 @@ namespace PosInformatique.UnitTests.Databases
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);
+
+        /// <inheritdoc cref="Name"/>
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
