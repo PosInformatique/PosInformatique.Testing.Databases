@@ -32,5 +32,11 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the target value of the property.
         /// </summary>
         public object? Target { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{this.Name}: {StringHelper.ToStringNull(this.Source)} => {StringHelper.ToStringNull(this.Target)}";
+        }
     }
 }
