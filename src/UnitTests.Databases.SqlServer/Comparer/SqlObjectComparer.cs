@@ -61,23 +61,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
         public static IList<SqlDatabaseTableDifferences> Compare(IReadOnlyList<SqlTable> source, IReadOnlyList<SqlTable> target)
         {
-            var differences = Compare(source, target, t => t.Schema + "." + t.Name);
-
-            var typedDifferences = new List<SqlDatabaseTableDifferences>(differences.Count);
-
-            foreach (var difference in differences)
-            {
-                if (difference is not SqlDatabaseTableDifferences)
-                {
-                    typedDifferences.Add(new SqlDatabaseTableDifferences(difference) { PrimaryKey = null });
-                }
-                else
-                {
-                    typedDifferences.Add((SqlDatabaseTableDifferences)difference);
-                }
-            }
-
-            return typedDifferences;
+            return Compare(source, target, t => t.Name, diff => new SqlDatabaseTableDifferences(diff) { PrimaryKey = null });
         }
 
         public SqlDatabaseObjectDifferences? Visit(SqlCheckConstraint checkConstraint)
@@ -211,10 +195,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             var columnsDifferences = Compare(sourceTable.Columns, table.Columns, c => c.Name);
 
             // Compare the foreign keys
-            var foreignKeysDifferences = Compare(sourceTable.ForeignKeys, table.ForeignKeys);
+            var foreignKeysDifferences = Compare(sourceTable.ForeignKeys, table.ForeignKeys, fk => fk.Name, diff => new SqlForeignKeyDifferences(diff));
 
             // Compare the indexes
-            var indexesDifferences = Compare(sourceTable.Indexes, table.Indexes);
+            var indexesDifferences = Compare(sourceTable.Indexes, table.Indexes, i => i.Name, diff => new SqlIndexDifferences(diff));
 
             // Compare the primary key
             var primaryKeyDifferences = (SqlPrimaryKeyDifferences?)Compare(CreateArray(sourceTable.PrimaryKey), CreateArray(table.PrimaryKey), pk => pk.Name).SingleOrDefault();
@@ -223,7 +207,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             var triggersDifferences = Compare(sourceTable.Triggers, table.Triggers, tr => tr.Name);
 
             // Compare the unique constraints
-            var uniqueConstraintsDifferences = Compare(sourceTable.UniqueConstraints, table.UniqueConstraints);
+            var uniqueConstraintsDifferences = Compare(sourceTable.UniqueConstraints, table.UniqueConstraints, uc => uc.Name, diff => new SqlUniqueConstraintDifferences(diff));
 
             if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count > 0 || primaryKeyDifferences is not null)
             {
@@ -288,63 +272,23 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return (SqlDatabaseObjectDifferences<TSqlObject>?)target.Accept(visitor);
         }
 
-        private static IList<SqlIndexDifferences> Compare(IReadOnlyList<SqlIndex> source, IReadOnlyList<SqlIndex> target)
+        private static IList<TDifferences> Compare<TDifferences, TSqlObject>(IReadOnlyList<TSqlObject> source, IReadOnlyList<TSqlObject> target, Func<TSqlObject, object> keySelector, Func<SqlDatabaseObjectDifferences<TSqlObject>, TDifferences> factory)
+            where TSqlObject : SqlObject
+            where TDifferences : SqlDatabaseObjectDifferences<TSqlObject>
         {
-            var differences = Compare(source, target, i => i.Name);
+            var differences = Compare(source, target, keySelector);
 
-            var typedDifferences = new List<SqlIndexDifferences>(differences.Count);
+            var typedDifferences = new List<TDifferences>(differences.Count);
 
             foreach (var difference in differences)
             {
-                if (difference is not SqlIndexDifferences)
+                if (difference is not TDifferences)
                 {
-                    typedDifferences.Add(new SqlIndexDifferences(difference));
+                    typedDifferences.Add(factory(difference));
                 }
                 else
                 {
-                    typedDifferences.Add((SqlIndexDifferences)difference);
-                }
-            }
-
-            return typedDifferences;
-        }
-
-        private static IList<SqlForeignKeyDifferences> Compare(IReadOnlyList<SqlForeignKey> source, IReadOnlyList<SqlForeignKey> target)
-        {
-            var differences = Compare(source, target, i => i.Name);
-
-            var typedDifferences = new List<SqlForeignKeyDifferences>(differences.Count);
-
-            foreach (var difference in differences)
-            {
-                if (difference is not SqlForeignKeyDifferences)
-                {
-                    typedDifferences.Add(new SqlForeignKeyDifferences(difference));
-                }
-                else
-                {
-                    typedDifferences.Add((SqlForeignKeyDifferences)difference);
-                }
-            }
-
-            return typedDifferences;
-        }
-
-        private static IList<SqlUniqueConstraintDifferences> Compare(IReadOnlyList<SqlUniqueConstraint> source, IReadOnlyList<SqlUniqueConstraint> target)
-        {
-            var differences = Compare(source, target, i => i.Name);
-
-            var typedDifferences = new List<SqlUniqueConstraintDifferences>(differences.Count);
-
-            foreach (var difference in differences)
-            {
-                if (difference is not SqlUniqueConstraintDifferences)
-                {
-                    typedDifferences.Add(new SqlUniqueConstraintDifferences(difference));
-                }
-                else
-                {
-                    typedDifferences.Add((SqlUniqueConstraintDifferences)difference);
+                    typedDifferences.Add((TDifferences)difference);
                 }
             }
 
