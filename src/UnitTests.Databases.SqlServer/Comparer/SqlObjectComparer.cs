@@ -6,7 +6,6 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
-#warning Try to use typed SqlObjectComparer<TObject> to type the SqlObject source and avoid casting.
     internal sealed class SqlObjectComparer : ISqlObjectVisitor<SqlDatabaseObjectDifferences?>
     {
         private readonly SqlObject source;
