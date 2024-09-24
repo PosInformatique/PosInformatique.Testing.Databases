@@ -296,7 +296,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Indexes[0].Columns[0].Position.Should().Be(1);
             differences.Tables[0].Source.Indexes[0].Columns[1].Name.Should().Be("Type");
             differences.Tables[0].Source.Indexes[0].Columns[1].Position.Should().Be(2);
-            differences.Tables[0].Source.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[0].Source.Indexes[0].Filter.Should().Be("([Type]=(1234))");
             differences.Tables[0].Source.Indexes[0].IncludedColumns.Should().HaveCount(0);
             differences.Tables[0].Source.Indexes[0].IsUnique.Should().BeFalse();
             differences.Tables[0].Source.Indexes[0].Name.Should().Be("IndexDifference");
@@ -318,7 +318,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Indexes[0].Columns[0].Position.Should().Be(1);
             differences.Tables[0].Target.Indexes[0].Columns[1].Name.Should().Be("ForeignKeyId");
             differences.Tables[0].Target.Indexes[0].Columns[1].Position.Should().Be(2);
-            differences.Tables[0].Target.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[0].Target.Indexes[0].Filter.Should().Be("([Type]='Target')");
             differences.Tables[0].Target.Indexes[0].IncludedColumns.Should().HaveCount(0);
             differences.Tables[0].Target.Indexes[0].IsUnique.Should().BeFalse();
             differences.Tables[0].Target.Indexes[0].Name.Should().Be("IndexDifference");
@@ -336,7 +336,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             differences.Tables[0].Indexes.Should().HaveCount(2);
 
-            differences.Tables[0].Indexes[0].Properties.Should().HaveCount(0);
+            differences.Tables[0].Indexes[0].Properties.Should().HaveCount(1);
+            differences.Tables[0].Indexes[0].Properties[0].Name.Should().Be("Filter");
+            differences.Tables[0].Indexes[0].Properties[0].Source.Should().Be("([Type]=(1234))");
+            differences.Tables[0].Indexes[0].Properties[0].Target.Should().Be("([Type]='Target')");
             differences.Tables[0].Indexes[0].Source.Should().BeSameAs(differences.Tables[0].Source.Indexes[0]);
             differences.Tables[0].Indexes[0].Target.Should().BeSameAs(differences.Tables[0].Target.Indexes[0]);
             differences.Tables[0].Indexes[0].Type.Should().Be(SqlObjectDifferenceType.Different);
@@ -460,7 +463,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[1].Target.Indexes[0].Columns.Should().HaveCount(1);
             differences.Tables[1].Target.Indexes[0].Columns[0].Name.Should().Be("TargetName");
             differences.Tables[1].Target.Indexes[0].Columns[0].Position.Should().Be(1);
-            differences.Tables[1].Target.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[1].Target.Indexes[0].Filter.Should().Be("([TargetName]='')");
             differences.Tables[1].Target.Indexes[0].IncludedColumns.Should().HaveCount(0);
             differences.Tables[1].Target.Indexes[0].IsUnique.Should().BeFalse();
             differences.Tables[1].Target.Indexes[0].Name.Should().Be("IndexTarget");
@@ -510,7 +513,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[2].Source.Indexes[0].Columns.Should().HaveCount(1);
             differences.Tables[2].Source.Indexes[0].Columns[0].Name.Should().Be("SourceName");
             differences.Tables[2].Source.Indexes[0].Columns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[2].Source.Indexes[0].Filter.Should().Be("([SourceName]='')");
             differences.Tables[2].Source.Indexes[0].IncludedColumns.Should().HaveCount(0);
             differences.Tables[2].Source.Indexes[0].IsUnique.Should().BeFalse();
             differences.Tables[2].Source.Indexes[0].Name.Should().Be("IndexSource");
