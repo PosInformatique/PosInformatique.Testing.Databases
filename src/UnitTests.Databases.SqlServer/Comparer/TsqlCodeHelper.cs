@@ -8,16 +8,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 {
     internal static class TsqlCodeHelper
     {
-        public static bool AreEqual(string source, string target)
+        public static string? RemoveNotUsefulCharacters(string? code)
         {
-            source = RemoveNotUsefulCharacters(source);
-            target = RemoveNotUsefulCharacters(target);
+            if (code is null)
+            {
+                return null;
+            }
 
-            return source.Equals(target, StringComparison.InvariantCulture);
-        }
-
-        private static string RemoveNotUsefulCharacters(string code)
-        {
             return code
                 .ReplaceLineEndings(string.Empty)
                 .Replace(" ", string.Empty)

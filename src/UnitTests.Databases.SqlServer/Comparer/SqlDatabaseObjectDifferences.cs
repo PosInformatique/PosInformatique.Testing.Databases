@@ -4,35 +4,17 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer
+namespace PosInformatique.UnitTests.Databases
 {
     using System.Collections.ObjectModel;
 
     /// <summary>
-    /// Represents a list of the difference for database object type.
+    /// Represents the differences of <see cref="SqlObject"/> between two databases.
     /// </summary>
-    public sealed class SqlDatabaseObjectDifferences
+    public abstract class SqlDatabaseObjectDifferences
     {
-        internal SqlDatabaseObjectDifferences(string type, IList<SqlDatabaseObjectDifference> differences)
+        private protected SqlDatabaseObjectDifferences()
         {
-            this.Differences = new ReadOnlyCollection<SqlDatabaseObjectDifference>(differences);
-            this.Type = type;
-        }
-
-        /// <summary>
-        /// Gets the list of the object differences between the two databases.
-        /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifference> Differences { get; }
-
-        /// <summary>
-        /// Gets the type of the object.
-        /// </summary>
-        public string Type { get; }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return this.Type;
         }
     }
 }

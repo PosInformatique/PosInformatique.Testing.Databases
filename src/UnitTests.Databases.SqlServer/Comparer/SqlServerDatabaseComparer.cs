@@ -6,25 +6,13 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
+    using System.Collections.ObjectModel;
+
     /// <summary>
     /// Allows to compare schema difference between 2 databases.
     /// </summary>
     public class SqlServerDatabaseComparer
     {
-        private static readonly SqlServerObjectComparer[] Comparers =
-        [
-            new SqlServerTypesComparer(),
-            new SqlServerColumnsComparer(),
-            new SqlServerPrimaryKeysComparer(),
-            new SqlServerUniqueConstraintsComparer(),
-            new SqlServerForeignKeysComparer(),
-            new SqlServerIndexesComparer(),
-            new SqlServerCheckConstraintsComparer(),
-            new SqlServerStoredProcedureComparer(),
-            new SqlServerTriggersComparer(),
-            new SqlServerViewsComparer(),
-        ];
-
         /// <summary>
         /// Compares two database and returns the differences found.
         /// </summary>
@@ -33,19 +21,37 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// <returns>The difference between the two databases.</returns>
         public SqlDatabaseComparisonResults Compare(SqlServerDatabase source, SqlServerDatabase target)
         {
-            var differences = new List<SqlDatabaseObjectDifferences>();
+            // Compares the stored procedures
+            var sourceStoredProcedures = source.GetStoredProcedures();
+            var targetStoredProcedures = target.GetStoredProcedures();
 
-            foreach (var comparer in Comparers)
+            var storedProceduresDifferences = SqlObjectComparer.Compare(sourceStoredProcedures, targetStoredProcedures, sp => sp.Schema + "." + sp.Name);
+
+            // Compares the tables
+            var sourceTables = source.GetTables();
+            var targetTables = target.GetTables();
+
+            var tablesDifferences = SqlObjectComparer.Compare(sourceTables, targetTables);
+
+            // Compares the user types
+            var sourceUserTypes = source.GetUserTypes();
+            var targetUserTypes = target.GetUserTypes();
+
+            var userTypesDifferences = SqlObjectComparer.Compare(sourceUserTypes, targetUserTypes, ut => ut.Name);
+
+            // Compares the views
+            var sourceViews = source.GetViews();
+            var targetViews = target.GetViews();
+
+            var viewsDifferences = SqlObjectComparer.Compare(sourceViews, targetViews, v => v.Schema + "." + v.Name);
+
+            return new SqlDatabaseComparisonResults()
             {
-                var objectDifferences = comparer.Compare(source, target);
-
-                if (objectDifferences.Differences.Count > 0)
-                {
-                    differences.Add(objectDifferences);
-                }
-            }
-
-            return new SqlDatabaseComparisonResults(differences);
+                StoredProcedures = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlStoredProcedure>>(storedProceduresDifferences),
+                Tables = new ReadOnlyCollection<SqlDatabaseTableDifferences>(tablesDifferences),
+                UserTypes = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlUserType>>(userTypesDifferences),
+                Views = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlView>>(viewsDifferences),
+            };
         }
     }
 }

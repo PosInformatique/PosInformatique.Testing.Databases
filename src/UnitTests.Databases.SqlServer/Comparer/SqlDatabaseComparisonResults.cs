@@ -7,43 +7,34 @@
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the differences between 2 databases.
     /// </summary>
     public class SqlDatabaseComparisonResults
     {
-        internal SqlDatabaseComparisonResults(IList<SqlDatabaseObjectDifferences> objects)
+        internal SqlDatabaseComparisonResults()
         {
-            this.Objects = new ReadOnlyCollection<SqlDatabaseObjectDifferences>(objects);
         }
 
         /// <summary>
-        /// Gets the list of the database objects differences found.
+        /// Gets the stored procedures which are different between two databases.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences> Objects { get; }
+        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; init; }
 
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            var stringBuilder = new StringBuilder();
+        /// <summary>
+        /// Gets the tables which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlDatabaseTableDifferences> Tables { get; init; }
 
-            foreach (var @object in this.Objects)
-            {
-                stringBuilder.AppendLine("------------------------");
-                stringBuilder.AppendLine(@object.Type);
+        /// <summary>
+        /// Gets the user types which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlUserType>> UserTypes { get; init; }
 
-                foreach (var difference in @object.Differences)
-                {
-                    stringBuilder.AppendLine(difference.ToString());
-                }
-
-                stringBuilder.AppendLine("------------------------");
-                stringBuilder.AppendLine();
-            }
-
-            return stringBuilder.ToString();
-        }
+        /// <summary>
+        /// Gets the views which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlView>> Views { get; init; }
     }
 }
