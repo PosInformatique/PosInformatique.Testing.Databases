@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer
+namespace PosInformatique.UnitTests.Databases
 {
     using System.Collections.ObjectModel;
 
