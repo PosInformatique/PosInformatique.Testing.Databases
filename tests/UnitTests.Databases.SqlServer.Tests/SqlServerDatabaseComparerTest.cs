@@ -310,7 +310,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Indexes[1].IncludedColumns.Should().HaveCount(0);
             differences.Tables[0].Source.Indexes[1].IsUnique.Should().BeTrue();
             differences.Tables[0].Source.Indexes[1].Name.Should().Be("PrimaryKeyDifference");
-            differences.Tables[0].Source.Indexes[1].Type.Should().Be("CLUSTERED");
+            differences.Tables[0].Source.Indexes[1].Type.Should().Be("NONCLUSTERED");
 
             differences.Tables[0].Target.Indexes.Should().HaveCount(2);
             differences.Tables[0].Target.Indexes[0].Columns.Should().HaveCount(2);
@@ -344,14 +344,17 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Indexes[0].Target.Should().BeSameAs(differences.Tables[0].Target.Indexes[0]);
             differences.Tables[0].Indexes[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
-            differences.Tables[0].Indexes[1].Properties.Should().HaveCount(0);
+            differences.Tables[0].Indexes[1].Properties.Should().HaveCount(1);
+            differences.Tables[0].Indexes[1].Properties[0].Name.Should().Be("Type");
+            differences.Tables[0].Indexes[1].Properties[0].Source.Should().Be("NONCLUSTERED");
+            differences.Tables[0].Indexes[1].Properties[0].Target.Should().Be("CLUSTERED");
             differences.Tables[0].Indexes[1].Source.Should().BeSameAs(differences.Tables[0].Source.Indexes[1]);
             differences.Tables[0].Indexes[1].Target.Should().BeSameAs(differences.Tables[0].Target.Indexes[1]);
             differences.Tables[0].Indexes[1].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Tables / Primary keys
             differences.Tables[0].Source.PrimaryKey.Name.Should().Be("PrimaryKeyDifference");
-            differences.Tables[0].Source.PrimaryKey.Type.Should().Be("CLUSTERED");
+            differences.Tables[0].Source.PrimaryKey.Type.Should().Be("NONCLUSTERED");
             differences.Tables[0].Source.PrimaryKey.Columns.Should().HaveCount(2);
             differences.Tables[0].Source.PrimaryKey.Columns[0].Name.Should().Be("Type");
             differences.Tables[0].Source.PrimaryKey.Columns[0].Position.Should().Be(1);
@@ -374,7 +377,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].PrimaryKey.Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[1]);
             differences.Tables[0].PrimaryKey.Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
 
-            differences.Tables[0].PrimaryKey.Properties.Should().BeEmpty();
+            differences.Tables[0].PrimaryKey.Properties.Should().HaveCount(1);
+            differences.Tables[0].PrimaryKey.Properties[0].Name.Should().Be("Type");
+            differences.Tables[0].PrimaryKey.Properties[0].Source.Should().Be("NONCLUSTERED");
+            differences.Tables[0].PrimaryKey.Properties[0].Target.Should().Be("CLUSTERED");
             differences.Tables[0].PrimaryKey.Source.Should().Be(differences.Tables[0].Source.PrimaryKey);
             differences.Tables[0].PrimaryKey.Target.Should().Be(differences.Tables[0].Target.PrimaryKey);
             differences.Tables[0].PrimaryKey.Type.Should().Be(SqlObjectDifferenceType.Different);
@@ -412,7 +418,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.UniqueConstraints[0].Columns[1].Name.Should().Be("MaxLength");
             differences.Tables[0].Source.UniqueConstraints[0].Columns[1].Position.Should().Be(2);
             differences.Tables[0].Source.UniqueConstraints[0].Name.Should().Be("UniqueConstraintDifference");
-            differences.Tables[0].Source.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
+            differences.Tables[0].Source.UniqueConstraints[0].Type.Should().Be("CLUSTERED");
 
             differences.Tables[0].Target.UniqueConstraints.Should().HaveCount(1);
             differences.Tables[0].Target.UniqueConstraints[0].Columns.Should().HaveCount(2);
@@ -424,7 +430,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
 
             differences.Tables[0].UniqueConstraints.Should().HaveCount(1);
-            differences.Tables[0].UniqueConstraints[0].Properties.Should().HaveCount(0);
+            differences.Tables[0].UniqueConstraints[0].Properties.Should().HaveCount(1);
+            differences.Tables[0].UniqueConstraints[0].Properties[0].Name.Should().Be("Type");
+            differences.Tables[0].UniqueConstraints[0].Properties[0].Source.Should().Be("CLUSTERED");
+            differences.Tables[0].UniqueConstraints[0].Properties[0].Target.Should().Be("NONCLUSTERED");
             differences.Tables[0].UniqueConstraints[0].Source.Should().BeSameAs(differences.Tables[0].Source.UniqueConstraints[0]);
             differences.Tables[0].UniqueConstraints[0].Target.Should().BeSameAs(differences.Tables[0].Target.UniqueConstraints[0]);
             differences.Tables[0].UniqueConstraints[0].Type.Should().Be(SqlObjectDifferenceType.Different);

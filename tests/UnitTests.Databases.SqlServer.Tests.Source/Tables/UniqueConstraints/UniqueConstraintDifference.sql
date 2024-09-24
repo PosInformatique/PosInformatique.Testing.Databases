@@ -1,3 +1,3 @@
 ﻿ALTER TABLE [dbo].[TableDifference]
 	ADD CONSTRAINT [UniqueConstraintDifference]
-	UNIQUE ([Type], [MaxLength])
+	UNIQUE CLUSTERED ([Type], [MaxLength])
