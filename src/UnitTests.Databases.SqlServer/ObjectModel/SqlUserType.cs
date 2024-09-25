@@ -21,11 +21,6 @@ namespace PosInformatique.UnitTests.Databases
         public required string Name { get; init; }
 
         /// <summary>
-        /// Gets the system type identifier which is based the user type.
-        /// </summary>
-        public required byte SystemTypeId { get; init; }
-
-        /// <summary>
         /// Gets the max length of the type.
         /// </summary>
         public required short MaxLength { get; init; }

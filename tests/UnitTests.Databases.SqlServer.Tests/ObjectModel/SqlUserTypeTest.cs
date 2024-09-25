@@ -17,7 +17,6 @@ namespace PosInformatique.UnitTests.Databases.Tests
                 IsNullable = default,
                 IsTableType = default,
                 MaxLength = default,
-                SystemTypeId = default
             };
 
             userType.ToString().Should().Be("The name");

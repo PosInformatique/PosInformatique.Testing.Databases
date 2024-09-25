@@ -26,11 +26,6 @@ namespace PosInformatique.UnitTests.Databases
         public required int Position { get; init; }
 
         /// <summary>
-        /// Gets the system type identifier of the column.
-        /// </summary>
-        public required byte SystemTypeId { get; init; }
-
-        /// <summary>
         /// Gets the type name of the column.
         /// </summary>
         public required string TypeName { get; init; }

@@ -17,7 +17,6 @@ namespace PosInformatique.UnitTests.Databases.Tests
                 IsTableType = default,
                 MaxLength = default,
                 Name = "The source",
-                SystemTypeId = default,
             };
 
             var target = new SqlUserType()
@@ -26,7 +25,6 @@ namespace PosInformatique.UnitTests.Databases.Tests
                 IsTableType = default,
                 MaxLength = default,
                 Name = "The source",
-                SystemTypeId = default,
             };
 
             var properties = new[]

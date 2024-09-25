@@ -23,7 +23,6 @@ namespace PosInformatique.UnitTests.Databases.Tests
                 Position = default,
                 Precision = default,
                 Scale = default,
-                SystemTypeId = default, 
                 TypeName = default,
             };
 

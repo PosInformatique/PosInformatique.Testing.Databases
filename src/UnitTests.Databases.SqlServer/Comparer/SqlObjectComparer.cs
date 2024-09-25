@@ -76,7 +76,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return this.CreateDifferences(
                 column,
                 this.CompareProperty(column, t => t.Position, nameof(column.Position)),
-                this.CompareProperty(column, t => t.SystemTypeId, nameof(column.SystemTypeId)),
                 this.CompareProperty(column, t => t.MaxLength, nameof(column.MaxLength)),
                 this.CompareProperty(column, t => t.Precision, nameof(column.Precision)),
                 this.CompareProperty(column, t => t.Scale, nameof(column.Scale)),
@@ -253,8 +252,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 userType,
                 this.CompareProperty(userType, ut => ut.IsNullable, nameof(userType.IsNullable)),
                 this.CompareProperty(userType, ut => ut.IsTableType, nameof(userType.IsTableType)),
-                this.CompareProperty(userType, ut => ut.MaxLength, nameof(userType.MaxLength)),
-                this.CompareProperty(userType, ut => ut.SystemTypeId, nameof(userType.SystemTypeId)));
+                this.CompareProperty(userType, ut => ut.MaxLength, nameof(userType.MaxLength)));
         }
 
         public SqlObjectDifferences? Visit(SqlView view)

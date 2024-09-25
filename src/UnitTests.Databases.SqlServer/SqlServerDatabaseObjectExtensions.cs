@@ -214,7 +214,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             const string sql = @"
                 SELECT
 				    [t].[name] AS [Name],
-				    [t].[system_type_id] AS [SystemTypeId],
 				    [t].[max_length] AS [MaxLength],
 				    [t].[is_nullable] AS [IsNullable],
 				    [t].[is_table_type] AS [IsTableType]
@@ -286,7 +285,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 	                [t].[object_id] AS [TableId],
 	                [c].[name] AS [Name],
 	                ROW_NUMBER() OVER(PARTITION BY [t].[name] ORDER BY [t].[name], [c].[column_id]) AS [Position],
-	                [c].[system_type_id] AS [SystemTypeId],
 	                [ty].[name] AS [TypeName],
 	                [c].[max_length] AS [MaxLength],
 	                [c].[precision] AS [Precision],
@@ -486,7 +484,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 Precision = (byte)row["Precision"],
                 Position = Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture),
                 Scale = (byte)row["Scale"],
-                SystemTypeId = (byte)row["SystemTypeId"],
                 TypeName = (string)row["TypeName"],
             };
         }
@@ -592,7 +589,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 IsTableType = (bool)row["IsTableType"],
                 Name = (string)row["Name"],
                 MaxLength = (short)row["MaxLength"],
-                SystemTypeId = (byte)row["SystemTypeId"],
             };
         }
 

@@ -79,7 +79,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[0].Position.Should().Be(1);
             differences.Tables[0].Source.Columns[0].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[0].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[0].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[0].TypeName.Should().Be("int");
 
             differences.Tables[0].Source.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
@@ -92,7 +91,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[1].Position.Should().Be(2);
             differences.Tables[0].Source.Columns[1].Precision.Should().Be(0);
             differences.Tables[0].Source.Columns[1].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[1].SystemTypeId.Should().Be(167);
             differences.Tables[0].Source.Columns[1].TypeName.Should().Be("varchar");
 
             differences.Tables[0].Source.Columns[2].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
@@ -105,7 +103,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[2].Position.Should().Be(3);
             differences.Tables[0].Source.Columns[2].Precision.Should().Be(0);
             differences.Tables[0].Source.Columns[2].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[2].SystemTypeId.Should().Be(167);
             differences.Tables[0].Source.Columns[2].TypeName.Should().Be("varchar");
 
             differences.Tables[0].Source.Columns[3].CollationName.Should().BeNull();
@@ -118,7 +115,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[3].Position.Should().Be(4);
             differences.Tables[0].Source.Columns[3].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[3].Scale.Should().Be(2);
-            differences.Tables[0].Source.Columns[3].SystemTypeId.Should().Be(106);
             differences.Tables[0].Source.Columns[3].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Source.Columns[4].CollationName.Should().BeNull();
@@ -131,7 +127,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[4].Position.Should().Be(5);
             differences.Tables[0].Source.Columns[4].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[4].Scale.Should().Be(2);
-            differences.Tables[0].Source.Columns[4].SystemTypeId.Should().Be(106);
             differences.Tables[0].Source.Columns[4].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Source.Columns[5].CollationName.Should().BeNull();
@@ -144,7 +139,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[5].Position.Should().Be(6);
             differences.Tables[0].Source.Columns[5].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[5].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[5].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[5].TypeName.Should().Be("int");
 
             differences.Tables[0].Source.Columns[6].CollationName.Should().BeNull();
@@ -157,7 +151,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[6].Position.Should().Be(7);
             differences.Tables[0].Source.Columns[6].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[6].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[6].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[6].TypeName.Should().Be("int");
 
             differences.Tables[0].Source.Columns[7].CollationName.Should().BeNull();
@@ -170,7 +163,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[7].Position.Should().Be(8);
             differences.Tables[0].Source.Columns[7].Precision.Should().Be(11);
             differences.Tables[0].Source.Columns[7].Scale.Should().Be(2);
-            differences.Tables[0].Source.Columns[7].SystemTypeId.Should().Be(106);
             differences.Tables[0].Source.Columns[7].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Source.Columns[8].CollationName.Should().BeNull();
@@ -183,7 +175,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[8].Position.Should().Be(9);
             differences.Tables[0].Source.Columns[8].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[8].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[8].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[8].TypeName.Should().Be("int");
 
             differences.Tables[0].Source.Columns[9].CollationName.Should().BeNull();
@@ -196,7 +187,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[9].Position.Should().Be(10);
             differences.Tables[0].Source.Columns[9].Precision.Should().Be(10);
             differences.Tables[0].Source.Columns[9].Scale.Should().Be(0);
-            differences.Tables[0].Source.Columns[9].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[9].TypeName.Should().Be("int");
 
             differences.Tables[0].Target.Name.Should().Be("TableDifference");
@@ -214,7 +204,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[0].Position.Should().Be(1);
             differences.Tables[0].Target.Columns[0].Precision.Should().Be(0);
             differences.Tables[0].Target.Columns[0].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[0].SystemTypeId.Should().Be(167);
             differences.Tables[0].Target.Columns[0].TypeName.Should().Be("varchar");
 
             differences.Tables[0].Target.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
@@ -227,7 +216,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[1].Position.Should().Be(2);
             differences.Tables[0].Target.Columns[1].Precision.Should().Be(0);
             differences.Tables[0].Target.Columns[1].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[1].SystemTypeId.Should().Be(167);
             differences.Tables[0].Target.Columns[1].TypeName.Should().Be("varchar");
 
             differences.Tables[0].Target.Columns[2].CollationName.Should().BeNull();
@@ -240,7 +228,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[2].Position.Should().Be(3);
             differences.Tables[0].Target.Columns[2].Precision.Should().Be(5);
             differences.Tables[0].Target.Columns[2].Scale.Should().Be(2);
-            differences.Tables[0].Target.Columns[2].SystemTypeId.Should().Be(106);
             differences.Tables[0].Target.Columns[2].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Target.Columns[3].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
@@ -253,7 +240,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[3].Position.Should().Be(4);
             differences.Tables[0].Target.Columns[3].Precision.Should().Be(0);
             differences.Tables[0].Target.Columns[3].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[3].SystemTypeId.Should().Be(167);
             differences.Tables[0].Target.Columns[3].TypeName.Should().Be("varchar");
 
             differences.Tables[0].Target.Columns[4].CollationName.Should().BeNull();
@@ -266,7 +252,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[4].Position.Should().Be(5);
             differences.Tables[0].Target.Columns[4].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[4].Scale.Should().Be(4);
-            differences.Tables[0].Target.Columns[4].SystemTypeId.Should().Be(106);
             differences.Tables[0].Target.Columns[4].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Target.Columns[5].CollationName.Should().BeNull();
@@ -279,7 +264,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[5].Position.Should().Be(6);
             differences.Tables[0].Target.Columns[5].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[5].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[5].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[5].TypeName.Should().Be("int");
 
             differences.Tables[0].Target.Columns[6].CollationName.Should().BeNull();
@@ -292,7 +276,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[6].Position.Should().Be(7);
             differences.Tables[0].Target.Columns[6].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[6].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[6].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[6].TypeName.Should().Be("int");
 
             differences.Tables[0].Target.Columns[7].CollationName.Should().BeNull();
@@ -305,7 +288,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[7].Position.Should().Be(8);
             differences.Tables[0].Target.Columns[7].Precision.Should().Be(11);
             differences.Tables[0].Target.Columns[7].Scale.Should().Be(4);
-            differences.Tables[0].Target.Columns[7].SystemTypeId.Should().Be(106);
             differences.Tables[0].Target.Columns[7].TypeName.Should().Be("decimal");
 
             differences.Tables[0].Target.Columns[8].CollationName.Should().BeNull();
@@ -318,7 +300,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[8].Position.Should().Be(9);
             differences.Tables[0].Target.Columns[8].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[8].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[8].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[8].TypeName.Should().Be("int");
 
             differences.Tables[0].Target.Columns[9].CollationName.Should().BeNull();
@@ -331,7 +312,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[9].Position.Should().Be(10);
             differences.Tables[0].Target.Columns[9].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[9].Scale.Should().Be(0);
-            differences.Tables[0].Target.Columns[9].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[9].TypeName.Should().Be("int");
 
             differences.Tables[0].Columns.Should().HaveCount(9);
@@ -573,7 +553,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[1].Target.Columns[0].Position.Should().Be(1);
             differences.Tables[1].Target.Columns[0].Precision.Should().Be(10);
             differences.Tables[1].Target.Columns[0].Scale.Should().Be(0);
-            differences.Tables[1].Target.Columns[0].SystemTypeId.Should().Be(56);
             differences.Tables[1].Target.Columns[0].TypeName.Should().Be("int");
             differences.Tables[1].Target.ForeignKeys.Should().HaveCount(1);
             differences.Tables[1].Target.ForeignKeys[0].Columns.Should().HaveCount(1);
@@ -631,7 +610,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[2].Source.Columns[0].Position.Should().Be(1);
             differences.Tables[2].Source.Columns[0].Precision.Should().Be(10);
             differences.Tables[2].Source.Columns[0].Scale.Should().Be(0);
-            differences.Tables[2].Source.Columns[0].SystemTypeId.Should().Be(56);
             differences.Tables[2].Source.Columns[0].TypeName.Should().Be("int");
             differences.Tables[2].Source.Indexes.Should().HaveCount(2);
             differences.Tables[2].Source.Indexes[0].Columns.Should().HaveCount(1);
@@ -676,7 +654,8 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             differences.UserTypes[0].Source.Name.Should().Be("TypeDifference");
             differences.UserTypes[0].Target.Name.Should().Be("TypeDifference");
-            differences.UserTypes[0].Properties.Should().HaveCount(3);
+
+            differences.UserTypes[0].Properties.Should().HaveCount(2);
 
             differences.UserTypes[0].Properties[0].Name.Should().Be("IsNullable");
             differences.UserTypes[0].Properties[0].Source.Should().Be(false);
@@ -685,10 +664,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.UserTypes[0].Properties[1].Name.Should().Be("MaxLength");
             differences.UserTypes[0].Properties[1].Source.Should().Be(11);
             differences.UserTypes[0].Properties[1].Target.Should().Be(4);
-
-            differences.UserTypes[0].Properties[2].Name.Should().Be("SystemTypeId");
-            differences.UserTypes[0].Properties[2].Source.Should().Be(167);
-            differences.UserTypes[0].Properties[2].Target.Should().Be(56);
 
             differences.UserTypes[1].Source.Should().BeNull();
             differences.UserTypes[1].Target.Name.Should().Be("TypeTarget");

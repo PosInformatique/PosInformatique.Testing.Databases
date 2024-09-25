@@ -8,9 +8,6 @@
   
   ------ Columns ------
   - Type
-    * SystemTypeId:
-        Source: 56
-        Target: 167
     * MaxLength:
         Source: 4
         Target: 50
@@ -182,9 +179,6 @@
   * MaxLength:
       Source: 11
       Target: 4
-  * SystemTypeId:
-      Source: 167
-      Target: 56
 - TypeTarget (Missing in the source)
 - TypeSource (Missing in the target)
 
