@@ -18,8 +18,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// Gets the stored procedures in the <paramref name="database"/>.
         /// </summary>
         /// <param name="database">SQL Server database which the stored procedures have to be retrieve.</param>
-        /// <returns>The list of the stored procedures in the <paramref name="database"/>.</returns>
-        public static IReadOnlyList<SqlStoredProcedure> GetStoredProcedures(this SqlServerDatabase database)
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the list of the stored procedures in the <paramref name="database"/>.</returns>
+        public static async Task<IReadOnlyList<SqlStoredProcedure>> GetStoredProceduresAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
         {
             const string sql = @"
                 SELECT
@@ -37,7 +38,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 				    [s].[name],
 				    [p].[name]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.Rows.Cast<DataRow>().Select(ToStoredProcedure).ToArray();
         }
@@ -46,8 +47,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// Gets the tables in the <paramref name="database"/>.
         /// </summary>
         /// <param name="database">SQL Server database which the tables have to be retrieve.</param>
-        /// <returns>The list of the tables in the <paramref name="database"/>.</returns>
-        public static IReadOnlyList<SqlTable> GetTables(this SqlServerDatabase database)
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the list of the tables in the <paramref name="database"/>.</returns>
+        public static async Task<IReadOnlyList<SqlTable>> GetTablesAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
         {
             const string sql = @"
                 SELECT
@@ -63,36 +65,38 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [s].[name],
                     [t].[name]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             var tables = new List<SqlTable>(result.Rows.Count);
 
             // Gets the columns
-            var allColumns = GetColumns(database);
+            var allColumns = GetColumnsAsync(database, cancellationToken);
 
             // Gets the check constraints
-            var allCheckConstraints = GetCheckConstraints(database);
+            var allCheckConstraints = GetCheckConstraintsAsync(database, cancellationToken);
 
             // Gets the indexes
-            var allForeignKeys = GetForeignKeys(database);
+            var allForeignKeys = GetForeignKeysAsync(database, cancellationToken);
 
             // Gets the indexes
-            var allIndexes = GetIndexes(database);
+            var allIndexes = GetIndexesAsync(database, cancellationToken);
 
             // Gets the primary keys
-            var allPrimaryKeys = GetPrimaryKeys(database);
+            var allPrimaryKeys = GetPrimaryKeysAsync(database, cancellationToken);
 
             // Gets the triggers
-            var allTriggers = GetTriggers(database);
+            var allTriggers = GetTriggersAsync(database, cancellationToken);
 
             // Gets the unique constraints
-            var allUniqueConstraints = GetUniqueConstraints(database);
+            var allUniqueConstraints = GetUniqueConstraintsAsync(database, cancellationToken);
+
+            await Task.WhenAll(allColumns, allCheckConstraints, allForeignKeys, allIndexes, allPrimaryKeys, allTriggers, allUniqueConstraints);
 
             // Builds the SqlTable object
             foreach (var table in result.AsEnumerable())
             {
                 // Check constraints
-                var checkConstraintsTable = allCheckConstraints[(int)table["Id"]];
+                var checkConstraintsTable = allCheckConstraints.Result[(int)table["Id"]];
                 var checkConstraints = new List<SqlCheckConstraint>();
 
                 foreach (var checkConstraint in checkConstraintsTable.OrderBy(r => r["Name"]))
@@ -101,7 +105,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 }
 
                 // Columns
-                var columnsTable = allColumns[(int)table["Id"]];
+                var columnsTable = allColumns.Result[(int)table["Id"]];
                 var columns = new List<SqlColumn>();
 
                 foreach (var column in columnsTable.OrderBy(r => r["Position"]))
@@ -110,7 +114,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 }
 
                 // Indexes
-                var foreignKeysTable = allForeignKeys[(int)table["Id"]];
+                var foreignKeysTable = allForeignKeys.Result[(int)table["Id"]];
                 var foreignKeys = new List<SqlForeignKey>();
 
                 foreach (var foreignKey in foreignKeysTable.GroupBy(r => r["ForeignKeyName"]))
@@ -126,7 +130,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 }
 
                 // Indexes
-                var indexesTable = allIndexes[(int)table["Id"]];
+                var indexesTable = allIndexes.Result[(int)table["Id"]];
                 var indexes = new List<SqlIndex>();
 
                 foreach (var index in indexesTable.GroupBy(r => r["IndexName"]))
@@ -152,7 +156,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 }
 
                 // Primary key
-                var primaryKeyTable = allPrimaryKeys[(int)table["Id"]];
+                var primaryKeyTable = allPrimaryKeys.Result[(int)table["Id"]];
                 var primaryKeyColumns = new List<SqlPrimaryKeyColumn>();
 
                 foreach (var column in primaryKeyTable.OrderBy(r => r["Position"]))
@@ -163,7 +167,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 var primaryKey = ToPrimaryKey(primaryKeyTable.FirstOrDefault(), primaryKeyColumns);
 
                 // Triggers
-                var triggersTable = allTriggers[(int)table["Id"]];
+                var triggersTable = allTriggers.Result[(int)table["Id"]];
                 var triggers = new List<SqlTrigger>();
 
                 foreach (var trigger in triggersTable)
@@ -172,7 +176,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 }
 
                 // Unique constraints
-                var uniqueConstraintsTable = allUniqueConstraints[(int)table["Id"]];
+                var uniqueConstraintsTable = allUniqueConstraints.Result[(int)table["Id"]];
                 var uniqueConstraints = new List<SqlUniqueConstraint>();
 
                 foreach (var uniqueConstraint in uniqueConstraintsTable.GroupBy(r => r["ConstraintName"]))
@@ -203,8 +207,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// Gets the user types in the <paramref name="database"/>.
         /// </summary>
         /// <param name="database">SQL Server database which the user types have to be retrieve.</param>
-        /// <returns>The list of the views in the <paramref name="database"/>.</returns>
-        public static IReadOnlyList<SqlUserType> GetUserTypes(this SqlServerDatabase database)
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the list of the views in the <paramref name="database"/>.</returns>
+        public static async Task<IReadOnlyList<SqlUserType>> GetUserTypesAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
         {
             const string sql = @"
                 SELECT
@@ -218,7 +223,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 			    WHERE
 				    [t].[is_user_defined] = 1";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.Rows.Cast<DataRow>().Select(ToUserType).ToArray();
         }
@@ -227,8 +232,9 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// Gets the views in the <paramref name="database"/>.
         /// </summary>
         /// <param name="database">SQL Server database which the views have to be retrieve.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
         /// <returns>The list of the views in the <paramref name="database"/>.</returns>
-        public static IReadOnlyList<SqlView> GetViews(this SqlServerDatabase database)
+        public static async Task<IReadOnlyList<SqlView>> GetViewsAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
         {
             const string sql = @"
                 SELECT
@@ -246,12 +252,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [s].[name],
 				    [v].[name]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.Rows.Cast<DataRow>().Select(ToView).ToArray();
         }
 
-        private static ILookup<int, DataRow> GetCheckConstraints(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetCheckConstraintsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -268,12 +274,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [t].[name],
 				    [c].[name]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetColumns(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetColumnsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -302,12 +308,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 	                AND [t].[object_id] = [c].[object_id]
 	                AND [c].[user_type_id] = [ty].[user_type_id]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetForeignKeys(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetForeignKeysAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -338,12 +344,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 ORDER BY
                     [t].[object_id], [fk].[name], [fkc].[constraint_column_id]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetIndexes(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetIndexesAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -370,12 +376,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 				    AND [ic].[object_id] = [c].[object_id]
 			    ORDER BY [t].[name], [i].[name], [ic].[key_ordinal]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetPrimaryKeys(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetPrimaryKeysAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -400,12 +406,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 ORDER BY
                     [t].[object_id], [ic].[key_ordinal]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetUniqueConstraints(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetUniqueConstraintsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
                 SELECT
@@ -430,12 +436,12 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 ORDER BY
 	                [i].[name], [ic].[key_ordinal]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }
 
-        private static ILookup<int, DataRow> GetTriggers(SqlServerDatabase database)
+        private static async Task<ILookup<int, DataRow>> GetTriggersAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
 	            SELECT
@@ -452,7 +458,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 				    AND [tr].[object_id] = [c].[id]
                 ORDER BY [t].[object_id], [tr].[name]";
 
-            var result = database.ExecuteQuery(sql);
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
             return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
         }

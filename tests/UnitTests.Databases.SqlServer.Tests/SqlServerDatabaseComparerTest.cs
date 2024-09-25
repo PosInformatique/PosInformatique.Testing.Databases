@@ -12,16 +12,14 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Integrated Security=True";
 
         [Fact]
-        public void Compare()
+        public async Task CompareAsync()
         {
             var server = new SqlServer(ConnectionString);
 
             var sourceDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source");
             var targetDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target");
 
-            var comparer = new SqlServerDatabaseComparer();
-
-            var differences = comparer.Compare(sourceDatabase, targetDatabase);
+            var differences = await SqlServerDatabaseComparer.CompareAsync(sourceDatabase, targetDatabase);
 
             // StoredProcedures
             differences.StoredProcedures.Should().HaveCount(3);

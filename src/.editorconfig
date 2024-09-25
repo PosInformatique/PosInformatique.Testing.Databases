@@ -7,3 +7,6 @@
 ### C# style
 
 ### Visual Studio
+
+# IDE0063: Use simple 'using' statement
+dotnet_diagnostic.IDE0063.severity = none
