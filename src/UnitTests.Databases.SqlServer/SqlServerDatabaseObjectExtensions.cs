@@ -302,8 +302,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 	                [sys].[tables] AS [t],
 	                [sys].[types] AS [ty]
                 WHERE
-		                [t].[name] NOT IN ('__EFMigrationsHistory')
-	                AND [t].[object_id] = [c].[object_id]
+		                [t].[object_id] = [c].[object_id]
 	                AND [c].[user_type_id] = [ty].[user_type_id]";
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
@@ -331,8 +330,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [sys].[columns] AS [rc],
                     [sys].[tables] AS [rt]
                 WHERE
-                        [t].[name] NOT IN ('__EFMigrationsHistory')
-                    AND [t].[object_id] = [fk].[parent_object_id]
+                        [t].[object_id] = [fk].[parent_object_id]
                     AND [fk].[object_id] = [fkc].[constraint_object_id]
                     AND [fkc].[parent_column_id] = [pc].[column_id]
                     AND [pc].[object_id] = [t].[object_id]
@@ -374,8 +372,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [sys].[index_columns] AS [ic],
                     [sys].[columns] AS [c]
                 WHERE
-                        [t].[name] NOT IN ('__EFMigrationsHistory')
-                    AND [t].[object_id] = [i].[object_id]
+                        [t].[object_id] = [i].[object_id]
                     AND [i].[is_unique_constraint] = 0
                     AND [i].[object_id] = [ic].[object_id]
                     AND [i].[index_id] = [ic].[index_id]
@@ -403,8 +400,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                     [sys].[index_columns] AS [ic],
                     [sys].[columns] AS [c]
                 WHERE
-                        [t].[name] NOT IN ('__EFMigrationsHistory')
-                    AND [t].[object_id] = [i].[object_id]
+                        [t].[object_id] = [i].[object_id]
                     AND [i].[is_primary_key] = 1
                     AND [i].[object_id] = [ic].[object_id]
                     AND [i].[index_id] = [ic].[index_id]
@@ -433,8 +429,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 	                [sys].[index_columns] AS [ic],
 	                [sys].[columns] AS [c]
                 WHERE
-		                [t].[name] NOT IN ('__EFMigrationsHistory')
-	                AND [t].[object_id] = [i].[object_id]
+		                [t].[object_id] = [i].[object_id]
 	                AND [i].[is_unique_constraint] = 1
 	                AND [i].[object_id] = [ic].[object_id]
 	                AND [i].[index_id] = [ic].[index_id]
