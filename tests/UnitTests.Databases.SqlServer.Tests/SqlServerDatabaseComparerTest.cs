@@ -16,8 +16,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
         {
             var server = new SqlServer(ConnectionString);
 
-            var sourceDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source");
-            var targetDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target");
+            var sourceDatabase = Task.Run(() => server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source"));
+            var targetDatabase = Task.Run(() => server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target"));
+
+            await Task.WhenAll(sourceDatabase, targetDatabase);
 
             var options = new SqlDatabaseComparerOptions()
             {
@@ -28,7 +30,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
                 },
             };
 
-            var differences = await SqlServerDatabaseComparer.CompareAsync(sourceDatabase, targetDatabase, options);
+            var differences = await SqlServerDatabaseComparer.CompareAsync(sourceDatabase.Result, targetDatabase.Result, options);
 
             // StoredProcedures
             differences.StoredProcedures.Should().HaveCount(3);
