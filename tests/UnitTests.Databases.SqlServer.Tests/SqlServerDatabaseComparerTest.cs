@@ -66,7 +66,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].CheckConstraints[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Tables / Columns
-            differences.Tables[0].Source.Columns.Should().HaveCount(7);
+            differences.Tables[0].Source.Columns.Should().HaveCount(9);
 
             differences.Tables[0].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[0].ComputedExpression.Should().BeNull();
@@ -159,10 +159,36 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[6].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[6].TypeName.Should().Be("int");
 
+            differences.Tables[0].Source.Columns[7].CollationName.Should().BeNull();
+            differences.Tables[0].Source.Columns[7].ComputedExpression.Should().Be("([Scale]+[Precision])");
+            differences.Tables[0].Source.Columns[7].IsComputed.Should().BeTrue();
+            differences.Tables[0].Source.Columns[7].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[7].IsNullable.Should().BeTrue();
+            differences.Tables[0].Source.Columns[7].MaxLength.Should().Be(9);
+            differences.Tables[0].Source.Columns[7].Name.Should().Be("Computed");
+            differences.Tables[0].Source.Columns[7].Position.Should().Be(8);
+            differences.Tables[0].Source.Columns[7].Precision.Should().Be(11);
+            differences.Tables[0].Source.Columns[7].Scale.Should().Be(2);
+            differences.Tables[0].Source.Columns[7].SystemTypeId.Should().Be(106);
+            differences.Tables[0].Source.Columns[7].TypeName.Should().Be("decimal");
+
+            differences.Tables[0].Source.Columns[8].CollationName.Should().BeNull();
+            differences.Tables[0].Source.Columns[8].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[8].IsComputed.Should().BeFalse();
+            differences.Tables[0].Source.Columns[8].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[8].IsNullable.Should().BeFalse();
+            differences.Tables[0].Source.Columns[8].MaxLength.Should().Be(4);
+            differences.Tables[0].Source.Columns[8].Name.Should().Be("SourceColumn");
+            differences.Tables[0].Source.Columns[8].Position.Should().Be(9);
+            differences.Tables[0].Source.Columns[8].Precision.Should().Be(10);
+            differences.Tables[0].Source.Columns[8].Scale.Should().Be(0);
+            differences.Tables[0].Source.Columns[8].SystemTypeId.Should().Be(56);
+            differences.Tables[0].Source.Columns[8].TypeName.Should().Be("int");
+
             differences.Tables[0].Target.Name.Should().Be("TableDifference");
             differences.Tables[0].Target.Schema.Should().Be("dbo");
 
-            differences.Tables[0].Target.Columns.Should().HaveCount(7);
+            differences.Tables[0].Target.Columns.Should().HaveCount(9);
 
             differences.Tables[0].Target.Columns[0].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Target.Columns[0].ComputedExpression.Should().BeNull();
@@ -254,6 +280,32 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[6].Scale.Should().Be(0);
             differences.Tables[0].Target.Columns[6].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[6].TypeName.Should().Be("int");
+
+            differences.Tables[0].Target.Columns[7].CollationName.Should().BeNull();
+            differences.Tables[0].Target.Columns[7].ComputedExpression.Should().Be("([Scale]-[Precision])");
+            differences.Tables[0].Target.Columns[7].IsComputed.Should().BeTrue();
+            differences.Tables[0].Target.Columns[7].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[7].IsNullable.Should().BeTrue();
+            differences.Tables[0].Target.Columns[7].MaxLength.Should().Be(9);
+            differences.Tables[0].Target.Columns[7].Name.Should().Be("Computed");
+            differences.Tables[0].Target.Columns[7].Position.Should().Be(8);
+            differences.Tables[0].Target.Columns[7].Precision.Should().Be(11);
+            differences.Tables[0].Target.Columns[7].Scale.Should().Be(4);
+            differences.Tables[0].Target.Columns[7].SystemTypeId.Should().Be(106);
+            differences.Tables[0].Target.Columns[7].TypeName.Should().Be("decimal");
+
+            differences.Tables[0].Target.Columns[8].CollationName.Should().BeNull();
+            differences.Tables[0].Target.Columns[8].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[8].IsComputed.Should().BeFalse();
+            differences.Tables[0].Target.Columns[8].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[8].IsNullable.Should().BeFalse();
+            differences.Tables[0].Target.Columns[8].MaxLength.Should().Be(4);
+            differences.Tables[0].Target.Columns[8].Name.Should().Be("SourceColumn");
+            differences.Tables[0].Target.Columns[8].Position.Should().Be(9);
+            differences.Tables[0].Target.Columns[8].Precision.Should().Be(10);
+            differences.Tables[0].Target.Columns[8].Scale.Should().Be(0);
+            differences.Tables[0].Target.Columns[8].SystemTypeId.Should().Be(56);
+            differences.Tables[0].Target.Columns[8].TypeName.Should().Be("int");
 
             // Tables / Foreign keys
             differences.Tables[0].Source.ForeignKeys.Should().HaveCount(1);
@@ -656,6 +708,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
     * IsIdentity:
         Source: True
         Target: False
+  - Computed
+    * Scale:
+        Source: 2
+        Target: 4
+    * ComputedExpression:
+        Source: ([Scale]+[Precision])
+        Target: ([Scale]-[Precision])
   
   ------ Foreign keys ------
   - ForeignKeyDifference

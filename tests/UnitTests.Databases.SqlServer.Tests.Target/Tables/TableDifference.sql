@@ -7,4 +7,6 @@
 	[Scale]		DECIMAL(10, 4) NOT NULL,
 	[Identity]	INT NOT NULL,
 	[ForeignKeyId] INT NULL,
+    [Computed]  AS [Scale] - [Precision],
+    [SourceColumn] INT NOT NULL,
 )
