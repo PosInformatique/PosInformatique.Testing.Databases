@@ -76,6 +76,16 @@
       * Position:
           Source: 1
           Target: 2
+    ------ Included columns ------
+    - Scale
+      * Position:
+          Source: 2
+          Target: 1
+    - Precision
+      * Position:
+          Source: 1
+          Target: 2
+    - Identity (Missing in the target)
   - PrimaryKeyDifference
     * Type:
         Source: NONCLUSTERED

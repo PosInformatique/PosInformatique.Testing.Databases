@@ -351,28 +351,37 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         {
             const string sql = @"
                 SELECT
-				    [t].[object_id] AS [TableId],
-				    [i].[name] AS [IndexName],
-				    [c].[name] AS [ColumnName],
-				    [ic].[key_ordinal] AS [Position],
-				    [i].[type_desc] AS [Type],
-				    [i].[is_unique] AS [IsUnique],
-				    [ic].[is_included_column] AS [IsIncludedColumn],
-				    [i].[filter_definition] AS [Filter]
-			    FROM
-				    [sys].[indexes] AS [i],
-				    [sys].[tables] AS [t],
-				    [sys].[index_columns] AS [ic],
-				    [sys].[columns] AS [c]
-			    WHERE
-		                [t].[name] NOT IN ('__EFMigrationsHistory')
-				    AND [t].[object_id] = [i].[object_id]
-				    AND [i].[is_unique_constraint] = 0
-				    AND [i].[object_id] = [ic].[object_id]
-				    AND [i].[index_id] = [ic].[index_id]
-				    AND [ic].[column_id] = [c].[column_id]
-				    AND [ic].[object_id] = [c].[object_id]
-			    ORDER BY [t].[name], [i].[name], [ic].[key_ordinal]";
+                    [t].[object_id] AS [TableId],
+                    [i].[name] AS [IndexName],
+                    [c].[name] AS [ColumnName],
+	                ROW_NUMBER() OVER(
+		                PARTITION BY [t].[object_id], [i].[index_id], [ic].[is_included_column]
+		                ORDER BY
+			                [ic].[is_included_column],
+			                CASE
+				                WHEN [ic].[is_included_column] = 0 THEN [ic].[key_ordinal]
+				                ELSE [ic].[index_column_id]
+			                END
+		                ) AS [Position],
+                    [i].[type_desc] AS [Type],
+                    [i].[is_unique] AS [IsUnique],
+                    [ic].[is_included_column] AS [IsIncludedColumn],
+                    [i].[filter_definition] AS [Filter],
+	                [ic].*
+                FROM
+                    [sys].[indexes] AS [i],
+                    [sys].[tables] AS [t],
+                    [sys].[index_columns] AS [ic],
+                    [sys].[columns] AS [c]
+                WHERE
+                        [t].[name] NOT IN ('__EFMigrationsHistory')
+                    AND [t].[object_id] = [i].[object_id]
+                    AND [i].[is_unique_constraint] = 0
+                    AND [i].[object_id] = [ic].[object_id]
+                    AND [i].[index_id] = [ic].[index_id]
+                    AND [ic].[column_id] = [c].[column_id]
+                    AND [ic].[object_id] = [c].[object_id]
+                ORDER BY [t].[name], [i].[name], [ic].[index_column_id]";
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
