@@ -90,21 +90,13 @@ namespace PosInformatique.UnitTests.Databases
         {
             if (differences.Source is not null && differences.Target is not null)
             {
-                this.Indent();
                 this.Generate(differences.CheckConstraints, "Check constraints");
-                this.Unindent();
 
-                this.Indent();
                 this.Generate(differences.Columns, "Columns");
-                this.Unindent();
 
-                this.Indent();
                 this.Generate(differences.ForeignKeys, "Foreign keys");
-                this.Unindent();
 
-                this.Indent();
                 this.Generate(differences.Indexes, "Indexes");
-                this.Unindent();
 
                 if (differences.PrimaryKey is not null)
                 {
@@ -114,13 +106,9 @@ namespace PosInformatique.UnitTests.Databases
                     this.Unindent();
                 }
 
-                this.Indent();
                 this.Generate(differences.Triggers, "Triggers");
-                this.Unindent();
 
-                this.Indent();
                 this.Generate(differences.UniqueConstraints, "Unique constraints");
-                this.Unindent();
 
                 this.WriteProperties(differences.Properties);
             }
@@ -145,10 +133,9 @@ namespace PosInformatique.UnitTests.Databases
 
             foreach (var difference in differences)
             {
+                this.Write("- ");
                 this.GenerateCore(difference);
             }
-
-            this.WriteLine();
         }
 
         private void GenerateCore<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
@@ -156,19 +143,17 @@ namespace PosInformatique.UnitTests.Databases
         {
             this.WriteObjectName(differences);
 
+            this.Indent();
             differences.Accept(this);
+            this.Unindent();
         }
 
         private void WriteProperties(IEnumerable<SqlObjectPropertyDifference> properties)
         {
-            this.Indent();
-
             foreach (var property in properties)
             {
                 this.WriteProperty(property);
             }
-
-            this.Unindent();
         }
 
         private void WriteProperty(SqlObjectPropertyDifference property)
@@ -207,8 +192,6 @@ namespace PosInformatique.UnitTests.Databases
         private void WriteObjectName<TSqlObject>(SqlObjectDifferences<TSqlObject> difference)
             where TSqlObject : SqlObject
         {
-            this.Write("- ");
-
             if (difference.Source is null)
             {
                 this.WriteLine($"{difference.Target} (Missing in the source)");

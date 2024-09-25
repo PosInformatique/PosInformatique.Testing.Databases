@@ -5,7 +5,6 @@
     * Code:
         Source: ([Type]>(0))
         Target: ([Type]=(2) OR [Type]=(1))
-  
   ------ Columns ------
   - Type
     * MaxLength:
@@ -55,7 +54,6 @@
         Target: ([Scale]-[Precision])
   - TargetColumn (Missing in the source)
   - SourceColumn (Missing in the target)
-  
   ------ Foreign keys ------
   - ForeignKeyDifference
     * DeleteAction:
@@ -64,51 +62,46 @@
     * UpdateAction:
         Source: SET_NULL
         Target: CASCADE
-  
   ------ Indexes ------
   - IndexDifference
     * Filter:
         Source: ([Type]=(1234))
         Target: ([Type]='Target')
-  ------ Columns ------
-  - Type
-    * Position:
-        Source: 2
-        Target: 1
-  - ForeignKeyId
-    * Position:
-        Source: 1
-        Target: 2
-  
+    ------ Columns ------
+    - Type
+      * Position:
+          Source: 2
+          Target: 1
+    - ForeignKeyId
+      * Position:
+          Source: 1
+          Target: 2
   - PrimaryKeyDifference
     * Type:
         Source: NONCLUSTERED
         Target: CLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
-  
-  ------ Primary key ------
+    ------ Columns ------
+    - MaxLength
+      * Position:
+          Source: 2
+          Target: 1
+    - Type
+      * Position:
+          Source: 1
+          Target: 2
+    ------ Primary key ------
     * Type:
         Source: NONCLUSTERED
         Target: CLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
+    ------ Columns ------
+    - MaxLength
+      * Position:
+          Source: 2
+          Target: 1
+    - Type
+      * Position:
+          Source: 1
+          Target: 2
   ------ Triggers ------
   - TriggerDifference
     * IsInsteadOfTrigger:
@@ -131,26 +124,22 @@
             BEGIN
               PRINT 'From target'
             END
-  
   ------ Unique constraints ------
   - UniqueConstraintDifference
     * Type:
         Source: CLUSTERED
         Target: NONCLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
-  
+    ------ Columns ------
+    - MaxLength
+      * Position:
+          Source: 2
+          Target: 1
+    - Type
+      * Position:
+          Source: 1
+          Target: 2
 - dbo.TableTarget (Missing in the source)
 - dbo.TableSource (Missing in the target)
-
 ------ Stored procedures ------
 - dbo.StoredProcedureDifference
   * Code:
@@ -170,7 +159,6 @@
         RETURN 0
 - dbo.StoredProcedureTarget (Missing in the source)
 - dbo.StoredProcedureSource (Missing in the target)
-
 ------ User types ------
 - TypeDifference
   * IsNullable:
@@ -181,7 +169,6 @@
       Target: 4
 - TypeTarget (Missing in the source)
 - TypeSource (Missing in the target)
-
 ------ Views ------
 - dbo.ViewDifference
   * Code:
@@ -193,4 +180,3 @@
           AS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'
 - dbo.ViewTarget (Missing in the source)
 - dbo.ViewSource (Missing in the target)
-
