@@ -35,7 +35,7 @@ namespace PosInformatique.UnitTests.Databases.Tests
 
             var difference = new SqlObjectDifferences<SqlUserType>(source, target, default, properties);
 
-            difference.ToString().Should().Be("* The prop1:\r\n      Source: 10\r\n      Target: 20\r\n  * The prop2:\r\n      Source: 30\r\n      Target: 40\r\n");
+            difference.ToString().Should().Be("- The source\r\n  * The prop1:\r\n      Source: 10\r\n      Target: 20\r\n  * The prop2:\r\n      Source: 30\r\n      Target: 40\r\n");
         }
     }
 }

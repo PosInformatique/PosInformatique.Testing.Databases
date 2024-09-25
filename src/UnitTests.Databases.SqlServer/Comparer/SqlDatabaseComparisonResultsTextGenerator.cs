@@ -36,7 +36,7 @@ namespace PosInformatique.UnitTests.Databases
         {
             using var generator = new SqlDatabaseComparisonResultsTextGenerator();
 
-            differences.Accept(generator);
+            generator.GenerateCore(differences);
 
             return generator.writer.ToString();
         }
@@ -145,12 +145,18 @@ namespace PosInformatique.UnitTests.Databases
 
             foreach (var difference in differences)
             {
-                this.WriteObjectName(difference);
-
-                difference.Accept(this);
+                this.GenerateCore(difference);
             }
 
             this.WriteLine();
+        }
+
+        private void GenerateCore<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
+            where TSqlObject : SqlObject
+        {
+            this.WriteObjectName(differences);
+
+            differences.Accept(this);
         }
 
         private void WriteProperties(IEnumerable<SqlObjectPropertyDifference> properties)
