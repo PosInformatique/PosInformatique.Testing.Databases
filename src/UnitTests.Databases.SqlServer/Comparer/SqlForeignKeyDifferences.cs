@@ -26,7 +26,7 @@ namespace PosInformatique.UnitTests.Databases
 
         internal SqlForeignKeyDifferences(
             SqlObjectDifferences<SqlForeignKey> differences)
-            : base(differences.Source, differences.Target, differences.Type, differences.Properties)
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [])
         {
         }
 

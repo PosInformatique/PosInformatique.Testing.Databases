@@ -25,6 +25,10 @@ namespace PosInformatique.UnitTests.Databases
             {
                 this.Properties = new ReadOnlyCollection<SqlObjectPropertyDifference>(properties.ToArray());
             }
+            else
+            {
+                this.Properties = new ReadOnlyCollection<SqlObjectPropertyDifference>([]);
+            }
         }
 
         /// <summary>

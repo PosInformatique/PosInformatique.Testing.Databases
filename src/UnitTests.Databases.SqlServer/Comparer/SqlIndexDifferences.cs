@@ -28,7 +28,7 @@ namespace PosInformatique.UnitTests.Databases
 
         internal SqlIndexDifferences(
             SqlObjectDifferences<SqlIndex> differences)
-            : base(differences.Source, differences.Target, differences.Type, differences.Properties)
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [], [])
         {
         }
 

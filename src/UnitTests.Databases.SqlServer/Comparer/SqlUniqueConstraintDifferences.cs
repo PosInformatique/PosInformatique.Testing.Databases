@@ -26,7 +26,7 @@ namespace PosInformatique.UnitTests.Databases
 
         internal SqlUniqueConstraintDifferences(
             SqlObjectDifferences<SqlUniqueConstraint> differences)
-            : base(differences.Source, differences.Target, differences.Type, differences.Properties)
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [])
         {
         }
 

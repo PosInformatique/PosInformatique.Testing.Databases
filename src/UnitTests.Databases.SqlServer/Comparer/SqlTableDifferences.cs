@@ -36,7 +36,7 @@ namespace PosInformatique.UnitTests.Databases
 
         internal SqlTableDifferences(
             SqlObjectDifferences<SqlTable> differences)
-            : base(differences.Source, differences.Target, differences.Type, differences.Properties)
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [], [], [], [], [], [])
         {
         }
 
