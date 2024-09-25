@@ -9,4 +9,5 @@
 	[ForeignKeyId] INT NULL,
     [Computed]  AS [Scale] + [Precision],
     [SourceColumn] INT NOT NULL,
+    [IdenticalColumn] INT NOT NULL,
 )

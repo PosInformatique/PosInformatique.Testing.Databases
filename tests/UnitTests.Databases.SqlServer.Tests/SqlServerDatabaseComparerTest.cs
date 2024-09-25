@@ -44,6 +44,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables.Should().HaveCount(3);
 
             differences.Tables[0].Source.Name.Should().Be("TableDifference");
+            differences.Tables[0].Source.Schema.Should().Be("dbo");
 
             // Tables / Check constraints
             differences.Tables[0].Source.CheckConstraints.Should().HaveCount(1);
@@ -66,7 +67,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].CheckConstraints[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Tables / Columns
-            differences.Tables[0].Source.Columns.Should().HaveCount(9);
+            differences.Tables[0].Source.Columns.Should().HaveCount(10);
 
             differences.Tables[0].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[0].ComputedExpression.Should().BeNull();
@@ -185,10 +186,23 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[8].SystemTypeId.Should().Be(56);
             differences.Tables[0].Source.Columns[8].TypeName.Should().Be("int");
 
+            differences.Tables[0].Source.Columns[9].CollationName.Should().BeNull();
+            differences.Tables[0].Source.Columns[9].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[9].IsComputed.Should().BeFalse();
+            differences.Tables[0].Source.Columns[9].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[9].IsNullable.Should().BeFalse();
+            differences.Tables[0].Source.Columns[9].MaxLength.Should().Be(4);
+            differences.Tables[0].Source.Columns[9].Name.Should().Be("IdenticalColumn");
+            differences.Tables[0].Source.Columns[9].Position.Should().Be(10);
+            differences.Tables[0].Source.Columns[9].Precision.Should().Be(10);
+            differences.Tables[0].Source.Columns[9].Scale.Should().Be(0);
+            differences.Tables[0].Source.Columns[9].SystemTypeId.Should().Be(56);
+            differences.Tables[0].Source.Columns[9].TypeName.Should().Be("int");
+
             differences.Tables[0].Target.Name.Should().Be("TableDifference");
             differences.Tables[0].Target.Schema.Should().Be("dbo");
 
-            differences.Tables[0].Target.Columns.Should().HaveCount(9);
+            differences.Tables[0].Target.Columns.Should().HaveCount(10);
 
             differences.Tables[0].Target.Columns[0].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Target.Columns[0].ComputedExpression.Should().BeNull();
@@ -300,12 +314,63 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[8].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[8].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[8].MaxLength.Should().Be(4);
-            differences.Tables[0].Target.Columns[8].Name.Should().Be("SourceColumn");
+            differences.Tables[0].Target.Columns[8].Name.Should().Be("TargetColumn");
             differences.Tables[0].Target.Columns[8].Position.Should().Be(9);
             differences.Tables[0].Target.Columns[8].Precision.Should().Be(10);
             differences.Tables[0].Target.Columns[8].Scale.Should().Be(0);
             differences.Tables[0].Target.Columns[8].SystemTypeId.Should().Be(56);
             differences.Tables[0].Target.Columns[8].TypeName.Should().Be("int");
+
+            differences.Tables[0].Target.Columns[9].CollationName.Should().BeNull();
+            differences.Tables[0].Target.Columns[9].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[9].IsComputed.Should().BeFalse();
+            differences.Tables[0].Target.Columns[9].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[9].IsNullable.Should().BeFalse();
+            differences.Tables[0].Target.Columns[9].MaxLength.Should().Be(4);
+            differences.Tables[0].Target.Columns[9].Name.Should().Be("IdenticalColumn");
+            differences.Tables[0].Target.Columns[9].Position.Should().Be(10);
+            differences.Tables[0].Target.Columns[9].Precision.Should().Be(10);
+            differences.Tables[0].Target.Columns[9].Scale.Should().Be(0);
+            differences.Tables[0].Target.Columns[9].SystemTypeId.Should().Be(56);
+            differences.Tables[0].Target.Columns[9].TypeName.Should().Be("int");
+
+            differences.Tables[0].Columns.Should().HaveCount(9);
+
+            differences.Tables[0].Columns[0].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[0]);
+            differences.Tables[0].Columns[0].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[0]);
+            differences.Tables[0].Columns[0].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[1].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[1]);
+            differences.Tables[0].Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[1]);
+            differences.Tables[0].Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[2].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[3]);
+            differences.Tables[0].Columns[2].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[2]);
+            differences.Tables[0].Columns[2].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[3].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[2]);
+            differences.Tables[0].Columns[3].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[3]);
+            differences.Tables[0].Columns[3].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[4].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[4]);
+            differences.Tables[0].Columns[4].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[4]);
+            differences.Tables[0].Columns[4].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[5].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[5]);
+            differences.Tables[0].Columns[5].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[5]);
+            differences.Tables[0].Columns[5].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[6].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[7]);
+            differences.Tables[0].Columns[6].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[7]);
+            differences.Tables[0].Columns[6].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[7].Source.Should().BeNull();
+            differences.Tables[0].Columns[7].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[8]);
+            differences.Tables[0].Columns[7].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
+
+            differences.Tables[0].Columns[8].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[8]);
+            differences.Tables[0].Columns[8].Target.Should().BeNull();
+            differences.Tables[0].Columns[8].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
 
             // Tables / Foreign keys
             differences.Tables[0].Source.ForeignKeys.Should().HaveCount(1);
@@ -657,207 +722,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
 
             var differenceText = differences.ToString();
 
-            differenceText.Should().Be(@"------ Tables ------
-- dbo.TableDifference
-  ------ Check constraints ------
-  - CheckConstraintDifference
-    * Code:
-        Source: ([Type]>(0))
-        Target: ([Type]=(2) OR [Type]=(1))
-  
-  ------ Columns ------
-  - Type
-    * SystemTypeId:
-        Source: 56
-        Target: 167
-    * MaxLength:
-        Source: 4
-        Target: 50
-    * Precision:
-        Source: 10
-        Target: 0
-    * CollationName:
-        Source: <No value>
-        Target: SQL_Latin1_General_CP1_CI_AS
-  - Nullable
-    * IsNullable:
-        Source: True
-        Target: False
-  - Precision
-    * Position:
-        Source: 4
-        Target: 3
-    * MaxLength:
-        Source: 9
-        Target: 5
-    * Precision:
-        Source: 10
-        Target: 5
-  - MaxLength
-    * Position:
-        Source: 3
-        Target: 4
-    * MaxLength:
-        Source: 50
-        Target: 20
-  - Scale
-    * Scale:
-        Source: 2
-        Target: 4
-  - Identity
-    * IsIdentity:
-        Source: True
-        Target: False
-  - Computed
-    * Scale:
-        Source: 2
-        Target: 4
-    * ComputedExpression:
-        Source: ([Scale]+[Precision])
-        Target: ([Scale]-[Precision])
-  
-  ------ Foreign keys ------
-  - ForeignKeyDifference
-    * DeleteAction:
-        Source: NO_ACTION
-        Target: CASCADE
-    * UpdateAction:
-        Source: SET_NULL
-        Target: CASCADE
-  
-  ------ Indexes ------
-  - IndexDifference
-    * Filter:
-        Source: ([Type]=(1234))
-        Target: ([Type]='Target')
-  ------ Columns ------
-  - Type
-    * Position:
-        Source: 2
-        Target: 1
-  - ForeignKeyId
-    * Position:
-        Source: 1
-        Target: 2
-  
-  - PrimaryKeyDifference
-    * Type:
-        Source: NONCLUSTERED
-        Target: CLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
-  
-  ------ Primary key ------
-    * Type:
-        Source: NONCLUSTERED
-        Target: CLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
-  ------ Triggers ------
-  - TriggerDifference
-    * IsInsteadOfTrigger:
-        Source: True
-        Target: False
-    * Code:
-        Source: 
-          CREATE TRIGGER [TriggerDifference]
-            ON [dbo].[TableDifference]
-            INSTEAD OF INSERT
-            AS
-            BEGIN
-              PRINT 'From source'
-            END
-        Target: 
-          CREATE TRIGGER [TriggerDifference]
-            ON [dbo].[TableDifference]
-            FOR INSERT
-            AS
-            BEGIN
-              PRINT 'From target'
-            END
-  
-  ------ Unique constraints ------
-  - UniqueConstraintDifference
-    * Type:
-        Source: CLUSTERED
-        Target: NONCLUSTERED
-  ------ Columns ------
-  - MaxLength
-    * Position:
-        Source: 2
-        Target: 1
-  - Type
-    * Position:
-        Source: 1
-        Target: 2
-  
-  
-- dbo.TableTarget (Missing in the source)
-- dbo.TableSource (Missing in the target)
-
------- Stored procedures ------
-- dbo.StoredProcedureDifference
-  * Code:
-      Source: 
-        CREATE PROCEDURE [dbo].[StoredProcedureDifference]
-          @param1 int = 0,
-          @param2 int
-        AS
-          SELECT @param2
-        RETURN 0
-      Target: 
-        CREATE PROCEDURE [dbo].[StoredProcedureDifference]
-          @param1 int = 0,
-          @param2 int
-        AS
-          SELECT @param1
-        RETURN 0
-- dbo.StoredProcedureTarget (Missing in the source)
-- dbo.StoredProcedureSource (Missing in the target)
-
------- User types ------
-- TypeDifference
-  * IsNullable:
-      Source: False
-      Target: True
-  * MaxLength:
-      Source: 11
-      Target: 4
-  * SystemTypeId:
-      Source: 167
-      Target: 56
-- TypeTarget (Missing in the source)
-- TypeSource (Missing in the target)
-
------- Views ------
-- dbo.ViewDifference
-  * Code:
-      Source: 
-        CREATE VIEW [dbo].[ViewDifference]
-          AS SELECT * FROM [TableDifference] WHERE [Type] = 10
-      Target: 
-        CREATE VIEW [dbo].[ViewDifference]
-          AS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'
-- dbo.ViewTarget (Missing in the source)
-- dbo.ViewSource (Missing in the target)
-
-");
+            differenceText.Should().Be(File.ReadAllText("SqlServerDatabaseComparerTest.CompareAsync.txt"));
         }
     }
 }
