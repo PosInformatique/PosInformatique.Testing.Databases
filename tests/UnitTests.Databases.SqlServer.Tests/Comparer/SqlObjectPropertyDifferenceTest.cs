@@ -13,7 +13,7 @@ namespace PosInformatique.UnitTests.Databases.Tests
         {
             var difference = new SqlObjectPropertyDifference("The name", 12, 34);
 
-            difference.ToString().Should().Be("The name: 12 => 34");
+            difference.ToString().Should().Be("* The name:\r\n    Source: 12\r\n    Target: 34\r\n");
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace PosInformatique.UnitTests.Databases.Tests
         {
             var difference = new SqlObjectPropertyDifference("The name", null, null);
 
-            difference.ToString().Should().Be("The name: null => null");
+            difference.ToString().Should().Be("* The name:\r\n    Source: <No value>\r\n    Target: <No value>\r\n");
         }
     }
 }

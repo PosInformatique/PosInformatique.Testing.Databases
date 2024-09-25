@@ -7,6 +7,7 @@
 namespace PosInformatique.UnitTests.Databases
 {
     using System.Collections.ObjectModel;
+    using PosInformatique.UnitTests.Databases.SqlServer;
 
     /// <summary>
     /// Represents the differences between 2 databases.
@@ -36,5 +37,14 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the views which are different between two databases.
         /// </summary>
         public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlView>> Views { get; init; }
+
+        /// <summary>
+        /// Returns a textual representation of the result comparison.
+        /// </summary>
+        /// <returns>A textual representation of the result comparison.</returns>
+        public override string ToString()
+        {
+            return SqlDatabaseComparisonResultsTextGenerator.Generate(this);
+        }
     }
 }

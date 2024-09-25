@@ -8,14 +8,14 @@ namespace PosInformatique.UnitTests.Databases
 {
     internal static class StringHelper
     {
-        public static string? ToStringNull(object? @object)
+        public static string ToStringNull(object? @object, string valueIfNull = "null")
         {
             if (@object is null)
             {
-                return "null";
+                return valueIfNull;
             }
 
-            return @object.ToString();
+            return @object.ToString()!;
         }
     }
 }

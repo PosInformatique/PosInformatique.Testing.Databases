@@ -46,5 +46,19 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the property changes between <see cref="Source"/> and <see cref="Target"/>.
         /// </summary>
         public ReadOnlyCollection<SqlObjectPropertyDifference> Properties { get; init; }
+
+        /// <summary>
+        /// Returns a textual representation of the result comparison.
+        /// </summary>
+        /// <returns>A textual representation of the result comparison.</returns>
+        public override string ToString()
+        {
+            return SqlDatabaseComparisonResultsTextGenerator.Generate(this);
+        }
+
+        internal virtual void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

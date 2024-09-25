@@ -34,5 +34,10 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the difference of the columns in the foreign key compared.
         /// </summary>
         public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlForeignKeyColumn>> Columns { get; }
+
+        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

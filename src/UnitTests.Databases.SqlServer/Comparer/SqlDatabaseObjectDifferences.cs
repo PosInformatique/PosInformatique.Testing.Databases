@@ -6,8 +6,6 @@
 
 namespace PosInformatique.UnitTests.Databases
 {
-    using System.Collections.ObjectModel;
-
     /// <summary>
     /// Represents the differences of <see cref="SqlObject"/> between two databases.
     /// </summary>

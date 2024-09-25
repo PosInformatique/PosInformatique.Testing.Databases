@@ -34,5 +34,10 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the difference of the columns in the unique constraint compared.
         /// </summary>
         public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>> Columns { get; }
+
+        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

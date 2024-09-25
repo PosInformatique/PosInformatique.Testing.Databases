@@ -41,5 +41,10 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the included columns differences in the index compared.
         /// </summary>
         public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>> IncludedColumns { get; }
+
+        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

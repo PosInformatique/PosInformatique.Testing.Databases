@@ -74,5 +74,10 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the unique constraints differences between the two SQL tables.
         /// </summary>
         public ReadOnlyCollection<SqlUniqueConstraintDifferences> UniqueConstraints { get; }
+
+        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

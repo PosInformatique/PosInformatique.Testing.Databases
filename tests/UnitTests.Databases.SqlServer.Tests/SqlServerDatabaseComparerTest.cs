@@ -604,6 +604,203 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Views[2].Source.Schema.Should().Be("dbo");
             differences.Views[2].Target.Should().BeNull();
             differences.Views[2].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
+
+            var differenceText = differences.ToString();
+
+            differenceText.Should().Be(@"------ Tables ------
+- dbo.TableDifference
+  ------ Check constraints ------
+  - CheckConstraintDifference
+    * Code:
+        Source: ([Type]>(0))
+        Target: ([Type]=(2) OR [Type]=(1))
+  
+  ------ Columns ------
+  - Type
+    * SystemTypeId:
+        Source: 56
+        Target: 167
+    * MaxLength:
+        Source: 4
+        Target: 50
+    * Precision:
+        Source: 10
+        Target: 0
+    * CollationName:
+        Source: <No value>
+        Target: SQL_Latin1_General_CP1_CI_AS
+  - Nullable
+    * IsNullable:
+        Source: True
+        Target: False
+  - Precision
+    * Position:
+        Source: 4
+        Target: 3
+    * MaxLength:
+        Source: 9
+        Target: 5
+    * Precision:
+        Source: 10
+        Target: 5
+  - MaxLength
+    * Position:
+        Source: 3
+        Target: 4
+    * MaxLength:
+        Source: 50
+        Target: 20
+  - Scale
+    * Scale:
+        Source: 2
+        Target: 4
+  - Identity
+    * IsIdentity:
+        Source: True
+        Target: False
+  
+  ------ Foreign keys ------
+  - ForeignKeyDifference
+    * DeleteAction:
+        Source: NO_ACTION
+        Target: CASCADE
+    * UpdateAction:
+        Source: SET_NULL
+        Target: CASCADE
+  
+  ------ Indexes ------
+  - IndexDifference
+    * Filter:
+        Source: ([Type]=(1234))
+        Target: ([Type]='Target')
+  ------ Columns ------
+  - Type
+    * Position:
+        Source: 2
+        Target: 1
+  - ForeignKeyId
+    * Position:
+        Source: 1
+        Target: 2
+  
+  - PrimaryKeyDifference
+    * Type:
+        Source: NONCLUSTERED
+        Target: CLUSTERED
+  ------ Columns ------
+  - MaxLength
+    * Position:
+        Source: 2
+        Target: 1
+  - Type
+    * Position:
+        Source: 1
+        Target: 2
+  
+  
+  ------ Primary key ------
+    * Type:
+        Source: NONCLUSTERED
+        Target: CLUSTERED
+  ------ Columns ------
+  - MaxLength
+    * Position:
+        Source: 2
+        Target: 1
+  - Type
+    * Position:
+        Source: 1
+        Target: 2
+  
+  ------ Triggers ------
+  - TriggerDifference
+    * IsInsteadOfTrigger:
+        Source: True
+        Target: False
+    * Code:
+        Source: 
+          CREATE TRIGGER [TriggerDifference]
+            ON [dbo].[TableDifference]
+            INSTEAD OF INSERT
+            AS
+            BEGIN
+              PRINT 'From source'
+            END
+        Target: 
+          CREATE TRIGGER [TriggerDifference]
+            ON [dbo].[TableDifference]
+            FOR INSERT
+            AS
+            BEGIN
+              PRINT 'From target'
+            END
+  
+  ------ Unique constraints ------
+  - UniqueConstraintDifference
+    * Type:
+        Source: CLUSTERED
+        Target: NONCLUSTERED
+  ------ Columns ------
+  - MaxLength
+    * Position:
+        Source: 2
+        Target: 1
+  - Type
+    * Position:
+        Source: 1
+        Target: 2
+  
+  
+- dbo.TableTarget (Missing in the source)
+- dbo.TableSource (Missing in the target)
+
+------ Stored procedures ------
+- dbo.StoredProcedureDifference
+  * Code:
+      Source: 
+        CREATE PROCEDURE [dbo].[StoredProcedureDifference]
+          @param1 int = 0,
+          @param2 int
+        AS
+          SELECT @param2
+        RETURN 0
+      Target: 
+        CREATE PROCEDURE [dbo].[StoredProcedureDifference]
+          @param1 int = 0,
+          @param2 int
+        AS
+          SELECT @param1
+        RETURN 0
+- dbo.StoredProcedureTarget (Missing in the source)
+- dbo.StoredProcedureSource (Missing in the target)
+
+------ User types ------
+- TypeDifference
+  * IsNullable:
+      Source: False
+      Target: True
+  * MaxLength:
+      Source: 11
+      Target: 4
+  * SystemTypeId:
+      Source: 167
+      Target: 56
+- TypeTarget (Missing in the source)
+- TypeSource (Missing in the target)
+
+------ Views ------
+- dbo.ViewDifference
+  * Code:
+      Source: 
+        CREATE VIEW [dbo].[ViewDifference]
+          AS SELECT * FROM [TableDifference] WHERE [Type] = 10
+      Target: 
+        CREATE VIEW [dbo].[ViewDifference]
+          AS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'
+- dbo.ViewTarget (Missing in the source)
+- dbo.ViewSource (Missing in the target)
+
+");
         }
     }
 }

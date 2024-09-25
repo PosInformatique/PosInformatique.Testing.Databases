@@ -28,5 +28,10 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the difference of the columns in the primary key compared.
         /// </summary>
         public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlPrimaryKeyColumn>> Columns { get; }
+
+        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

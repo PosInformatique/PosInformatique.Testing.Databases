@@ -36,7 +36,7 @@ namespace PosInformatique.UnitTests.Databases
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{this.Name}: {StringHelper.ToStringNull(this.Source)} => {StringHelper.ToStringNull(this.Target)}";
+            return SqlDatabaseComparisonResultsTextGenerator.Generate(this);
         }
     }
 }
