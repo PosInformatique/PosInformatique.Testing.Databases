@@ -7,7 +7,6 @@
 namespace PosInformatique.UnitTests.Databases
 {
     using System.Collections.ObjectModel;
-    using PosInformatique.UnitTests.Databases.SqlServer;
 
     /// <summary>
     /// Represents the differences between 2 databases.
@@ -37,6 +36,37 @@ namespace PosInformatique.UnitTests.Databases
         /// Gets the views which are different between two databases.
         /// </summary>
         public required ReadOnlyCollection<SqlObjectDifferences<SqlView>> Views { get; init; }
+
+        /// <summary>
+        /// Gets a value indicating whether if the two database compared have the same schema.
+        /// </summary>
+        public bool IsIdentical
+        {
+            get
+            {
+                if (this.StoredProcedures.Count > 0)
+                {
+                    return false;
+                }
+
+                if (this.Tables.Count > 0)
+                {
+                    return false;
+                }
+
+                if (this.UserTypes.Count > 0)
+                {
+                    return false;
+                }
+
+                if (this.Views.Count > 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         /// <summary>
         /// Returns a textual representation of the result comparison.
