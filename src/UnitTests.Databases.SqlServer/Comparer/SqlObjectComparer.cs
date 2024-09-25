@@ -210,7 +210,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count > 0 || primaryKeyDifferences is not null)
             {
-                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, Array.Empty<SqlObjectPropertyDifference>(), columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
+                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, [], columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
                 {
                     PrimaryKey = primaryKeyDifferences,
                 };
@@ -308,7 +308,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         {
             if (value is null)
             {
-                return Array.Empty<T>();
+                return [];
             }
 
             return [value];
