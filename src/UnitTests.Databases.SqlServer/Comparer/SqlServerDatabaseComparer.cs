@@ -18,17 +18,23 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         /// </summary>
         /// <param name="source">First database to compare with <paramref name="target"/>.</param>
         /// <param name="target">Second database to compare with <paramref name="source"/>.</param>
+        /// <param name="options">Options of the comparison between the two database.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the difference between the two databases.</returns>
-        public static async Task<SqlDatabaseComparisonResults> CompareAsync(SqlServerDatabase source, SqlServerDatabase target, CancellationToken cancellationToken = default)
+        public static async Task<SqlDatabaseComparisonResults> CompareAsync(SqlServerDatabase source, SqlServerDatabase target, SqlDatabaseComparerOptions? options = null, CancellationToken cancellationToken = default)
         {
+            if (options == null)
+            {
+                options = new SqlDatabaseComparerOptions();
+            }
+
             // Gets the stored procedures
             var sourceStoredProcedures = source.GetStoredProceduresAsync(cancellationToken);
             var targetStoredProcedures = target.GetStoredProceduresAsync(cancellationToken);
 
             // Gets the tables
-            var sourceTables = source.GetTablesAsync(cancellationToken);
-            var targetTables = target.GetTablesAsync(cancellationToken);
+            var sourceTablesTask = source.GetTablesAsync(cancellationToken);
+            var targetTablesTask = target.GetTablesAsync(cancellationToken);
 
             // Gets the user types
             var sourceUserTypes = source.GetUserTypesAsync(cancellationToken);
@@ -41,15 +47,18 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             await Task.WhenAll(
                 sourceStoredProcedures,
                 targetStoredProcedures,
-                sourceTables,
-                targetTables,
+                sourceTablesTask,
+                targetTablesTask,
                 sourceUserTypes,
                 targetUserTypes,
                 sourceViews,
                 targetViews);
 
+            var sourceTables = sourceTablesTask.Result.Where(t => !options.ExcludedTables.Contains(t.Name)).ToArray();
+            var targetTables = targetTablesTask.Result.Where(t => !options.ExcludedTables.Contains(t.Name)).ToArray();
+
             var storedProceduresDifferences = SqlObjectComparer.Compare(sourceStoredProcedures.Result, targetStoredProcedures.Result, sp => sp.Schema + "." + sp.Name);
-            var tablesDifferences = SqlObjectComparer.Compare(sourceTables.Result, targetTables.Result);
+            var tablesDifferences = SqlObjectComparer.Compare(sourceTables, targetTables);
             var userTypesDifferences = SqlObjectComparer.Compare(sourceUserTypes.Result, targetUserTypes.Result, ut => ut.Name);
             var viewsDifferences = SqlObjectComparer.Compare(sourceViews.Result, targetViews.Result, v => v.Schema + "." + v.Name);
 

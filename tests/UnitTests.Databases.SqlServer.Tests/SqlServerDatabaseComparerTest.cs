@@ -19,7 +19,16 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             var sourceDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source");
             var targetDatabase = server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target");
 
-            var differences = await SqlServerDatabaseComparer.CompareAsync(sourceDatabase, targetDatabase);
+            var options = new SqlDatabaseComparerOptions()
+            {
+                ExcludedTables =
+                {
+                    "__EFMigrationsHistorySource",
+                    "__EFMigrationsHistoryTarget",
+                },
+            };
+
+            var differences = await SqlServerDatabaseComparer.CompareAsync(sourceDatabase, targetDatabase, options);
 
             // StoredProcedures
             differences.StoredProcedures.Should().HaveCount(3);
@@ -534,11 +543,11 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[0].UniqueConstraints[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Missing tables
-            differences.Tables[1].Columns.Should().BeNull();
-            differences.Tables[1].Indexes.Should().BeNull();
+            differences.Tables[1].Columns.Should().BeEmpty();
+            differences.Tables[1].Indexes.Should().BeEmpty();
             differences.Tables[1].PrimaryKey.Should().BeNull();
             differences.Tables[1].Source.Should().BeNull();
-            differences.Tables[1].UniqueConstraints.Should().BeNull();
+            differences.Tables[1].UniqueConstraints.Should().BeEmpty();
             differences.Tables[1].Target.CheckConstraints.Should().HaveCount(1);
             differences.Tables[1].Target.CheckConstraints[0].Name.Should().Be("CheckConstraintTarget");
             differences.Tables[1].Target.CheckConstraints[0].Code.Should().Be("([Id]>(0))");
@@ -589,13 +598,13 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[1].Target.UniqueConstraints[0].Columns[0].Position.Should().Be(1);
             differences.Tables[1].Target.UniqueConstraints[0].Name.Should().Be("UniqueConstraintTarget");
             differences.Tables[1].Target.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
-            differences.Tables[1].Triggers.Should().BeNull();
+            differences.Tables[1].Triggers.Should().BeEmpty();
             differences.Tables[1].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
 
-            differences.Tables[2].Columns.Should().BeNull();
-            differences.Tables[2].Indexes.Should().BeNull();
+            differences.Tables[2].Columns.Should().BeEmpty();
+            differences.Tables[2].Indexes.Should().BeEmpty();
             differences.Tables[2].PrimaryKey.Should().BeNull();
-            differences.Tables[2].UniqueConstraints.Should().BeNull();
+            differences.Tables[2].UniqueConstraints.Should().BeEmpty();
             differences.Tables[2].Source.CheckConstraints.Should().HaveCount(1);
             differences.Tables[2].Source.CheckConstraints[0].Name.Should().Be("CheckConstraintSource");
             differences.Tables[2].Source.CheckConstraints[0].Code.Should().Be("([Id]>(0))");
@@ -646,7 +655,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
             differences.Tables[2].Source.UniqueConstraints[0].Columns[0].Position.Should().Be(1);
             differences.Tables[2].Source.UniqueConstraints[0].Name.Should().Be("UniqueConstraintSource");
             differences.Tables[2].Source.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
-            differences.Tables[2].Triggers.Should().BeNull();
+            differences.Tables[2].Triggers.Should().BeEmpty();
             differences.Tables[2].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
 
             // UserTypes
