@@ -21,22 +21,22 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the stored procedures which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; init; }
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; init; }
 
         /// <summary>
         /// Gets the tables which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlDatabaseTableDifferences> Tables { get; init; }
+        public required ReadOnlyCollection<SqlTableDifferences> Tables { get; init; }
 
         /// <summary>
         /// Gets the user types which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlUserType>> UserTypes { get; init; }
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlUserType>> UserTypes { get; init; }
 
         /// <summary>
         /// Gets the views which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlView>> Views { get; init; }
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlView>> Views { get; init; }
 
         /// <summary>
         /// Returns a textual representation of the result comparison.

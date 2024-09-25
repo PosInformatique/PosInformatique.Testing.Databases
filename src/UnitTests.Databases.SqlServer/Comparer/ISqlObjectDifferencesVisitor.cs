@@ -1,14 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ISqlDatabaseObjectDifferencesVisitor.cs" company="P.O.S Informatique">
+// <copyright file="ISqlObjectDifferencesVisitor.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace PosInformatique.UnitTests.Databases
 {
-    internal interface ISqlDatabaseObjectDifferencesVisitor
+    internal interface ISqlObjectDifferencesVisitor
     {
-        void Visit<TSqlObject>(SqlDatabaseObjectDifferences<TSqlObject> differences)
+        void Visit<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
             where TSqlObject : SqlObject;
 
         void Visit(SqlForeignKeyDifferences differences);
@@ -17,7 +17,7 @@ namespace PosInformatique.UnitTests.Databases
 
         void Visit(SqlPrimaryKeyDifferences differences);
 
-        void Visit(SqlDatabaseTableDifferences differences);
+        void Visit(SqlTableDifferences differences);
 
         void Visit(SqlUniqueConstraintDifferences differences);
     }

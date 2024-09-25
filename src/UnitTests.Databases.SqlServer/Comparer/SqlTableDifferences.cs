@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlDatabaseTableDifferences.cs" company="P.O.S Informatique">
+// <copyright file="SqlTableDifferences.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -11,31 +11,31 @@ namespace PosInformatique.UnitTests.Databases
     /// <summary>
     /// Represents the differences of a <see cref="SqlTable"/> between two databases.
     /// </summary>
-    public sealed class SqlDatabaseTableDifferences : SqlDatabaseObjectDifferences<SqlTable>
+    public sealed class SqlTableDifferences : SqlObjectDifferences<SqlTable>
     {
-        internal SqlDatabaseTableDifferences(
+        internal SqlTableDifferences(
             SqlTable? source,
             SqlTable? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlDatabaseObjectDifferences<SqlColumn>> columns,
-            IList<SqlDatabaseObjectDifferences<SqlTrigger>> triggers,
-            IList<SqlDatabaseObjectDifferences<SqlCheckConstraint>> checkConstraints,
+            IList<SqlObjectDifferences<SqlColumn>> columns,
+            IList<SqlObjectDifferences<SqlTrigger>> triggers,
+            IList<SqlObjectDifferences<SqlCheckConstraint>> checkConstraints,
             IList<SqlIndexDifferences> indexes,
             IList<SqlForeignKeyDifferences> foreignKeys,
             IList<SqlUniqueConstraintDifferences> uniqueConstraints)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlColumn>>(columns);
-            this.Triggers = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlTrigger>>(triggers);
-            this.CheckConstraints = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlCheckConstraint>>(checkConstraints);
+            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlColumn>>(columns);
+            this.Triggers = new ReadOnlyCollection<SqlObjectDifferences<SqlTrigger>>(triggers);
+            this.CheckConstraints = new ReadOnlyCollection<SqlObjectDifferences<SqlCheckConstraint>>(checkConstraints);
             this.Indexes = new ReadOnlyCollection<SqlIndexDifferences>(indexes);
             this.ForeignKeys = new ReadOnlyCollection<SqlForeignKeyDifferences>(foreignKeys);
             this.UniqueConstraints = new ReadOnlyCollection<SqlUniqueConstraintDifferences>(uniqueConstraints);
         }
 
-        internal SqlDatabaseTableDifferences(
-            SqlDatabaseObjectDifferences<SqlTable> differences)
+        internal SqlTableDifferences(
+            SqlObjectDifferences<SqlTable> differences)
             : base(differences.Source, differences.Target, differences.Type, differences.Properties)
         {
         }
@@ -43,12 +43,12 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the check constraint differences between the two SQL tables.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlCheckConstraint>> CheckConstraints { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlCheckConstraint>> CheckConstraints { get; }
 
         /// <summary>
         /// Gets the columns differences between the two SQL tables.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlColumn>> Columns { get; }
 
         /// <summary>
         /// Gets the indexes differences between the two SQL tables.
@@ -68,14 +68,14 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the triggers differences between the two SQL tables.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlTrigger>> Triggers { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlTrigger>> Triggers { get; }
 
         /// <summary>
         /// Gets the unique constraints differences between the two SQL tables.
         /// </summary>
         public ReadOnlyCollection<SqlUniqueConstraintDifferences> UniqueConstraints { get; }
 
-        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal override void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

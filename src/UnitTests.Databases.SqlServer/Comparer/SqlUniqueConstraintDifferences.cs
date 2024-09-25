@@ -11,21 +11,21 @@ namespace PosInformatique.UnitTests.Databases
     /// <summary>
     /// Represents the differences of a <see cref="SqlUniqueConstraintDifferences"/> between two databases.
     /// </summary>
-    public class SqlUniqueConstraintDifferences : SqlDatabaseObjectDifferences<SqlUniqueConstraint>
+    public class SqlUniqueConstraintDifferences : SqlObjectDifferences<SqlUniqueConstraint>
     {
         internal SqlUniqueConstraintDifferences(
             SqlUniqueConstraint? source,
             SqlUniqueConstraint? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlDatabaseObjectDifferences<SqlIndexColumn>> columns)
+            IList<SqlObjectDifferences<SqlIndexColumn>> columns)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>>(columns);
+            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>>(columns);
         }
 
         internal SqlUniqueConstraintDifferences(
-            SqlDatabaseObjectDifferences<SqlUniqueConstraint> differences)
+            SqlObjectDifferences<SqlUniqueConstraint> differences)
             : base(differences.Source, differences.Target, differences.Type, differences.Properties)
         {
         }
@@ -33,9 +33,9 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the difference of the columns in the unique constraint compared.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>> Columns { get; }
 
-        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal override void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

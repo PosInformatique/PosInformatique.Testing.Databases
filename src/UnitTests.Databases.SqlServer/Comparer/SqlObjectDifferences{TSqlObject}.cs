@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlDatabaseObjectDifferences{TSqlObject}.cs" company="P.O.S Informatique">
+// <copyright file="SqlObjectDifferences{TSqlObject}.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,10 +12,10 @@ namespace PosInformatique.UnitTests.Databases
     /// Represents the differences of <typeparamref name="TSqlObject"/> between two databases.
     /// </summary>
     /// <typeparam name="TSqlObject">Type of the <see cref="SqlObject"/> compared.</typeparam>
-    public class SqlDatabaseObjectDifferences<TSqlObject> : SqlDatabaseObjectDifferences
+    public class SqlObjectDifferences<TSqlObject> : SqlObjectDifferences
         where TSqlObject : SqlObject
     {
-        internal SqlDatabaseObjectDifferences(TSqlObject? source, TSqlObject? target, SqlObjectDifferenceType type, IReadOnlyList<SqlObjectPropertyDifference>? properties)
+        internal SqlObjectDifferences(TSqlObject? source, TSqlObject? target, SqlObjectDifferenceType type, IReadOnlyList<SqlObjectPropertyDifference>? properties)
         {
             this.Source = source;
             this.Target = target;
@@ -56,7 +56,7 @@ namespace PosInformatique.UnitTests.Databases
             return SqlDatabaseComparisonResultsTextGenerator.Generate(this);
         }
 
-        internal virtual void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal virtual void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

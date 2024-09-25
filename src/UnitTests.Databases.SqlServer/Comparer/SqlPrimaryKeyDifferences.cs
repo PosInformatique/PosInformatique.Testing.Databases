@@ -11,25 +11,25 @@ namespace PosInformatique.UnitTests.Databases
     /// <summary>
     /// Represents the differences of a <see cref="SqlPrimaryKey"/> between two databases.
     /// </summary>
-    public class SqlPrimaryKeyDifferences : SqlDatabaseObjectDifferences<SqlPrimaryKey>
+    public class SqlPrimaryKeyDifferences : SqlObjectDifferences<SqlPrimaryKey>
     {
         internal SqlPrimaryKeyDifferences(
             SqlPrimaryKey? source,
             SqlPrimaryKey? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlDatabaseObjectDifferences<SqlPrimaryKeyColumn>> columns)
+            IList<SqlObjectDifferences<SqlPrimaryKeyColumn>> columns)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlPrimaryKeyColumn>>(columns);
+            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlPrimaryKeyColumn>>(columns);
         }
 
         /// <summary>
         /// Gets the difference of the columns in the primary key compared.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlPrimaryKeyColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlPrimaryKeyColumn>> Columns { get; }
 
-        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal override void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

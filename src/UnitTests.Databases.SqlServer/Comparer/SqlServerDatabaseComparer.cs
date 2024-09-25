@@ -55,10 +55,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             return new SqlDatabaseComparisonResults()
             {
-                StoredProcedures = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlStoredProcedure>>(storedProceduresDifferences),
-                Tables = new ReadOnlyCollection<SqlDatabaseTableDifferences>(tablesDifferences),
-                UserTypes = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlUserType>>(userTypesDifferences),
-                Views = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlView>>(viewsDifferences),
+                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>(storedProceduresDifferences),
+                Tables = new ReadOnlyCollection<SqlTableDifferences>(tablesDifferences),
+                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>(userTypesDifferences),
+                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>(viewsDifferences),
             };
         }
     }

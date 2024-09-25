@@ -6,7 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases
 {
-    internal sealed class SqlDatabaseComparisonResultsTextGenerator : ISqlDatabaseObjectDifferencesVisitor, IDisposable
+    internal sealed class SqlDatabaseComparisonResultsTextGenerator : ISqlObjectDifferencesVisitor, IDisposable
     {
         private readonly StringWriter writer;
 
@@ -31,7 +31,7 @@ namespace PosInformatique.UnitTests.Databases
             return generator.writer.ToString();
         }
 
-        public static string Generate<TSqlObject>(SqlDatabaseObjectDifferences<TSqlObject> differences)
+        public static string Generate<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
             where TSqlObject : SqlObject
         {
             using var generator = new SqlDatabaseComparisonResultsTextGenerator();
@@ -55,7 +55,7 @@ namespace PosInformatique.UnitTests.Databases
             this.writer.Dispose();
         }
 
-        public void Visit<TSqlObject>(SqlDatabaseObjectDifferences<TSqlObject> differences)
+        public void Visit<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
             where TSqlObject : SqlObject
         {
             if (differences.Source is not null && differences.Target is not null)
@@ -86,7 +86,7 @@ namespace PosInformatique.UnitTests.Databases
             this.Generate(differences.Columns, "Columns");
         }
 
-        public void Visit(SqlDatabaseTableDifferences differences)
+        public void Visit(SqlTableDifferences differences)
         {
             if (differences.Source is not null && differences.Target is not null)
             {
@@ -133,7 +133,7 @@ namespace PosInformatique.UnitTests.Databases
             this.Generate(differences.Columns, "Columns");
         }
 
-        private void Generate<TSqlObject>(IEnumerable<SqlDatabaseObjectDifferences<TSqlObject>> differences, string typeName)
+        private void Generate<TSqlObject>(IEnumerable<SqlObjectDifferences<TSqlObject>> differences, string typeName)
             where TSqlObject : SqlObject
         {
             if (!differences.Any())
@@ -198,7 +198,7 @@ namespace PosInformatique.UnitTests.Databases
             this.WriteLine(StringHelper.ToStringNull(value, "<No value>"));
         }
 
-        private void WriteObjectName<TSqlObject>(SqlDatabaseObjectDifferences<TSqlObject> difference)
+        private void WriteObjectName<TSqlObject>(SqlObjectDifferences<TSqlObject> difference)
             where TSqlObject : SqlObject
         {
             this.Write("- ");

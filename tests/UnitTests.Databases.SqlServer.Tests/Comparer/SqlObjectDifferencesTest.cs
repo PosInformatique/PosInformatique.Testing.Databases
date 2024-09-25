@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlDatabaseObjectDifferencesTest.cs" company="P.O.S Informatique">
+// <copyright file="SqlObjectDifferencesTest.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace PosInformatique.UnitTests.Databases.Tests
 {
-    public class SqlDatabaseObjectDifferencesTest
+    public class SqlObjectDifferencesTest
     {
         [Fact]
         public void ToStringTest()
@@ -35,7 +35,7 @@ namespace PosInformatique.UnitTests.Databases.Tests
                 new SqlObjectPropertyDifference("The prop2", 30, 40),
             };
 
-            var difference = new SqlDatabaseObjectDifferences<SqlUserType>(source, target, default, properties);
+            var difference = new SqlObjectDifferences<SqlUserType>(source, target, default, properties);
 
             difference.ToString().Should().Be("* The prop1:\r\n      Source: 10\r\n      Target: 20\r\n  * The prop2:\r\n      Source: 30\r\n      Target: 40\r\n");
         }

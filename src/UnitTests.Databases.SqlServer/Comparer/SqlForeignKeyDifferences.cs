@@ -11,21 +11,21 @@ namespace PosInformatique.UnitTests.Databases
     /// <summary>
     /// Represents the differences of a <see cref="SqlForeignKey"/> between two databases.
     /// </summary>
-    public class SqlForeignKeyDifferences : SqlDatabaseObjectDifferences<SqlForeignKey>
+    public class SqlForeignKeyDifferences : SqlObjectDifferences<SqlForeignKey>
     {
         internal SqlForeignKeyDifferences(
             SqlForeignKey? source,
             SqlForeignKey? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlDatabaseObjectDifferences<SqlForeignKeyColumn>> columns)
+            IList<SqlObjectDifferences<SqlForeignKeyColumn>> columns)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlForeignKeyColumn>>(columns);
+            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlForeignKeyColumn>>(columns);
         }
 
         internal SqlForeignKeyDifferences(
-            SqlDatabaseObjectDifferences<SqlForeignKey> differences)
+            SqlObjectDifferences<SqlForeignKey> differences)
             : base(differences.Source, differences.Target, differences.Type, differences.Properties)
         {
         }
@@ -33,9 +33,9 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the difference of the columns in the foreign key compared.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlForeignKeyColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlForeignKeyColumn>> Columns { get; }
 
-        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal override void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

@@ -11,23 +11,23 @@ namespace PosInformatique.UnitTests.Databases
     /// <summary>
     /// Represents the differences of a <see cref="SqlIndex"/> between two databases.
     /// </summary>
-    public class SqlIndexDifferences : SqlDatabaseObjectDifferences<SqlIndex>
+    public class SqlIndexDifferences : SqlObjectDifferences<SqlIndex>
     {
         internal SqlIndexDifferences(
             SqlIndex? source,
             SqlIndex? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlDatabaseObjectDifferences<SqlIndexColumn>> columns,
-            IList<SqlDatabaseObjectDifferences<SqlIndexColumn>> includedColumns)
+            IList<SqlObjectDifferences<SqlIndexColumn>> columns,
+            IList<SqlObjectDifferences<SqlIndexColumn>> includedColumns)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>>(columns);
-            this.IncludedColumns = new ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>>(includedColumns);
+            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>>(columns);
+            this.IncludedColumns = new ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>>(includedColumns);
         }
 
         internal SqlIndexDifferences(
-            SqlDatabaseObjectDifferences<SqlIndex> differences)
+            SqlObjectDifferences<SqlIndex> differences)
             : base(differences.Source, differences.Target, differences.Type, differences.Properties)
         {
         }
@@ -35,14 +35,14 @@ namespace PosInformatique.UnitTests.Databases
         /// <summary>
         /// Gets the columns differences in the index compared.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>> Columns { get; }
 
         /// <summary>
         /// Gets the included columns differences in the index compared.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences<SqlIndexColumn>> IncludedColumns { get; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlIndexColumn>> IncludedColumns { get; }
 
-        internal override void Accept(ISqlDatabaseObjectDifferencesVisitor visitor)
+        internal override void Accept(ISqlObjectDifferencesVisitor visitor)
         {
             visitor.Visit(this);
         }

@@ -6,7 +6,7 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
-    internal sealed class SqlObjectComparer : ISqlObjectVisitor<SqlDatabaseObjectDifferences?>
+    internal sealed class SqlObjectComparer : ISqlObjectVisitor<SqlObjectDifferences?>
     {
         private readonly SqlObject source;
 
@@ -15,10 +15,10 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             this.source = source;
         }
 
-        public static IList<SqlDatabaseObjectDifferences<TSqlObject>> Compare<TSqlObject>(IReadOnlyList<TSqlObject> source, IReadOnlyList<TSqlObject> target, Func<TSqlObject, object> keySelector)
+        public static IList<SqlObjectDifferences<TSqlObject>> Compare<TSqlObject>(IReadOnlyList<TSqlObject> source, IReadOnlyList<TSqlObject> target, Func<TSqlObject, object> keySelector)
             where TSqlObject : SqlObject
         {
-            var differences = new List<SqlDatabaseObjectDifferences<TSqlObject>>();
+            var differences = new List<SqlObjectDifferences<TSqlObject>>();
 
             // Iterate on the target objects
             foreach (var targetObject in target)
@@ -29,7 +29,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 if (sourceObject is null)
                 {
                     // Missing in the source.
-                    differences.Add(new SqlDatabaseObjectDifferences<TSqlObject>(null, targetObject, SqlObjectDifferenceType.MissingInSource, null));
+                    differences.Add(new SqlObjectDifferences<TSqlObject>(null, targetObject, SqlObjectDifferenceType.MissingInSource, null));
                 }
                 else
                 {
@@ -52,26 +52,26 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 if (targetObject is null)
                 {
                     // Missing in the target.
-                    differences.Add(new SqlDatabaseObjectDifferences<TSqlObject>(sourceObject, null, SqlObjectDifferenceType.MissingInTarget, null));
+                    differences.Add(new SqlObjectDifferences<TSqlObject>(sourceObject, null, SqlObjectDifferenceType.MissingInTarget, null));
                 }
             }
 
             return differences;
         }
 
-        public static IList<SqlDatabaseTableDifferences> Compare(IReadOnlyList<SqlTable> source, IReadOnlyList<SqlTable> target)
+        public static IList<SqlTableDifferences> Compare(IReadOnlyList<SqlTable> source, IReadOnlyList<SqlTable> target)
         {
-            return Compare(source, target, t => t.Name, diff => new SqlDatabaseTableDifferences(diff) { PrimaryKey = null });
+            return Compare(source, target, t => t.Name, diff => new SqlTableDifferences(diff) { PrimaryKey = null });
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlCheckConstraint checkConstraint)
+        public SqlObjectDifferences? Visit(SqlCheckConstraint checkConstraint)
         {
             return this.CreateDifferences(
                 checkConstraint,
                 this.CompareProperty(checkConstraint, ck => TsqlCodeHelper.RemoveNotUsefulCharacters(ck.Code), nameof(checkConstraint.Code), ck => ck.Code));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlColumn column)
+        public SqlObjectDifferences? Visit(SqlColumn column)
         {
             return this.CreateDifferences(
                 column,
@@ -87,7 +87,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(column, t => TsqlCodeHelper.RemoveNotUsefulCharacters(t.ComputedExpression), nameof(column.ComputedExpression), t => t.ComputedExpression));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlForeignKey foreignKey)
+        public SqlObjectDifferences? Visit(SqlForeignKey foreignKey)
         {
             var sourceForeignKey = (SqlForeignKey)this.source;
 
@@ -108,7 +108,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return null;
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlForeignKeyColumn column)
+        public SqlObjectDifferences? Visit(SqlForeignKeyColumn column)
         {
             return this.CreateDifferences(
                 column,
@@ -117,7 +117,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(column, c => c.Referenced, nameof(column.Referenced)));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlIndex index)
+        public SqlObjectDifferences? Visit(SqlIndex index)
         {
             var sourceIndex = (SqlIndex)this.source;
 
@@ -141,7 +141,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return null;
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlIndexColumn column)
+        public SqlObjectDifferences? Visit(SqlIndexColumn column)
         {
             return this.CreateDifferences(
                 column,
@@ -149,7 +149,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(column, c => c.Position, nameof(column.Position)));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlPrimaryKey primaryKey)
+        public SqlObjectDifferences? Visit(SqlPrimaryKey primaryKey)
         {
             var sourcePrimaryKey = (SqlPrimaryKey)this.source;
 
@@ -169,7 +169,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return null;
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlPrimaryKeyColumn column)
+        public SqlObjectDifferences? Visit(SqlPrimaryKeyColumn column)
         {
             return this.CreateDifferences(
                 column,
@@ -177,14 +177,14 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(column, c => c.Position, nameof(column.Position)));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlStoredProcedure storedProcedure)
+        public SqlObjectDifferences? Visit(SqlStoredProcedure storedProcedure)
         {
             return this.CreateDifferences(
                 storedProcedure,
                 this.CompareProperty(storedProcedure, sp => TsqlCodeHelper.RemoveNotUsefulCharacters(sp.Code), nameof(storedProcedure.Code), sp => sp.Code));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlTable table)
+        public SqlObjectDifferences? Visit(SqlTable table)
         {
             var sourceTable = (SqlTable)this.source;
 
@@ -211,7 +211,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
             if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count > 0 || primaryKeyDifferences is not null)
             {
-                return new SqlDatabaseTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, Array.Empty<SqlObjectPropertyDifference>(), columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
+                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, Array.Empty<SqlObjectPropertyDifference>(), columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
                 {
                     PrimaryKey = primaryKeyDifferences,
                 };
@@ -220,7 +220,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return this.CreateDifferences(table);
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlTrigger trigger)
+        public SqlObjectDifferences? Visit(SqlTrigger trigger)
         {
             return this.CreateDifferences(
                 trigger,
@@ -228,7 +228,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(trigger, tr => TsqlCodeHelper.RemoveNotUsefulCharacters(tr.Code), nameof(trigger.Code), tr => tr.Code));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlUniqueConstraint uniqueConstraint)
+        public SqlObjectDifferences? Visit(SqlUniqueConstraint uniqueConstraint)
         {
             var sourceUniqueConstraint = (SqlUniqueConstraint)this.source;
 
@@ -247,7 +247,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return null;
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlUserType userType)
+        public SqlObjectDifferences? Visit(SqlUserType userType)
         {
             return this.CreateDifferences(
                 userType,
@@ -257,24 +257,24 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 this.CompareProperty(userType, ut => ut.SystemTypeId, nameof(userType.SystemTypeId)));
         }
 
-        public SqlDatabaseObjectDifferences? Visit(SqlView view)
+        public SqlObjectDifferences? Visit(SqlView view)
         {
             return this.CreateDifferences(
                 view,
                 this.CompareProperty(view, v => TsqlCodeHelper.RemoveNotUsefulCharacters(v.Code), nameof(view.Code), v => v.Code));
         }
 
-        private static SqlDatabaseObjectDifferences<TSqlObject>? Compare<TSqlObject>(TSqlObject source, TSqlObject target)
+        private static SqlObjectDifferences<TSqlObject>? Compare<TSqlObject>(TSqlObject source, TSqlObject target)
             where TSqlObject : SqlObject
         {
             var visitor = new SqlObjectComparer(source);
 
-            return (SqlDatabaseObjectDifferences<TSqlObject>?)target.Accept(visitor);
+            return (SqlObjectDifferences<TSqlObject>?)target.Accept(visitor);
         }
 
-        private static IList<TDifferences> Compare<TDifferences, TSqlObject>(IReadOnlyList<TSqlObject> source, IReadOnlyList<TSqlObject> target, Func<TSqlObject, object> keySelector, Func<SqlDatabaseObjectDifferences<TSqlObject>, TDifferences> factory)
+        private static IList<TDifferences> Compare<TDifferences, TSqlObject>(IReadOnlyList<TSqlObject> source, IReadOnlyList<TSqlObject> target, Func<TSqlObject, object> keySelector, Func<SqlObjectDifferences<TSqlObject>, TDifferences> factory)
             where TSqlObject : SqlObject
-            where TDifferences : SqlDatabaseObjectDifferences<TSqlObject>
+            where TDifferences : SqlObjectDifferences<TSqlObject>
         {
             var differences = Compare(source, target, keySelector);
 
@@ -337,7 +337,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
             return null;
         }
 
-        private SqlDatabaseObjectDifferences? CreateDifferences<TSqlObject>(TSqlObject target, params SqlObjectPropertyDifference?[] differences)
+        private SqlObjectDifferences? CreateDifferences<TSqlObject>(TSqlObject target, params SqlObjectPropertyDifference?[] differences)
             where TSqlObject : SqlObject
         {
             var properties = differences.Where(d => d is not null).ToArray();
@@ -347,7 +347,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
                 return null;
             }
 
-            return new SqlDatabaseObjectDifferences<TSqlObject>((TSqlObject)this.source, target, SqlObjectDifferenceType.Different, properties!);
+            return new SqlObjectDifferences<TSqlObject>((TSqlObject)this.source, target, SqlObjectDifferenceType.Different, properties!);
         }
     }
 }
