@@ -6,7 +6,6 @@
 
 namespace PosInformatique.UnitTests.Databases.SqlServer
 {
-    using Microsoft.Data.SqlClient;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
