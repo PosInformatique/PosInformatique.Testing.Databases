@@ -62,7 +62,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
 
             table.Rows.Should().HaveCount(1);   // Advice: Event the ID is unique, check there is no duplicated entry. To protect against refactory unicity changes.
 
-            table.Rows[0]["FirstName"].Should().Be("Something else");
+            table.Rows[0]["FirstName"].Should().Be("Hector");
             table.Rows[0]["LastName"].Should().Be("BARBOSSA");
             table.Rows[0]["Revenue"].Should().Be(12.34);
         }

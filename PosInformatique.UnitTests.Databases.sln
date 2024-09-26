@@ -52,6 +52,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8500A9B6-CAA0-432C-BABB-DDC86CE08994}"
 	ProjectSection(SolutionItems) = preProject
 		docs\WriteUnitTests.md = docs\WriteUnitTests.md
+		docs\WriteDatabaseMigrationUnitTest.md = docs\WriteDatabaseMigrationUnitTest.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Databases.SqlServer.Dac", "src\UnitTests.Databases.SqlServer.Dac\UnitTests.Databases.SqlServer.Dac.csproj", "{8BE60460-EBA5-43DE-B85D-C756E2988DC8}"

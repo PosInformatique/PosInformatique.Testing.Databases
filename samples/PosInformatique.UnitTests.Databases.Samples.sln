@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DataAccessLayer", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Domain", "DemoApp.Domain\DemoApp.Domain.csproj", "{49175770-6A17-4CB7-B72F-34A0840DF5E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DataAccessLayer.Migrations", "DemoApp.DataAccessLayer.Migrations\DemoApp.DataAccessLayer.Migrations.csproj", "{16B7923A-22A1-4EFC-B574-F016969645D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.DataAccessLayer.Migrations.Tests", "DemoApp.DataAccessLayer.Migrations.Tests\DemoApp.DataAccessLayer.Migrations.Tests.csproj", "{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{49175770-6A17-4CB7-B72F-34A0840DF5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49175770-6A17-4CB7-B72F-34A0840DF5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49175770-6A17-4CB7-B72F-34A0840DF5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B7923A-22A1-4EFC-B574-F016969645D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B7923A-22A1-4EFC-B574-F016969645D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B7923A-22A1-4EFC-B574-F016969645D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B7923A-22A1-4EFC-B574-F016969645D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
