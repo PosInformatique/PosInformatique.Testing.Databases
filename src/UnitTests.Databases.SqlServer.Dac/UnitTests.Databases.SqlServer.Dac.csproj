@@ -2,10 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-
-    <Description>UnitTests.Databases.SqlServer.EntityFramework is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
-    <PackageTags>unittest entityframework sqlserver repository tdd dataaccesslayer</PackageTags>
+    
+    <Description>UnitTests.Databases.SqlServer.Dac is a library that contains a set of tools for unit testing to deploy DAC (Data-tier Applications) packages (.dacpac files).</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.SqlServer.DacFx" />
   </ItemGroup>
 
   <ItemGroup>

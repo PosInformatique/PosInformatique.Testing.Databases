@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SqlServerExtensions.cs" company="P.O.S Informatique">
+// <copyright file="SqlServerDacExtensions.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
     /// <summary>
     /// Extensions methods of the <see cref="SqlServer"/> class.
     /// </summary>
-    public static class SqlServerExtensions
+    public static class SqlServerDacExtensions
     {
         /// <summary>
         /// Deploy a database using a DACPAC file.
