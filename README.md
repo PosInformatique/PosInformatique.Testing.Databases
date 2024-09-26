@@ -11,7 +11,11 @@ Any kind of data access framework can be used with these tools:
 - Dapper.
 - ...
 
-Also, since the version 2.0.0 this tools provide a comparer to compare the schema of two SQL databases.
+You can also use this tools to create and run integration tests with the
+[Integration tests in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0)
+approach.
+
+Since the version 2.0.0 this tools provide a comparer to compare the schema of two SQL databases.
 
 ## The approach of these tools
 
