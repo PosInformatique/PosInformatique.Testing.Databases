@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Domain", "DemoApp.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DataAccessLayer.Migrations", "DemoApp.DataAccessLayer.Migrations\DemoApp.DataAccessLayer.Migrations.csproj", "{16B7923A-22A1-4EFC-B574-F016969645D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.DataAccessLayer.Migrations.Tests", "DemoApp.DataAccessLayer.Migrations.Tests\DemoApp.DataAccessLayer.Migrations.Tests.csproj", "{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DataAccessLayer.Migrations.Tests", "DemoApp.DataAccessLayer.Migrations.Tests\DemoApp.DataAccessLayer.Migrations.Tests.csproj", "{4F179D8D-B991-4D0D-93BC-FD04F9F0B43B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94271813-6C8A-4EA9-939F-5046A1D9D605}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

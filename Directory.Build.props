@@ -19,7 +19,7 @@
     <RunAnalyzers Condition="'$(Configuration)' == 'Release'">false</RunAnalyzers>
 
     <!-- Disable the StyleCop 'XML comment analysis is disabled due to project configuration' warning. -->
-    <NoWarn>$(NoWarn);SA0001</NoWarn>
+    <NoWarn>$(NoWarn);SA0001;NU1903</NoWarn>
 
     <!-- By default prefix all the assemblies name with ChantierConnect -->
     <AssemblyName>PosInformatique.$(MSBuildProjectName)</AssemblyName>
