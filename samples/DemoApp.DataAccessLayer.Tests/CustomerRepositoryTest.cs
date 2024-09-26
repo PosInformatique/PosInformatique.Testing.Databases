@@ -30,7 +30,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
             // - Here we force to set the ID of the customer to 15.
             this.database.InsertInto("Customer", disableIdentityInsert: true, new { Id = 15, FirstName = "Marcel", LastName = "DUPONT", Revenue = 4852.45 });
 
-            // - Here, to simplify the syntaxe (recommanded approach) we use an extension method in the unit tests project.
+            // - Here, to simplify the syntax (recommanded approach) we use an extension method in the unit tests project.
             //   Using extension methods, make the code more readable.
             //   Also, we recommand to force to set the IDENTITY column values explicit to avoid
             //   to update lot of code if you delete some rows later...
