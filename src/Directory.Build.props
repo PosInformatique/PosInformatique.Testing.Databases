@@ -1,19 +1,31 @@
 <Project>
 	
-	<!-- Imports the parent Directory.Build.props if exist -->
-	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <!-- Imports the parent Directory.Build.props if exist -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
-	<PropertyGroup>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>
+        1.0.1
+        - Fix the documentation
+    
+        1.0.0
+        - Initial version
+    </PackageReleaseNotes>
+  </PropertyGroup>
   
   <!-- Add the InternalsVisibleToAttribute for the unit tests -->
-	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>$(AssemblyName).Tests</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+	    <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+	    <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

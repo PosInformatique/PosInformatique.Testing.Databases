@@ -52,6 +52,28 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
         }
 
         /// <summary>
+        /// Executes a command (non-SELECT query) on the database asynchronously.
+        /// </summary>
+        /// <param name="command">SQL command to execute (INSERT, UPDATE, DELETE, DROP,...)</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the number of "rows" impacted by the command.</returns>
+        public async Task<int> ExecuteNonQueryAsync(string command, CancellationToken cancellationToken = default)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.ConnectionString = this.ConnectionString;
+                await connection.OpenAsync(cancellationToken);
+
+                using (var dbCommand = connection.CreateCommand())
+                {
+                    dbCommand.CommandText = command;
+
+                    return await dbCommand.ExecuteNonQueryAsync(cancellationToken);
+                }
+            }
+        }
+
+        /// <summary>
         /// Executes a SQL SELECT query on the database and returns the data in a <see cref="DataTable"/>.
         /// </summary>
         /// <param name="query">SELECT query to execute.</param>
@@ -66,6 +88,32 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
                 return dataTable;
             }
+        }
+
+        /// <summary>
+        /// Executes a SQL SELECT query asynchronously on the database and returns the data in a <see cref="DataTable"/>.
+        /// </summary>
+        /// <param name="query">SELECT query to execute.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A task which represents the asynchronous operation that contains the <see cref="DataTable"/> which contains the results of the SQL query by rows / columns.</returns>
+        public async Task<DataTable> ExecuteQueryAsync(string query, CancellationToken cancellationToken = default)
+        {
+            var dataTable = new DataTable();
+
+            using (var connection = new SqlConnection(this.ConnectionString))
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = query;
+
+                await connection.OpenAsync(cancellationToken);
+
+                using (var reader = await command.ExecuteReaderAsync(cancellationToken))
+                {
+                    dataTable.Load(reader);
+                }
+            }
+
+            return dataTable;
         }
     }
 }

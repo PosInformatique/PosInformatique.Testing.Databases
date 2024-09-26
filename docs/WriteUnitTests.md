@@ -1,6 +1,6 @@
-# Write unit tests to test the Data Access Layer
+# Write unit tests to test the persistence layer
 
-This section explain how to write the unit tests to test a Data Access Layer. The code samples
+This section explain how to write the unit tests to test a persistence layer. The code samples
 used here can be found in the [PosInformatique.UnitTests.Databases.Samples](../samples/PosInformatique.UnitTests.Databases.Samples.sln) solution inside the `samples` directory of the repository.
 
 In this section we will test a repository called `CustomerRepository` inside a project called `DemoApp.DataAccessLayer`:
@@ -90,7 +90,7 @@ public class DemoAppDbContext : DbContext
 
 ## Create the SQL Server instance
 
-Before writing and executing the unit tests for a Data Access Layer, an instance of SQL Server is required.
+Before writing and executing the unit tests for a persistence layer, an instance of SQL Server is required.
 You can use the following approaches:
 - Using LocalDB instance (installed with Visual Studio). No setup is required for the developers on their machine, this is the easy approach recommanded.
 - Using SQL Server Express or SQL Server Developer Edition instances. The developers will have to install manually this instance to their computer.
@@ -109,7 +109,7 @@ With:
 ## Create the unit tests project
 
 To test the `CustomerRepository`, we create an `xUnit Test Project` in Visual Studio which reference our project that contains the
-Data Access Layer to test.
+persistence layer to test.
 
 By using xUnit, we will be able to use a feature called the `Class Fixture`. This xUnit feature allows the xUnit engine to create an instance
 of the class and pass it in the constructor of the unit tests class each time an unit test (`Fact` method) is executed.

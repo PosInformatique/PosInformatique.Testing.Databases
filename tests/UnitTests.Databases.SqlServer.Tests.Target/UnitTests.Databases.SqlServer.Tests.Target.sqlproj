@@ -114,5 +114,6 @@
     <Build Include="Programmability\Stored Procedures\StoredProcedureIdentical.sql" />
     <Build Include="Tables\CheckConstraints\CheckConstraintIdentical.sql" />
     <Build Include="Tables\Triggers\TriggerIdentical.sql" />
+    <Build Include="Tables\__EFMigrationsHistoryTarget.sql" />
   </ItemGroup>
 </Project>

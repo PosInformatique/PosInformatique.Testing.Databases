@@ -5,17 +5,6 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <Description>UnitTests.Databases.SqlServer.EntityFramework is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
-    <PackageIcon>Icon.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>
-        1.0.1
-        - Fix the documentation
-        
-        1.0.0
-        - Initial version
-    </PackageReleaseNotes>
     <PackageTags>unittest entityframework sqlserver repository tdd dataaccesslayer</PackageTags>
   </PropertyGroup>
 

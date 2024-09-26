@@ -36,13 +36,6 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
 
                 context.Database.EnsureCreated();
 
-                if (!string.IsNullOrWhiteSpace(connectionStringBuilder.UserID))
-                {
-                    server.Master.ExecuteNonQuery($@"
-                        IF SUSER_ID ('{connectionStringBuilder.UserID}') IS NULL
-                            CREATE LOGIN [{connectionStringBuilder.UserID}] WITH PASSWORD = '{connectionStringBuilder.Password}'");
-                }
-
                 initializer.IsInitialized = true;
             }
 

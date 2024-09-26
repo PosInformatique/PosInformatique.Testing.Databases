@@ -7,7 +7,7 @@ on:
         type: string
         description: The version of the library
         required: true
-        default: 1.0.0
+        default: 2.0.0
       VersionSuffix:
         type: string
         description: The version suffix of the library (for example rc.1)
@@ -38,6 +38,13 @@ jobs:
           --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
           "src/UnitTests.Databases.SqlServer.EntityFramework/UnitTests.Databases.SqlServer.EntityFramework.csproj"
+
+      - name: Build UnitTests.Databases.SqlServer.Dac
+        run: dotnet pack 
+          --property:Configuration=Release
+          --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
+          --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
+          "src/UnitTests.Databases.SqlServer.Dac/UnitTests.Databases.SqlServer.Dac.csproj"
 
       - name: Publish the package to nuget.org
         run: dotnet nuget push "src/**/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json

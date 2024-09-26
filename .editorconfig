@@ -1,8 +1,10 @@
-﻿[*]
+﻿[*.csproj]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*.cs]
+indent_style = space
+indent_size = 4
 
 # StyleCop
 
@@ -14,3 +16,11 @@ dotnet_diagnostic.SA1601.severity = none
 
 # SA1602: Enumeration items should be documented
 dotnet_diagnostic.SA1602.severity = none
+
+# Visual Studio
+
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none

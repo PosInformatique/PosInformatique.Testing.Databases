@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    
+    <Description>UnitTests.Databases.SqlServer.Dac is a library that contains a set of tools for unit testing to deploy DAC (Data-tier Applications) packages (.dacpac files).</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.DacFx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnitTests.Databases.SqlServer\UnitTests.Databases.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>

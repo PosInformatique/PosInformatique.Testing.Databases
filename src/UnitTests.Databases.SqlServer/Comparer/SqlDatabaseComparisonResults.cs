@@ -4,46 +4,77 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer
+namespace PosInformatique.UnitTests.Databases
 {
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the differences between 2 databases.
     /// </summary>
     public class SqlDatabaseComparisonResults
     {
-        internal SqlDatabaseComparisonResults(IList<SqlDatabaseObjectDifferences> objects)
+        internal SqlDatabaseComparisonResults()
         {
-            this.Objects = new ReadOnlyCollection<SqlDatabaseObjectDifferences>(objects);
         }
 
         /// <summary>
-        /// Gets the list of the database objects differences found.
+        /// Gets the stored procedures which are different between two databases.
         /// </summary>
-        public ReadOnlyCollection<SqlDatabaseObjectDifferences> Objects { get; }
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; init; }
 
-        /// <inheritdoc />
-        public override string ToString()
+        /// <summary>
+        /// Gets the tables which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlTableDifferences> Tables { get; init; }
+
+        /// <summary>
+        /// Gets the user types which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlUserType>> UserTypes { get; init; }
+
+        /// <summary>
+        /// Gets the views which are different between two databases.
+        /// </summary>
+        public required ReadOnlyCollection<SqlObjectDifferences<SqlView>> Views { get; init; }
+
+        /// <summary>
+        /// Gets a value indicating whether if the two database compared have the same schema.
+        /// </summary>
+        public bool IsIdentical
         {
-            var stringBuilder = new StringBuilder();
-
-            foreach (var @object in this.Objects)
+            get
             {
-                stringBuilder.AppendLine("------------------------");
-                stringBuilder.AppendLine(@object.Type);
-
-                foreach (var difference in @object.Differences)
+                if (this.StoredProcedures.Count > 0)
                 {
-                    stringBuilder.AppendLine(difference.ToString());
+                    return false;
                 }
 
-                stringBuilder.AppendLine("------------------------");
-                stringBuilder.AppendLine();
-            }
+                if (this.Tables.Count > 0)
+                {
+                    return false;
+                }
 
-            return stringBuilder.ToString();
+                if (this.UserTypes.Count > 0)
+                {
+                    return false;
+                }
+
+                if (this.Views.Count > 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Returns a textual representation of the result comparison.
+        /// </summary>
+        /// <returns>A textual representation of the result comparison.</returns>
+        public override string ToString()
+        {
+            return SqlDatabaseComparisonResultsTextGenerator.Generate(this);
         }
     }
 }
