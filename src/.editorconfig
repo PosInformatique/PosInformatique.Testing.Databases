@@ -13,6 +13,3 @@ dotnet_diagnostic.IDE0063.severity = none
 
 # IDE0074: Use compound assignment
 dotnet_diagnostic.IDE0074.severity = none
-
-# IDE0290: Use primary constructor
-dotnet_diagnostic.IDE0290.severity = none
