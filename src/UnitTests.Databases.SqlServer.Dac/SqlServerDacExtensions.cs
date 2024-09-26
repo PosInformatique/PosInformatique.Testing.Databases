@@ -9,7 +9,8 @@ namespace PosInformatique.UnitTests.Databases.SqlServer
     using Microsoft.SqlServer.Dac;
 
     /// <summary>
-    /// Extensions methods of the <see cref="SqlServer"/> class.
+    /// Extensions methods of the <see cref="SqlServer"/> class with additional helpers
+    /// for DAC package deployment.
     /// </summary>
     public static class SqlServerDacExtensions
     {
