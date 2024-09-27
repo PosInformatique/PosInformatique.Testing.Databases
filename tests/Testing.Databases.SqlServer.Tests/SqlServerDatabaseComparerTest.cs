@@ -6,7 +6,7 @@
 
 namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
-    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
+    [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseComparerTest
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Integrated Security=True";
@@ -16,8 +16,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         {
             var server = new SqlServer(ConnectionString);
 
-            var sourceDatabase = Task.Run(() => server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source"));
-            var targetDatabase = Task.Run(() => server.DeployDacPackage("UnitTests.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target"));
+            var sourceDatabase = Task.Run(() => server.DeployDacPackage("Testing.Databases.SqlServer.Tests.Source.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Source"));
+            var targetDatabase = Task.Run(() => server.DeployDacPackage("Testing.Databases.SqlServer.Tests.Target.dacpac", $"{nameof(SqlServerDatabaseComparerTest)}_Target"));
 
             await Task.WhenAll(sourceDatabase, targetDatabase);
 

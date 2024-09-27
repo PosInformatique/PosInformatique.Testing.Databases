@@ -8,7 +8,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
     using Microsoft.EntityFrameworkCore;
 
-    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
+    [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class EntityFrameworkDatabaseInitializerExtensionsTest : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(EntityFrameworkDatabaseInitializerExtensionsTest)}; Integrated Security=True";

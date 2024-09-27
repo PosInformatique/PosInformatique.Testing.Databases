@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-    <Description>UnitTests.Databases.SqlServer is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on SQL Server.</Description>
-    <PackageTags>unittest sqlserver repository tdd dataaccesslayer</PackageTags>
+    <Description>Testing.Databases.SqlServer is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on SQL Server.</Description>
+    <PackageTags>testing nittest sqlserver repository tdd dataaccesslayer</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

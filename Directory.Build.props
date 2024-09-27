@@ -6,7 +6,7 @@
     <Company>P.O.S Informatique</Company>
     <Product>P.O.S Informatique</Product>
     <Copyright>Copyright (c) P.O.S Informatique. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</RepositoryUrl>
+    <RepositoryUrl>https://github.com/PosInformatique/PosInformatique.Testing.Databases</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Enable the last version of C# -->

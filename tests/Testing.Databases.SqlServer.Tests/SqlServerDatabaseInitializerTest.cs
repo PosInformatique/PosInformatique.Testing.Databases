@@ -6,7 +6,7 @@
 
 namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
-    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
+    [Collection("PosInformatique.UniTestingtTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerTest : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerTest)}; Integrated Security=True";
@@ -15,7 +15,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
         public SqlServerDatabaseInitializerTest(SqlServerDatabaseInitializer initializer)
         {
-            this.database = initializer.Initialize("UnitTests.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
+            this.database = initializer.Initialize("Testing.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
 
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
 

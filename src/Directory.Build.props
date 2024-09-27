@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
 
     <PackageIcon>Icon.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/PosInformatique/PosInformatique.UnitTests.Databases</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PosInformatique/PosInformatique.Testing.Databases</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>

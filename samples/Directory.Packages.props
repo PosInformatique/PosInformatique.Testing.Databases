@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" />
-    <PackageVersion Include="PosInformatique.UnitTests.Databases.SqlServer.EntityFramework" Version="2.0.0-rc.7" />
+    <PackageVersion Include="PosInformatique.UnitTests.Databases.SqlServer.EntityFramework" Version="2.0.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
     <PackageVersion Include="xunit" Version="2.9.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />

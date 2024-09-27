@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
     /// <summary>
     /// Initializer used to initialize the database for the unit tests.
     /// Depending of the strategy to use (initialize from Entity Framework DbContext or .dacpac package)
-    /// add the <c>PosInformatique.UnitTests.Databases.SqlServer.EntityFramework</c> or <c>PosInformatique.UnitTests.Databases.SqlServer.Dac</c>
+    /// add the <c>PosInformatique.Testing.Databases.SqlServer.EntityFramework</c> or <c>PosInformatique.Testing.Databases.SqlServer.Dac</c>
     /// NuGet packages and call the <c>Initialize()</c> method.
     /// </summary>
     public class SqlServerDatabaseInitializer
