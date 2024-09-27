@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseExtensionsTest
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Initial Catalog={nameof(SqlServerDatabaseExtensionsTest)}; Integrated Security=True";
 
         [Fact]
         public void InsertInto_EnableIdentity()

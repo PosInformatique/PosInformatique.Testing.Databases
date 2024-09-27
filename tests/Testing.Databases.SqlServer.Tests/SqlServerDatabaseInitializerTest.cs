@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.UniTestingtTests.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerTest : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerTest)}; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerTest)}; Integrated Security=True";
 
         private readonly SqlServerDatabase database;
 

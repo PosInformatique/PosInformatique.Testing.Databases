@@ -8,10 +8,10 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
     using Microsoft.EntityFrameworkCore;
 
-    [Collection("PosInformatique.UnitTests.Databases.SqlServer.Tests")]
+    [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class EntityFrameworkSqlServerExtensionsTest
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-unit-tests; Integrated Security=True";
+        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Integrated Security=True";
 
         [Fact]
         public async Task Create_WithNoExistingDatabase()
@@ -26,7 +26,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-unit-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
 
             var tables = await database.GetTablesAsync();
 
@@ -54,7 +54,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-unit-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
 
             var tables = await database.GetTablesAsync();
 
