@@ -16,27 +16,27 @@ jobs:
         uses: nuget/setup-nuget@v2
 
       - name: Restore NuGet packages
-        run: nuget restore PosInformatique.UnitTests.Databases.sln
+        run: nuget restore PosInformatique.Testing.Databases.sln
       
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
       - name: Build
-        run: msbuild "PosInformatique.UnitTests.Databases.sln" /p:Configuration=Debug
+        run: msbuild "PosInformatique.Testing.Databases.sln" /p:Configuration=Debug
         
       - name: Restore NuGet packages
-        run: nuget restore "samples/PosInformatique.UnitTests.Databases.Samples.sln"
+        run: nuget restore "samples/PosInformatique.Testing.Databases.Samples.sln"
 
       - name: Build the samples
-        run: msbuild "samples/PosInformatique.UnitTests.Databases.Samples.sln" /p:Configuration=Debug
+        run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
 
-      - name: Creates the LocalDB for the unit tests
+      - name: Creates the LocalDB for the tests
         shell: cmd
-        run: SqlLocalDB create posinfo-unit-tests
+        run: SqlLocalDB create posinfo-tests
 
-      - name: Creates the SQL Login service accounts for the unit tests
+      - name: Creates the SQL Login service accounts for the tests
         shell: cmd
-        run: sqlcmd -S "(localDB)\posinfo-unit-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
+        run: sqlcmd -S "(localDB)\posinfo-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
 
       # Use this fix https://github.com/microsoft/vstest-action/issues/31#issuecomment-2159463764
       - name: Test with the dotnet CLI

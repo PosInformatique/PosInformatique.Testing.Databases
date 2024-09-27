@@ -1,0 +1,118 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35201.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CodeCoverage.runsettings = CodeCoverage.runsettings
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		LICENSE = LICENSE
+		README.md = README.md
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer", "src\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj", "{4CE1DA94-B254-45D3-8014-EB8055E38A01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E437195-1225-443D-BD19-8796F31B1E2B}"
+	ProjectSection(SolutionItems) = preProject
+		tests\.editorconfig = tests\.editorconfig
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer.Tests", "tests\Testing.Databases.SqlServer.Tests\Testing.Databases.SqlServer.Tests.csproj", "{C87E8F0D-D96D-4D77-9713-5564DC2E3597}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49103176-7D08-4386-B445-76E9823503F8}"
+	ProjectSection(SolutionItems) = preProject
+		src\.editorconfig = src\.editorconfig
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Testing.Databases.SqlServer.Tests.DacPac", "tests\Testing.Databases.SqlServer.Tests.DacPac\Testing.Databases.SqlServer.Tests.DacPac.sqlproj", "{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{91BFD2B1-6AB6-4B07-9D2E-430C93F150D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F8700AE9-9613-4CFE-B870-FAD786607D53}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\github-actions-ci.yaml = .github\workflows\github-actions-ci.yaml
+		.github\workflows\github-actions-release.yml = .github\workflows\github-actions-release.yml
+	EndProjectSection
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Testing.Databases.SqlServer.Tests.Source", "tests\Testing.Databases.SqlServer.Tests.Source\Testing.Databases.SqlServer.Tests.Source.sqlproj", "{A261D4FF-9BEA-475C-8671-E9BACFDCE960}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Testing.Databases.SqlServer.Tests.Target", "tests\Testing.Databases.SqlServer.Tests.Target\Testing.Databases.SqlServer.Tests.Target.sqlproj", "{6CD3F177-053F-4816-A37E-5CA6F293D34C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer.EntityFramework", "src\Testing.Databases.SqlServer.EntityFramework\Testing.Databases.SqlServer.EntityFramework.csproj", "{157DDF0D-9410-4646-94B9-9CEE4C140F5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer.EntityFramework.Tests", "tests\Testing.Databases.SqlServer.EntityFramework.Tests\Testing.Databases.SqlServer.EntityFramework.Tests.csproj", "{04A7AE8F-FE77-435B-9250-600388BB8065}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8500A9B6-CAA0-432C-BABB-DDC86CE08994}"
+	ProjectSection(SolutionItems) = preProject
+		docs\WriteTest.md = docs\WriteTest.md
+		docs\WriteDatabaseMigrationTest.md = docs\WriteDatabaseMigrationTest.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer.Dac", "src\Testing.Databases.SqlServer.Dac\Testing.Databases.SqlServer.Dac.csproj", "{8BE60460-EBA5-43DE-B85D-C756E2988DC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CE1DA94-B254-45D3-8014-EB8055E38A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE1DA94-B254-45D3-8014-EB8055E38A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE1DA94-B254-45D3-8014-EB8055E38A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE1DA94-B254-45D3-8014-EB8055E38A01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87E8F0D-D96D-4D77-9713-5564DC2E3597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87E8F0D-D96D-4D77-9713-5564DC2E3597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87E8F0D-D96D-4D77-9713-5564DC2E3597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87E8F0D-D96D-4D77-9713-5564DC2E3597}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F618225-0E1C-46A7-BBCC-23A6243D5CEE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A261D4FF-9BEA-475C-8671-E9BACFDCE960}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD3F177-053F-4816-A37E-5CA6F293D34C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{157DDF0D-9410-4646-94B9-9CEE4C140F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157DDF0D-9410-4646-94B9-9CEE4C140F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157DDF0D-9410-4646-94B9-9CEE4C140F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157DDF0D-9410-4646-94B9-9CEE4C140F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A7AE8F-FE77-435B-9250-600388BB8065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A7AE8F-FE77-435B-9250-600388BB8065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A7AE8F-FE77-435B-9250-600388BB8065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A7AE8F-FE77-435B-9250-600388BB8065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE60460-EBA5-43DE-B85D-C756E2988DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE60460-EBA5-43DE-B85D-C756E2988DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE60460-EBA5-43DE-B85D-C756E2988DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE60460-EBA5-43DE-B85D-C756E2988DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E437195-1225-443D-BD19-8796F31B1E2B} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
+		{49103176-7D08-4386-B445-76E9823503F8} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
+		{91BFD2B1-6AB6-4B07-9D2E-430C93F150D4} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
+		{F8700AE9-9613-4CFE-B870-FAD786607D53} = {91BFD2B1-6AB6-4B07-9D2E-430C93F150D4}
+		{8500A9B6-CAA0-432C-BABB-DDC86CE08994} = {BFE7322A-DFBA-4CE1-A3D8-7EBB4CD6F586}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAC64573-D665-48A8-AC75-7B82B692EC9E}
+	EndGlobalSection
+EndGlobal

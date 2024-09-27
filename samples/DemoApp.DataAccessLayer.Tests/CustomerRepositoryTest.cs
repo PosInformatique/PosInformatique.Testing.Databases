@@ -7,7 +7,7 @@
 namespace PosInformatique.DemoApp.DataAccessLayer.Tests
 {
     using FluentAssertions;
-    using PosInformatique.UnitTests.Databases.SqlServer;
+    using PosInformatique.Testing.Databases.SqlServer;
 
     [Collection(DatabaseName)]
     public class CustomerRepositoryTest : IClassFixture<SqlServerDatabaseInitializer>
@@ -19,7 +19,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
         {
             // Deploy the database using Entity Framework
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             this.database = initializer.Initialize(dbContext);
 
@@ -30,7 +30,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
             // - Here we force to set the ID of the customer to 15.
             this.database.InsertInto("Customer", disableIdentityInsert: true, new { Id = 15, FirstName = "Marcel", LastName = "DUPONT", Revenue = 4852.45 });
 
-            // - Here, to simplify the syntax (recommanded approach) we use an extension method in the unit tests project.
+            // - Here, to simplify the syntax (recommanded approach) we use an extension method in the tests project.
             //   Using extension methods, make the code more readable.
             //   Also, we recommand to force to set the IDENTITY column values explicit to avoid
             //   to update lot of code if you delete some rows later...
@@ -41,7 +41,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task CreateAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -71,7 +71,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task DeleteAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -90,7 +90,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task DeleteAsync_CustomerNotFound()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -107,7 +107,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task GetAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -127,7 +127,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task GetAsync_CustomerNotFound()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -144,7 +144,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task ResetRevenue()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 

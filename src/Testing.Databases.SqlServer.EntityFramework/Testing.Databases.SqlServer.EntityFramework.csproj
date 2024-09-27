@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <Description>Testing.Databases.SqlServer.EntityFramework is a library that contains a set of tools for testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
+    <PackageTags>testing unittest entityframework sqlserver repository tdd dataaccesslayer</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
