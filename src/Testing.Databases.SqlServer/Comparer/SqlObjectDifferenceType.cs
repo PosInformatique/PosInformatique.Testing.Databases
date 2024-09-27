@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases
+namespace PosInformatique.Testing.Databases
 {
     /// <summary>
     /// Indicate the difference type between <see cref="SqlObjectPropertyDifference.Source"/> and <see cref="SqlObjectPropertyDifference.Target"/>.

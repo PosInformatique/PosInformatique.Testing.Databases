@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer.Tests
+namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
     using Microsoft.EntityFrameworkCore;
 

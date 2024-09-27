@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases
+namespace PosInformatique.Testing.Databases
 {
     /// <summary>
     /// Represents a difference of property value of compared <see cref="SqlObject"/>.

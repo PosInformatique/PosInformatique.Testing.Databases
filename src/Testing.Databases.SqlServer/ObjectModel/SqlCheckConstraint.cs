@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases
+namespace PosInformatique.Testing.Databases
 {
     /// <summary>
     /// Represents a check constraint in SQL table.

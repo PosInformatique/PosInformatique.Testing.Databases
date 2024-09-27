@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases
+namespace PosInformatique.Testing.Databases
 {
     /// <summary>
     /// Represents a stored procedure in SQL database.

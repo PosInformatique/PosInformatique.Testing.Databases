@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.Tests
+namespace PosInformatique.Testing.Databases.Tests
 {
     public class SqlPrimaryKeyColumnTest
     {

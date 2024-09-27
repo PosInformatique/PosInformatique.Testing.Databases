@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer
+namespace PosInformatique.Testing.Databases.SqlServer
 {
     using System.Data;
     using Microsoft.Data.SqlClient;

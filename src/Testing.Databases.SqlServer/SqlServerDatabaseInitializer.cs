@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PosInformatique.UnitTests.Databases.SqlServer
+namespace PosInformatique.Testing.Databases.SqlServer
 {
     /// <summary>
     /// Initializer used to initialize the database for the unit tests.
