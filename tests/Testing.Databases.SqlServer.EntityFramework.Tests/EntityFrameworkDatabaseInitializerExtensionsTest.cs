@@ -50,7 +50,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[1]["Name"].Should().Be("Name 2");
 
             // Insert a row which should not be use in other tests.
-            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next unit test" });
+            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[1]["Name"].Should().Be("Name 2");
 
             // Insert a row which should not be use in other tests.
-            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next unit test" });
+            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
 
         private sealed class DbContextTest : DbContext

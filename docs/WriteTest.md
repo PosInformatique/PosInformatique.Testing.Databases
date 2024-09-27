@@ -204,7 +204,7 @@ By default, with XUnit all the tests will be executed in parallel. Also, our tes
 will works on the same database. It will not work of course, so it is mean that our tests must be executed in series
 and not in parallel.
 
-For that, we must add the `Collection` attribute with an unique name to indicate to XUnit that all the tests
+For that, we must add the `Collection` attribute with an unique name to indicate to xUnit that all the tests
 in the class, must not be executed in parallel.
 
 We recommand to put the name of the database in the arguments of the `Collection` attribute.

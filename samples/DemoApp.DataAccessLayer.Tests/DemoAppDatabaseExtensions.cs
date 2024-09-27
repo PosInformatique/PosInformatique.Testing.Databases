@@ -6,7 +6,7 @@
 
 namespace PosInformatique.DemoApp.DataAccessLayer.Tests
 {
-    using PosInformatique.UnitTests.Databases.SqlServer;
+    using PosInformatique.Testing.Databases.SqlServer;
 
     /// <summary>
     /// Contains static methods to insert data in the database.

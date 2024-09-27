@@ -8,8 +8,8 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Migrations.Tests
 {
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
-    using PosInformatique.UnitTests.Databases;
-    using PosInformatique.UnitTests.Databases.SqlServer;
+    using PosInformatique.Testing.Databases;
+    using PosInformatique.Testing.Databases.SqlServer;
 
     public class DatabaseMigrationTest
     {

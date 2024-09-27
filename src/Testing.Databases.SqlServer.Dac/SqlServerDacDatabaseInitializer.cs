@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
     using Microsoft.Data.SqlClient;
 
     /// <summary>
-    /// Initializer used to initialize the database for the unit tests.
+    /// Initializer used to initialize the database for the tests.
     /// Call the <see cref="Initialize(SqlServerDatabaseInitializer, string, string)"/> method to initialize a database from
     /// a DACPAC file.
     /// </summary>

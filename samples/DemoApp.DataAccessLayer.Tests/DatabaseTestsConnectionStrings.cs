@@ -10,7 +10,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
 
     /// <summary>
     /// This helper allows to centralize the connection string
-    /// and the creation of the <see cref="DbContextOptions"/> for the unit tests.
+    /// and the creation of the <see cref="DbContextOptions"/> for the tests.
     /// </summary>
     public static class DatabaseTestsConnectionStrings
     {

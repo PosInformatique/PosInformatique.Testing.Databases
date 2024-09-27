@@ -19,7 +19,7 @@
     </PackageReleaseNotes>
   </PropertyGroup>
   
-  <!-- Add the InternalsVisibleToAttribute for the unit tests -->
+  <!-- Add the InternalsVisibleToAttribute for the tests -->
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 	    <_Parameter1>$(AssemblyName).Tests</_Parameter1>

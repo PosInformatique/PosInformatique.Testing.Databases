@@ -6,7 +6,7 @@
 
 namespace PosInformatique.Testing.Databases.SqlServer.Tests
 {
-    [Collection("PosInformatique.UniTestingtTests.Databases.SqlServer.Tests")]
+    [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class SqlServerDatabaseInitializerTest : IClassFixture<SqlServerDatabaseInitializer>
     {
         private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Initial Catalog={nameof(SqlServerDatabaseInitializerTest)}; Integrated Security=True";
@@ -43,7 +43,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[1]["Name"].Should().Be("Name 2");
 
             // Insert a row which should not be use in other tests.
-            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next unit test" });
+            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[1]["Name"].Should().Be("Name 2");
 
             // Insert a row which should not be use in other tests.
-            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next unit test" });
+            this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
     }
 }
