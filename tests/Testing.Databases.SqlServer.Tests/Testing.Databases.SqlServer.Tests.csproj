@@ -9,16 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\UnitTests.Databases.SqlServer.Tests.DacPac\bin\Debug\UnitTests.Databases.SqlServer.Tests.DacPac.dacpac" Link="UnitTests.Databases.SqlServer.Tests.DacPac.dacpac">
+    <Content Include="..\Testing.Databases.SqlServer.Tests.DacPac\bin\Debug\Testing.Databases.SqlServer.Tests.DacPac.dacpac" Link="Testing.Databases.SqlServer.Tests.DacPac.dacpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\UnitTests.Databases.SqlServer.Tests.Source\bin\Debug\UnitTests.Databases.SqlServer.Tests.Source.dacpac" Link="UnitTests.Databases.SqlServer.Tests.Source.dacpac">
+    <Content Include="..\Testing.Databases.SqlServer.Tests.Source\bin\Debug\Testing.Databases.SqlServer.Tests.Source.dacpac" Link="Testing.Databases.SqlServer.Tests.Source.dacpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\UnitTests.Databases.SqlServer.Tests.Target\bin\Debug\UnitTests.Databases.SqlServer.Tests.Target.dacpac" Link="UnitTests.Databases.SqlServer.Tests.Target.dacpac">
+    <Content Include="..\Testing.Databases.SqlServer.Tests.Target\bin\Debug\Testing.Databases.SqlServer.Tests.Target.dacpac" Link="Testing.Databases.SqlServer.Tests.Target.dacpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlServerDatabaseComparerTest.CompareAsync.txt">
@@ -41,10 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\UnitTests.Databases.SqlServer.Dac\UnitTests.Databases.SqlServer.Dac.csproj" />
-    <ProjectReference Include="..\UnitTests.Databases.SqlServer.Tests.DacPac\UnitTests.Databases.SqlServer.Tests.DacPac.sqlproj" />
-    <ProjectReference Include="..\UnitTests.Databases.SqlServer.Tests.Source\UnitTests.Databases.SqlServer.Tests.Source.sqlproj" />
-    <ProjectReference Include="..\UnitTests.Databases.SqlServer.Tests.Target\UnitTests.Databases.SqlServer.Tests.Target.sqlproj" />
+    <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.Dac\Testing.Databases.SqlServer.Dac.csproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.DacPac\Testing.Databases.SqlServer.Tests.DacPac.sqlproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.Source\Testing.Databases.SqlServer.Tests.Source.sqlproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.Target\Testing.Databases.SqlServer.Tests.Target.sqlproj" />
   </ItemGroup>
 
 </Project>

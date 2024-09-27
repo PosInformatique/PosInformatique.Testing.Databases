@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-    <Description>UnitTests.Databases.SqlServer.EntityFramework is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
-    <PackageTags>unittest entityframework sqlserver repository tdd dataaccesslayer</PackageTags>
+    <Description>Testing.Databases.SqlServer.EntityFramework is a library that contains a set of tools for unit testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
+    <PackageTags>testing unittest entityframework sqlserver repository tdd dataaccesslayer</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UnitTests.Databases.SqlServer\UnitTests.Databases.SqlServer.csproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

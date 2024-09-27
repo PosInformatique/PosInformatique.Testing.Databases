@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>UnitTests.Databases.SqlServer.Tests.Source</Name>
+    <Name>Testing.Databases.SqlServer.Tests.Source</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{a261d4ff-9bea-475c-8671-e9bacfdce960}</ProjectGuid>
@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>UnitTests.Databases.SqlServer.Tests.Source</RootNamespace>
-    <AssemblyName>UnitTests.Databases.SqlServer.Tests.Source</AssemblyName>
+    <RootNamespace>Testing.Databases.SqlServer.Tests.Source</RootNamespace>
+    <AssemblyName>Testing.Databases.SqlServer.Tests.Source</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>

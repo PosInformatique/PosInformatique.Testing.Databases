@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>UnitTests.Databases.SqlServer.Tests.DacPac</Name>
+    <Name>Testing.Databases.SqlServer.Tests.DacPac</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{5f618225-0e1c-46a7-bbcc-23a6243d5cee}</ProjectGuid>
@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>UnitTests.Databases.SqlServer.Tests.DacPac</RootNamespace>
-    <AssemblyName>UnitTests.Databases.SqlServer.Tests.DacPac</AssemblyName>
+    <RootNamespace>Testing.Databases.SqlServer.Tests.DacPac</RootNamespace>
+    <AssemblyName>Testing.Databases.SqlServer.Tests.DacPac</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>

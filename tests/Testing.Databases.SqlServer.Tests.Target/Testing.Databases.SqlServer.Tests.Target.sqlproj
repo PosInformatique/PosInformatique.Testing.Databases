@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>UnitTests.Databases.SqlServer.Tests.Target</Name>
+    <Name>Testing.Databases.SqlServer.Tests.Target</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{6cd3f177-053f-4816-a37e-5ca6f293d34c}</ProjectGuid>
@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>UnitTests.Databases.SqlServer.Tests.Target</RootNamespace>
-    <AssemblyName>UnitTests.Databases.SqlServer.Tests.Target</AssemblyName>
+    <RootNamespace>Testing.Databases.SqlServer.Tests.Target</RootNamespace>
+    <AssemblyName>Testing.Databases.SqlServer.Tests.Target</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -69,36 +69,36 @@
     <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\TableIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\TableIdentical.sql">
       <Link>Tables\TableIdentical.sql</Link>
     </Build>
     <Build Include="Tables\TableTarget.sql" />
     <Build Include="Tables\TableDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\PrimaryKeys\PrimaryKeyIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\PrimaryKeys\PrimaryKeyIdentical.sql">
       <Link>Tables\PrimaryKey\PrimaryKeyIdentical.sql</Link>
     </Build>
     <Build Include="Tables\PrimaryKey\PrimaryKeyTarget.sql" />
     <Build Include="Tables\PrimaryKey\PrimaryKeyDifference.sql" />
     <Build Include="Programmability\Types\TypeTarget.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Programmability\Types\TypeIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Programmability\Types\TypeIdentical.sql">
       <Link>Programmability\Types\TypeIdentical.sql</Link>
     </Build>
     <Build Include="Programmability\Types\TypeDifference.sql" />
     <Build Include="Tables\UniqueConstraints\UniqueConstraintTarget.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\UniqueConstraints\UniqueConstraintIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\UniqueConstraints\UniqueConstraintIdentical.sql">
       <Link>Tables\UniqueConstraints\UniqueConstraintIdentical.sql</Link>
     </Build>
     <Build Include="Tables\UniqueConstraints\UniqueConstraintDifference.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\ReferencedTable.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\ReferencedTable.sql">
       <Link>Tables\ReferencedTable.sql</Link>
     </Build>
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\ForeignKeys\ForeignKeyIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\ForeignKeys\ForeignKeyIdentical.sql">
       <Link>Tables\ForeignKeys\ForeignKeyIdentical.sql</Link>
     </Build>
     <Build Include="Tables\ForeignKeys\ForeignKeyTarget.sql" />
     <Build Include="Tables\ForeignKeys\ForeignKeyDifference.sql" />
     <Build Include="Tables\Indexes\IndexTarget.sql" />
-    <Build Include="..\UnitTests.Databases.SqlServer.Tests.Source\Tables\Indexes\IndexIdentical.sql">
+    <Build Include="..\Testing.Databases.SqlServer.Tests.Source\Tables\Indexes\IndexIdentical.sql">
       <Link>Tables\Indexes\IndexIdentical.sql</Link>
     </Build>
     <Build Include="Tables\Indexes\IndexDifference.sql" />

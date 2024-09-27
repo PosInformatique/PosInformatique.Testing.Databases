@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     
-    <Description>UnitTests.Databases.SqlServer.Dac is a library that contains a set of tools for unit testing to deploy DAC (Data-tier Applications) packages (.dacpac files).</Description>
+    <Description>Testing.Databases.SqlServer.Dac is a library that contains a set of tools for unit testing to deploy DAC (Data-tier Applications) packages (.dacpac files).</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UnitTests.Databases.SqlServer\UnitTests.Databases.SqlServer.csproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

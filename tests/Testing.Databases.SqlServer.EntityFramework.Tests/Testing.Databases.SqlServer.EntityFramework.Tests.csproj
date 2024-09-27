@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\UnitTests.Databases.SqlServer.EntityFramework\UnitTests.Databases.SqlServer.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.EntityFramework\Testing.Databases.SqlServer.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
