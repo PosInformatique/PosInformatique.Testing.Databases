@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UnitTestsConnectionStrings.cs" company="P.O.S Informatique">
+// <copyright file="DatabaseTestsConnectionStrings.cs" company="P.O.S Informatique">
 //     Copyright (c) P.O.S Informatique. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
     /// This helper allows to centralize the connection string
     /// and the creation of the <see cref="DbContextOptions"/> for the unit tests.
     /// </summary>
-    public static class UnitTestsConnectionStrings
+    public static class DatabaseTestsConnectionStrings
     {
         public static DbContextOptions<TContext> CreateDbContextOptions<TContext>(string databaseName)
             where TContext : DbContext

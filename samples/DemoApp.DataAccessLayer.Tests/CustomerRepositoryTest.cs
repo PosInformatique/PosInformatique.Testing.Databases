@@ -19,7 +19,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
         {
             // Deploy the database using Entity Framework
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             this.database = initializer.Initialize(dbContext);
 
@@ -41,7 +41,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task CreateAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -71,7 +71,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task DeleteAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -90,7 +90,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task DeleteAsync_CustomerNotFound()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -107,7 +107,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task GetAsync()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -127,7 +127,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task GetAsync_CustomerNotFound()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 
@@ -144,7 +144,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
         public async Task ResetRevenue()
         {
             // Arrange
-            using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+            using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
             var repository = new CustomerRepository(dbContext);
 

@@ -1,7 +1,7 @@
-# Write unit tests to test the persistence layer
+# Write tests to test the persistence layer
 
-This section explain how to write the unit tests to test a persistence layer. The code samples
-used here can be found in the [PosInformatique.UnitTests.Databases.Samples](../samples/PosInformatique.UnitTests.Databases.Samples.sln) solution inside the `samples` directory of the repository.
+This section explain how to write the tests to test a persistence layer. The code samples
+used here can be found in the [PosInformatique.Testing.Databases.Samples](../samples/PosInformatique.Testing.Databases.Samples.sln) solution inside the `samples` directory of the repository.
 
 In this section we will test a repository called `CustomerRepository` inside a project called `DemoApp.DataAccessLayer`:
 
@@ -90,14 +90,14 @@ public class DemoAppDbContext : DbContext
 
 ## Create the SQL Server instance
 
-Before writing and executing the unit tests for a persistence layer, an instance of SQL Server is required.
+Before writing and executing the tests for a persistence layer, an instance of SQL Server is required.
 You can use the following approaches:
 - Using LocalDB instance (installed with Visual Studio). No setup is required for the developers on their machine, this is the easy approach recommanded.
 - Using SQL Server Express or SQL Server Developer Edition instances. The developers will have to install manually this instance to their computer.
-- Using a docker image of SQL Server. This approach is recommanded if you plan to execute your unit tests on Linux computers / servers.
+- Using a docker image of SQL Server. This approach is recommanded if you plan to execute your tests on Linux computers / servers.
 
 ### Create the LocalDB instance
-If you want to use a LocalDB instance to execute your unit tests, execute the following command:
+If you want to use a LocalDB instance to execute your tests, execute the following command:
 
 ```cmd
 sqllocaldb c <instance name>
@@ -106,29 +106,29 @@ sqllocaldb c <instance name>
 With:
 - `<instance name>`: The name of the instance to create. For example: `demoapp`.
 
-## Create the unit tests project
+## Create the tests project
 
 To test the `CustomerRepository`, we create an `xUnit Test Project` in Visual Studio which reference our project that contains the
 persistence layer to test.
 
 By using xUnit, we will be able to use a feature called the `Class Fixture`. This xUnit feature allows the xUnit engine to create an instance
-of the class and pass it in the constructor of the unit tests class each time an unit test (`Fact` method) is executed.
+of the class and pass it in the constructor of the tests class each time an test (`Fact` method) is executed.
 
 ## Add the NuGet packages
 
-In the test project, we add the [PosInformatique.UnitTests.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework) NuGet package
+In the test project, we add the [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) NuGet package
 package.
 
 This package will allow to create database based on Entity Framework `DbContext` (The `DemoAppDbContext` in our example).
 
-## Unit test class
+## Test class
 
-The unit test class of our repository have to use a component called `SqlServerDatabaseInitializer`. This component contains
-an `Initialize()` method which have to be called before each unit tests. The `Initialize()` method allows to create a database
+The test class of our repository have to use a component called `SqlServerDatabaseInitializer`. This component contains
+an `Initialize()` method which have to be called before each tests. The `Initialize()` method allows to create a database
 based on Entity Framework `DbContext`.
 
-The `SqlServerDatabaseInitializer` instance have to be instantiate only one time for all the unit tests of the class to execute.
-For that, we will implements the `IClassFixture<SqlServerDatabaseInitializer>` for our unit test class and we will
+The `SqlServerDatabaseInitializer` instance have to be instantiate only one time for all the tests of the class to execute.
+For that, we will implements the `IClassFixture<SqlServerDatabaseInitializer>` for our test class and we will
 retrieve the instance as parameter of the `CustomerRepositoryTest()` constructor.
 
 ```csharp
@@ -143,20 +143,20 @@ public class CustomerRepositoryTest : IClassFixture<SqlServerDatabaseInitializer
 }
 ```
 
-In the constructor of the `CustomerRepositoryTest` there are 2 stages to perform (which will be executed before each unit tests):
+In the constructor of the `CustomerRepositoryTest` there are 2 stages to perform (which will be executed before each tests):
 - Deploy a new instance of the database from a `DbContext`.
-- Fill the tables which will be used by our unit tests.
+- Fill the tables which will be used by our tests.
 
-> NB: To increase the speed of the execution of the unit tests, the `SqlServerDatabaseInitializer.Initialize()` will create physically the database
-at the first unit test execution, and will empty the data for the other unit tests.
+> NB: To increase the speed of the execution of the tests, the `SqlServerDatabaseInitializer.Initialize()` will create physically the database
+at the first test execution, and will empty the data for the other tests.
 
 ### Deploy a new instance of the database from a DbContext
 
 To deploy a new instance of the database:
 - Creates an instance of the `DbContext` which contains the Entity Framework model that will be use to create the schema of the database.
 - Call the `SqlServerDatabaseInitializer.Initialize(DbContext)` with the instance of the DbContext previously instantiated.
-- The `SqlServerDatabase` value returned by a `SqlServerDatabaseInitializer.Initialize(DbContext)` should be stored inside ass private member of the unit tests class.
-  This `SqlServerDatabase` will allows to initialize data on the database and can be used in the unit tests to performs some SQL query to assert the tests.
+- The `SqlServerDatabase` value returned by a `SqlServerDatabaseInitializer.Initialize(DbContext)` should be stored inside ass private member of the tests class.
+  This `SqlServerDatabase` will allows to initialize data on the database and can be used in the tests to performs some SQL query to assert the tests.
 
 ```csharp
 [Collection(DatabaseName)]
@@ -169,19 +169,19 @@ public class CustomerRepositoryTest : IClassFixture<SqlServerDatabaseInitializer
     public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
     {
         // Deploy the database using Entity Framework
-        using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+        using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
         this.database = initializer.Initialize(dbContext);
     }
 }
 ```
 
-The `UnitTestsConnectionStrings` class is just a simple helper class in the unit tests projects which allows to centralize
+The `DatabaseTestsConnectionStrings` class is just a simple helper class in the tests projects which allows to centralize
 the connection string and the `DbContextOptions` building.
 
 
 ```csharp
-public static class UnitTestsConnectionStrings
+public static class DatabaseTestsConnectionStrings
 {
     public static DbContextOptions<TContext> CreateDbContextOptions<TContext>(string databaseName)
         where TContext : DbContext
@@ -195,22 +195,22 @@ public static class UnitTestsConnectionStrings
 ```
 
 > NB: We recommand to create this kind of helper which allows to change easily the connection string
-depending of the SQL Server instance your target. It is also very useful if you plan to execute the unit tests
+depending of the SQL Server instance your target. It is also very useful if you plan to execute the tests
 in a CI process (Git Actions, Azure Pipelines,...).
 
-### Parallel execution of the unit tests
+### Parallel execution of the tests
 
-By default, with XUnit all the unit tests will be executed in parallel. Also, our unit tests in the `CustomerRepositoryTest`
-will works on the same database. It will not work of course, so it is mean that our unit tests must be executed in series
+By default, with XUnit all the tests will be executed in parallel. Also, our tests in the `CustomerRepositoryTest`
+will works on the same database. It will not work of course, so it is mean that our tests must be executed in series
 and not in parallel.
 
-For that, we must add the `Collection` attribute with an unique name to indicate to XUnit that all the unit tests
+For that, we must add the `Collection` attribute with an unique name to indicate to XUnit that all the tests
 in the class, must not be executed in parallel.
 
 We recommand to put the name of the database in the arguments of the `Collection` attribute.
 
-If you plan to write unit tests for different repositories, do not hesitate to use differents databases (we recommand to use the name of the repository tested).
-Using this approach will allows to execute all the unit tests of a class in series, but will allows to execute the unit tests of differents repositories
+If you plan to write tests for different repositories, do not hesitate to use differents databases (we recommand to use the name of the repository tested).
+Using this approach will allows to execute all the tests of a class in series, but will allows to execute the tests of differents repositories
 in parallel.
 
 ```csharp
@@ -225,11 +225,11 @@ public class CustomerRepositoryTest : IClassFixture<SqlServerDatabaseInitializer
 
 ### Initializes the data of the database
 
-Remember that before each unit tests execution, the database is created with the schema of the materialized by the `DbContext`
+Remember that before each tests execution, the database is created with the schema of the materialized by the `DbContext`
 and no data is present in the tables.
 
 After initialize the database, insert the data using a `INSERT INTO` SQL command. The
-[PosInformatique.UnitTests.Databases.SqlServer](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer)
+[PosInformatique.Testing.Databases.SqlServer](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer)
 library provides an helper `InsertInto()` method on the `SqlServerDatabase` which allows to insert data based on a simple .NET class.
 Each property of this class represents a column, the instance of this class represents the rows value to insert.
 
@@ -239,8 +239,8 @@ For example, to insert a `Customer` row in our database we just have to call the
 this.database.InsertInto("Customer", new { FirstName = "John", LastName = "DOE", Revenue = 110.50 });
 ```
 
-If the table contains an IDENTITY columns, the value will be automatically incremented by SQL Server. For the unit tests,
-it is recommand to specify explicitly the IDENTITY value to avoid to updates the unit tests if one day you add/delete some
+If the table contains an IDENTITY columns, the value will be automatically incremented by SQL Server. For the tests,
+it is recommand to specify explicitly the IDENTITY value to avoid to updates the tests if one day you add/delete some
 rows in the initialization of the data.
 
 For that, the second argument of the `InsertInto()` method is boolean `disableIdentityInsert` which allows to indicate
@@ -285,7 +285,7 @@ In the end, if we want to insert 3 `Customer` rows in the database, the `Custome
 ```csharp
 public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
 {
-    using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+    using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
     this.database = initializer.Initialize(dbContext);
 
@@ -295,26 +295,26 @@ public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
 }
 ```
 
-Now, every time we will execute an unit test in the `CustomerRepositoryTest` class,
-a database will be deployed with these 3 `Customer` before the execution of the unit test.
+Now, every time we will execute an test in the `CustomerRepositoryTest` class,
+a database will be deployed with these 3 `Customer` before the execution of the test.
 
-## Write the unit tests for methods that retrieve data
+## Write the tests for methods that retrieve data
 
-This section describes how to write an unit test for methods that retrieve data (SELECT queries).
-By respecting the Arrange/Act/Assert pattern, the unit test will peform the following things:
+This section describes how to write an test for methods that retrieve data (SELECT queries).
+By respecting the Arrange/Act/Assert pattern, the test will peform the following things:
 
 - Arrange: Prepare the `DbContext`, the repository to test and the parameters of the method to call.
 - Act: Call the method that retrieve the data in the database.
 - Assert: The content of the business entity returned by the method must be assert.
 
-In our `CustomerRepository` class, if we want to test the `GetAsync()` method, we have to write the unit code like that:
+In our `CustomerRepository` class, if we want to test the `GetAsync()` method, we have to write the code like that:
 
 ```csharp
 [Fact]
 public async Task GetAsync()
 {
     // Arrange
-    using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+    using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
     var repository = new CustomerRepository(dbContext);
 
@@ -329,26 +329,26 @@ public async Task GetAsync()
 }
 ```
 
-Remember that in the previous section, in the constructor of the unit test class, a set of `Customer` are always inserted in the database.
+Remember that in the previous section, in the constructor of the test class, a set of `Customer` are always inserted in the database.
 In our case, we use the `Customer` with the `ID` define to `15`.
 
-## Write the unit tests for methods that update the data
+## Write the tests for methods that update the data
 
-This section describes how to write an unit test for methods the update data (INSERT, UPDATE, DELETE, ... commands).
-By respecting the Arrange/Act/Assert pattern, the unit test will peform the following things:
+This section describes how to write an test for methods the update data (INSERT, UPDATE, DELETE, ... commands).
+By respecting the Arrange/Act/Assert pattern, the test will peform the following things:
 
 - Arrange: Prepare the `DbContext`, the repository to test and the parameters of the method to call.
 - Act: Call the method that update  the data in the database.
 - Assert: Query the tables in the database and assert the content of it.
 
-In our `CustomerRepository` class, if we want to test the `CreateAsync()` method, we have to write the unit code like that:
+In our `CustomerRepository` class, if we want to test the `CreateAsync()` method, we have to write the code like that:
 
 ```csharp
 [Fact]
 public async Task CreateAsync()
 {
     // Arrange
-    using var dbContext = new DemoAppDbContext(UnitTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+    using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
 
     var repository = new CustomerRepository(dbContext);
 
@@ -372,9 +372,9 @@ public async Task CreateAsync()
 ```
 
 > **NB**: Please stop to contact me about "possible SQL Injection" in my samples code. The SQL code executed
-in the `ExecuteQuery()` is executed only in the unit tests and will never be compiled for the production code!!!
+in the `ExecuteQuery()` is executed only in the tests and will never be compiled for the production code!!!
 
-In this unit test, we call the `CreateAsync()` method with the `Customer` to insert
+In this test, we call the `CreateAsync()` method with the `Customer` to insert
 in the database. In the `Assert` stage, we use the `ExecuteQuery()` helper method on the `SqlServerDatabase`
 initialized which allows to retrieve the raw SQL data of the customer inserted.
 
@@ -383,24 +383,24 @@ to performs assertion of the raw SQL values (rows / columns).
 
 > **Advice**: Developers should test only the "raw" values in the SQL Server table.
 Don't use Entity Framework or other framework / helper (even Dapper) and don't wrap the results inside a complex .NET class.
-The main goal of this kind of unit tests, is to assert that the contains of the table
+The main goal of this kind of tests, is to assert that the contains of the table
 match perfecly what the `CreateAsync()` should do.
 
-## Execute the unit tests
+## Execute the tests
 
-To execute the units, it is very simple, just use your favorite unit tests runner, the Test Explorer in Visual Studio for example,
-and run the unit tests:
+To execute the tests, it is very simple, just use your favorite tests runner, the Test Explorer in Visual Studio for example,
+and run the tests:
 
-![Unit Test Execution Speed](UnitTestExecutionSpeed.png)
+![Tests Execution Speed](TestsExecutionSpeed.png)
 
-You will remarks in the previous screenshot, that the execution of one the unit tests is around *10 sec* and the other unit tests
-are executed very faster. This is because the first unit test executed create the database and initialize the schema, the other
-unit tests clean the database before their execution, which is most faster.
+You will remarks in the previous screenshot, that the execution of one the tests is around *10 sec* and the other tests
+are executed very faster. This is because the first test executed create the database and initialize the schema, the other
+ tests clean the database before their execution, which is most faster.
 
-### Check the database state after an unit test has been failed
+### Check the database state after an test has been failed
 
-When executing an unit test, if this one failed, developers can check the content of the database.
-This behavior is possible, because the data are not clean after the execution of the unit tests, but only **before** execution the unit test.
+When executing an test, if this one failed, developers can check the content of the database.
+This behavior is possible, because the data are not clean after the execution of the tests, but only **before** execution the test.
 
 For exemple, if we have a wrong assertion raised by Visual Studio:
 ![Assertion With Exception Thrown](AssertionWithExceptionThrown.png)

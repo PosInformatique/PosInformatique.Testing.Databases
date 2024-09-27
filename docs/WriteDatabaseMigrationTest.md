@@ -1,18 +1,18 @@
-﻿# Write unit tests to test database migration
+﻿# Write tests to test database migration
 
-This section explain how to write an unit test to test the database migration. The code samples
-used here can be found in the [PosInformatique.UnitTests.Databases.Samples](../samples/PosInformatique.UnitTests.Databases.Samples.sln)
+This section explain how to write an test to test the database migration. The code samples
+used here can be found in the [PosInformatique.Testing.Databases.Samples](../samples/PosInformatique.Testing.Databases.Samples.sln)
 solution inside the `samples` directory of the repository.
 
 Before continuing, ensures that you followed these steps in the
-[Write unit tests to test the Data Access Layer](./WriteUnitTests.md) section:
+[Write tests to test the Data Access Layer](./WriteTest.md) section:
 
-- [Create the SQL Server instance](./WriteUnitTests.md#create-the-sql-server-instance)
-  - [Create the LocalDB instance](./WriteUnitTests.md#create-the-localdb-instance)
+- [Create the SQL Server instance](./WriteTest.md#create-the-sql-server-instance)
+  - [Create the LocalDB instance](./WriteTest.md#create-the-localdb-instance)
 
 ## Entity Framework migration approach
 
-In this subsection, we will write a unit test to check that our `DemoAppDbContext` migrations work.
+In this subsection, we will write a test to check that our `DemoAppDbContext` migrations work.
 Do not hesitate to read the official [Microsoft Entity Framework migrations documentation](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/) to learn how to generate Entity Framework code.
 
 To execute the migration of our database, we create a simple console application that executes the Entity Framework generated migration code.
@@ -39,10 +39,10 @@ public static class Program
 }
 ```
 
-In the following section, we will see the step to write a unit test to test the console application which perform
+In the following section, we will see the step to write a test to test the console application which perform
 the migration of the database.
 
-### Create the unit tests project
+### Create the tests project
 
 To test the console application, we create an `xUnit Test Project` in Visual Studio which reference our console application project
 that contains the `Main()` method.
@@ -50,7 +50,7 @@ that contains the `Main()` method.
 ### Add the NuGet packages
 
 In the test project, we add the
-[PosInformatique.UnitTests.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.UnitTests.Databases.SqlServer.EntityFramework)
+[PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework)
 NuGet package.
 
 This package will allow us to:
@@ -58,9 +58,9 @@ This package will allow us to:
 - Create the *target database* using the `DemoAppDbContext`.
 - Compare the *initial* and *target* databases to check if the console application migrates the *initial* database to the *target* database schema.
 
-### Write unit test to check the migration of the database
+### Write test to check the migration of the database
 
-To test if the migration code of the database works, we create a unit test `MigrationWithConsoleApp` which perform the following steps:
+To test if the migration code of the database works, we create a test `MigrationWithConsoleApp` which perform the following steps:
 - Create an empty `DemoApp_InitialDatabase` SQL Server database.
 - Create a SQL Server database `DemoApp_TargetDatabase` using the `DemoAppDbContext`
 - Call the `Main()` method of the console application with the connection string.
@@ -155,8 +155,8 @@ protected override void Up(MigrationBuilder migrationBuilder)
 }
 ```
 
-Run the `MigrationWithConsoleApp` unit test and you will see that an exception is occured (the unit test failed has been failed).
-If you look at the output of the unit test, you will the following FluentAssertion error message:
+Run the `MigrationWithConsoleApp` test and you will see that an exception is occured (the test failed has been failed).
+If you look at the output of the test, you will the following FluentAssertion error message:
 
 ```
 Expected differences.IsIdentical to be true because
