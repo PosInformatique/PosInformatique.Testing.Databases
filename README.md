@@ -1,5 +1,9 @@
 # PosInformatique.Testing.Databases
 
+[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer?label=PosInformatique.Testing.Databases.SqlServer)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer)
+[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.Dac?label=PosInformatique.Testing.Databases.SqlServer.Dac)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac)
+[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.EntityFramework?label=PosInformatique.Testing.Databases.SqlServer.EntityFramework)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework)
+
 **PosInformatique.Testing.Databases** is a set of tools for testing databases.
 It simplifies writing and executing tests, helping ensure your database and data access code are reliable and bug-free.
 It is ideal for developers who want to validate data access based on SQL Server code during their development.
