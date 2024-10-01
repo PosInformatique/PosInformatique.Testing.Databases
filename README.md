@@ -1,4 +1,4 @@
-# PosInformatique.Testing.Databases
+﻿# PosInformatique.Testing.Databases
 
 [![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer?label=PosInformatique.Testing.Databases.SqlServer)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer)
 [![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.Dac?label=PosInformatique.Testing.Databases.SqlServer.Dac)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac)
@@ -21,7 +21,7 @@ approach.
 
 Since the version 2.0.0 this tools provide a comparer to compare the schema of two SQL databases.
 
-## The approach of these tools
+## 💡 The approach of these tools
 
 The main approach of these tools is to perform tests without using mocking or in-memory alternatives for ADO .NET code or Entity Framework `DbContext`, instead using a real SQL Server database.
 
@@ -38,7 +38,7 @@ You also miss technical behaviors like transactions, connection management, trig
 - You perform test cases, meaning you write simple tests to validate small features instead of writing complex integration tests.
 - When changing the schema of the database, it is important to test and have a *safeguard* to check that the migration script (or Entity Framework migration actions) will update the database to the expected schema.
 
-## How to test a persistence layer
+## 🧪 How to test a persistence layer
 
 To perform tests of a persistence layer, the approach is straightforward using the Arrange/Act/Assert pattern:
 
@@ -61,7 +61,7 @@ Before each test (`TestMethod` or `Fact` methods):
 
 To write a test using this approach with the [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosInformatique.Testing.Databases) tools, see the [ Write tests to test the persistence layer](./docs/WriteTest.md) page.
 
-## How to test database migration
+## 🧪 How to test database migration
 
 To perform tests of a database migration, the approach is straightforward and required only a test which perform the following actions:
 
@@ -91,7 +91,7 @@ migration code. It's better than nothing and very useful for detecting issues du
 
 To write a test using this approach with the [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosInformatique.Testing.Databases) tools, see the [Write tests to test database migration](./docs/WriteDatabaseMigrationTest.md) page.
 
-## What do the PosInformatique.Testing.Databases tools provide?
+## 📤 What do the PosInformatique.Testing.Databases tools provide?
 
 Using the previous approach, the [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosInformatique.Testing.Databases) libraries allow you to:
 
@@ -104,7 +104,7 @@ Using the previous approach, the [PosInformatique.Testing.Databases](https://git
 
 - Contain a comparer tool to check schema differences between two databases.
 
-## NuGet packages
+## 📦 NuGet packages
 
 The [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosInformatique.Testing.Databases) tools are provided in two NuGet packages:
 
@@ -119,7 +119,7 @@ The [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosIn
 - [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) NuGet package which contains:
   - Tools to deploy a SQL Server database using a DbContext.
 
-## Samples / Demo
+## 🚀 Samples / Demo
 
 A complete sample solution is available in this repository inside the [samples](./samples) folder.
 
@@ -129,7 +129,7 @@ The solution contains the following sample projects:
 - [DemoApp.DataAccessLayer.Tests](./samples/DemoApp.DataAccessLayer.Tests/DemoApp.DataAccessLayer.Tests.csproj): Test project to test the [DemoApp.DataAccessLayer](./samples/DemoApp.DataAccessLayer/DemoApp.DataAccessLayer.csproj)
 project using the [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) package.
 
-## Writing tests for a persistence layer
+## 📝 Writing tests for a persistence layer
 
 To write tests for a persistence layer, follow the [Write tests to test the persistence layer](./docs/WriteTest.md) documentation page, which explains the different steps to perform
 using the [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) library:
@@ -147,7 +147,7 @@ using the [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://
 - [Execute the tests](./docs/WriteTest.md#execute-the-tests)
 - [Check the database state after a test has failed](./docs/WriteTest.md#check-the-database-state-after-an-test-has-been-failed)
 
-## Writing test to check database migration
+## 📝 Writing test to check database migration
 
 To write an test to check the migration of database, follow the [Write tests to test database migration](./docs/WriteDatabaseMigrationTest.md)
 documentation page.
