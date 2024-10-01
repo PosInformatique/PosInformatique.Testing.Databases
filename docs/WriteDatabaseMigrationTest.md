@@ -87,7 +87,7 @@ public class DatabaseMigrationTest
 
         var targetDatabase = Task.Run(() => server.CreateDatabaseAsync(TargetDatabaseName, dbContext));
 
-        // Wait both task
+        // Wait both tasks
         await Task.WhenAll(initialDatabase, targetDatabase);
 
         // Call the console application to perform migration of the "DemoApp_InitialDatabase"
