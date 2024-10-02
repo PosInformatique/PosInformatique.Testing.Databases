@@ -130,6 +130,40 @@ namespace PosInformatique.Testing.Databases.SqlServer
             database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'");
         }
 
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script">T-SQL script to execute.</param>
+        public static void ExecuteScript(this SqlServerDatabase database, string script)
+        {
+            using var stringReader = new StringReader(script);
+
+            ExecuteScript(database, stringReader);
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script"><see cref="StringReader"/> which contains the T-SQL script to execute.</param>
+        public static void ExecuteScript(this SqlServerDatabase database, StringReader script)
+        {
+            var parser = new SqlServerScriptParser(script);
+
+            var block = parser.ReadNextBlock();
+
+            while (block is not null)
+            {
+                for (var i = 0; i < block.Count; i++)
+                {
+                    database.ExecuteNonQuery(block.Code);
+                }
+
+                block = parser.ReadNextBlock();
+            }
+        }
+
         private sealed class SqlInsertStatementBuilder
         {
             private readonly string tableName;
