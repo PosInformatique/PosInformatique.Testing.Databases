@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <Description>Testing.Databases.SqlServer.EntityFramework is a library that contains a set of tools for testing Data Access Layer (repositories) based on Entity Framework and SQL Server.</Description>
