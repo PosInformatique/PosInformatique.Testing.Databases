@@ -11,24 +11,27 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlForeignKeyColumn : SqlObject
     {
-        internal SqlForeignKeyColumn()
+        internal SqlForeignKeyColumn(string name, int position, string referenced)
         {
+            this.Name = name;
+            this.Position = position;
+            this.Referenced = referenced;
         }
 
         /// <summary>
         /// Gets the name of the column of the foreign key.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the name of the column referenced in the referenced table of the foreign key.
         /// </summary>
-        public required string Referenced { get; init; }
+        public string Referenced { get; }
 
         /// <summary>
         /// Gets the position of the column of the foreign key.
         /// </summary>
-        public required int Position { get; init; }
+        public int Position { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

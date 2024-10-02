@@ -11,19 +11,21 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlPrimaryKeyColumn : SqlObject
     {
-        internal SqlPrimaryKeyColumn()
+        internal SqlPrimaryKeyColumn(string name, byte position)
         {
+            this.Name = name;
+            this.Position = position;
         }
 
         /// <summary>
         /// Gets the name of the column of the primary key.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the position of the column of the primary key.
         /// </summary>
-        public required byte Position { get; init; }
+        public byte Position { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

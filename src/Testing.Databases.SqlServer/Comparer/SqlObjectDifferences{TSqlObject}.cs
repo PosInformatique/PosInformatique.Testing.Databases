@@ -49,7 +49,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the property changes between <see cref="Source"/> and <see cref="Target"/>.
         /// </summary>
-        public ReadOnlyCollection<SqlObjectPropertyDifference> Properties { get; init; }
+        public ReadOnlyCollection<SqlObjectPropertyDifference> Properties { get; }
 
         /// <summary>
         /// Returns a textual representation of the result comparison.

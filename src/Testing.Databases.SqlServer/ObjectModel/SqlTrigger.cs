@@ -11,24 +11,26 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlTrigger : SqlObject
     {
-        internal SqlTrigger()
+        internal SqlTrigger(string name, string code)
         {
+            this.Name = name;
+            this.Code = code;
         }
 
         /// <summary>
         /// Gets the name of the trigger.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets a value indicating whether if the trigger is an INSTEAD OF trigger.
         /// </summary>
-        public bool IsInsteadOfTrigger { get; init; }
+        public bool IsInsteadOfTrigger { get; internal set; }
 
         /// <summary>
         /// Gets the SQL code of the trigger.
         /// </summary>
-        public required string Code { get; init; }
+        public string Code { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

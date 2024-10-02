@@ -13,8 +13,10 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlIndex : SqlObject
     {
-        internal SqlIndex(IList<SqlIndexColumn> columns, IList<SqlIndexColumn> includedColumns)
+        internal SqlIndex(string name, string type, IList<SqlIndexColumn> columns, IList<SqlIndexColumn> includedColumns)
         {
+            this.Name = name;
+            this.Type = type;
             this.Columns = new ReadOnlyCollection<SqlIndexColumn>(columns);
             this.IncludedColumns = new ReadOnlyCollection<SqlIndexColumn>(includedColumns);
         }
@@ -22,7 +24,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the name of the index.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the columns of the index.
@@ -37,17 +39,17 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the filter of the index.
         /// </summary>
-        public required string? Filter { get; init; }
+        public string? Filter { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether if the index has unique values.
         /// </summary>
-        public required bool IsUnique { get; init; }
+        public bool IsUnique { get; internal set; }
 
         /// <summary>
         /// Gets the type of the index.
         /// </summary>
-        public required string Type { get; init; }
+        public string Type { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

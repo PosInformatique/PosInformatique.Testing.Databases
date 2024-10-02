@@ -13,27 +13,15 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void IsIdentical()
         {
-            var results = new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>([null]),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>([null]),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>([null]),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>([null]),
-            };
+            var results = new SqlDatabaseComparisonResults([], [], [], []);
 
-            results.IsIdentical.Should().BeFalse();
+            results.IsIdentical.Should().BeTrue();
         }
 
         [Fact]
         public void IsIdentical_StoredProcedure()
         {
-            var results = new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>([null]),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>([]),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>([]),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>([]),
-            };
+            var results = new SqlDatabaseComparisonResults([null], [], [], []);
 
             results.IsIdentical.Should().BeFalse();
         }
@@ -41,13 +29,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void IsIdentical_Tables()
         {
-            var results = new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>([]),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>([null]),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>([]),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>([]),
-            };
+            var results = new SqlDatabaseComparisonResults([], [null], [], []);
 
             results.IsIdentical.Should().BeFalse();
         }
@@ -55,13 +37,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void IsIdentical_UserTypes()
         {
-            var results = new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>([]),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>([]),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>([null]),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>([]),
-            };
+            var results = new SqlDatabaseComparisonResults([], [], [null], []);
 
             results.IsIdentical.Should().BeFalse();
         }
@@ -69,13 +45,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void IsIdentical_Views()
         {
-            var results = new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>([]),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>([]),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>([]),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>([null]),
-            };
+            var results = new SqlDatabaseComparisonResults([], [], [], [null]);
 
             results.IsIdentical.Should().BeFalse();
         }

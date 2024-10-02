@@ -219,7 +219,7 @@ namespace PosInformatique.Testing.Databases
 
         private void WriteLine(string value)
         {
-            var lines = value.Split(Environment.NewLine);
+            var lines = value.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             if (lines.Length > 1)
             {

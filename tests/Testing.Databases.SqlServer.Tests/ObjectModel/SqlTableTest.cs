@@ -11,12 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var table = new SqlTable([], [], [], [], [], [])
-            {
-                Name = "The name",
-                PrimaryKey = default,
-                Schema = "The schema",
-            };
+            var table = new SqlTable("The schema", "The name", [], [], [], [], [], []);
 
             table.ToString().Should().Be("The schema.The name");
         }

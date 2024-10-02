@@ -13,29 +13,37 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public class SqlDatabaseComparisonResults
     {
-        internal SqlDatabaseComparisonResults()
+        internal SqlDatabaseComparisonResults(
+            IList<SqlObjectDifferences<SqlStoredProcedure>> storedProcedures,
+            IList<SqlTableDifferences> tables,
+            IList<SqlObjectDifferences<SqlUserType>> userTypes,
+            IList<SqlObjectDifferences<SqlView>> views)
         {
+            this.StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>(storedProcedures);
+            this.Tables = new ReadOnlyCollection<SqlTableDifferences>(tables);
+            this.UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>(userTypes);
+            this.Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>(views);
         }
 
         /// <summary>
         /// Gets the stored procedures which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; init; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>> StoredProcedures { get; }
 
         /// <summary>
         /// Gets the tables which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlTableDifferences> Tables { get; init; }
+        public ReadOnlyCollection<SqlTableDifferences> Tables { get; }
 
         /// <summary>
         /// Gets the user types which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlObjectDifferences<SqlUserType>> UserTypes { get; init; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlUserType>> UserTypes { get; }
 
         /// <summary>
         /// Gets the views which are different between two databases.
         /// </summary>
-        public required ReadOnlyCollection<SqlObjectDifferences<SqlView>> Views { get; init; }
+        public ReadOnlyCollection<SqlObjectDifferences<SqlView>> Views { get; }
 
         /// <summary>
         /// Gets a value indicating whether if the two database compared have the same schema.

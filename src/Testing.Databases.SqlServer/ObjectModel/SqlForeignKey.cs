@@ -13,15 +13,25 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlForeignKey : SqlObject
     {
-        internal SqlForeignKey(IList<SqlForeignKeyColumn> columns)
+        internal SqlForeignKey(
+            string name,
+            string referencedTable,
+            string updateAction,
+            string deleteAction,
+            IList<SqlForeignKeyColumn> columns)
         {
+            this.Name = name;
+            this.ReferencedTable = referencedTable;
+            this.UpdateAction = updateAction;
+            this.DeleteAction = deleteAction;
+
             this.Columns = new ReadOnlyCollection<SqlForeignKeyColumn>(columns);
         }
 
         /// <summary>
         /// Gets the name of the foreign key.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the columns of the foreign key.
@@ -31,17 +41,17 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the name of the referenced table.
         /// </summary>
-        public required string ReferencedTable { get; init; }
+        public string ReferencedTable { get; }
 
         /// <summary>
         /// Gets the referential update action.
         /// </summary>
-        public required string UpdateAction { get; init; }
+        public string UpdateAction { get; }
 
         /// <summary>
         /// Gets the referential delete action.
         /// </summary>
-        public required string DeleteAction { get; init; }
+        public string DeleteAction { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

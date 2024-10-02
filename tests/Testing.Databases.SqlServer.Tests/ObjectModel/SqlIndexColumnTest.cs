@@ -11,11 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var column = new SqlIndexColumn()
-            {
-                Name = "The name",
-                Position = default,
-            };
+            var column = new SqlIndexColumn("The name", default);
 
             column.ToString().Should().Be("The name");
         }

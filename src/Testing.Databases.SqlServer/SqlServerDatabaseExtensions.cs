@@ -78,7 +78,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
                     };
                 }
 
-                if (!@object!.Equals(objects[^1]))
+                if (!@object!.Equals(objects[objects.Length - 1]))
                 {
                     builder.NewRecord();
                 }
@@ -156,7 +156,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             public SqlInsertStatementBuilder AddValue(byte[] value)
             {
-                var hexValue = BitConverter.ToString(value).Replace("-", string.Empty, StringComparison.InvariantCultureIgnoreCase);
+                var hexValue = BitConverter.ToString(value).Replace("-", string.Empty);
 
                 this.currentRecord.Add($"0x{hexValue}");
 

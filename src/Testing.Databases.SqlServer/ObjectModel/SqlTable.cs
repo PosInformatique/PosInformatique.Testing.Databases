@@ -13,8 +13,19 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlTable : SqlObject
     {
-        internal SqlTable(IList<SqlColumn> columns, IList<SqlTrigger> triggers, IList<SqlCheckConstraint> checkConstraints, IList<SqlIndex> indexes, IList<SqlForeignKey> foreignKeys, IList<SqlUniqueConstraint> uniqueConstraints)
+        internal SqlTable(
+            string schema,
+            string name,
+            IList<SqlColumn> columns,
+            IList<SqlTrigger> triggers,
+            IList<SqlCheckConstraint> checkConstraints,
+            IList<SqlIndex> indexes,
+            IList<SqlForeignKey> foreignKeys,
+            IList<SqlUniqueConstraint> uniqueConstraints)
         {
+            this.Schema = schema;
+            this.Name = name;
+
             this.CheckConstraints = new ReadOnlyCollection<SqlCheckConstraint>(checkConstraints);
             this.Columns = new ReadOnlyCollection<SqlColumn>(columns);
             this.Indexes = new ReadOnlyCollection<SqlIndex>(indexes);
@@ -26,7 +37,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the name of the table.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the check constraints of the table.
@@ -51,12 +62,12 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the primary key of the table.
         /// </summary>
-        public required SqlPrimaryKey? PrimaryKey { get; init; }
+        public SqlPrimaryKey? PrimaryKey { get; internal set; }
 
         /// <summary>
         /// Gets the schema which the table belong to.
         /// </summary>
-        public required string Schema { get; init; }
+        public string Schema { get; }
 
         /// <summary>
         /// Gets the triggers of the table.

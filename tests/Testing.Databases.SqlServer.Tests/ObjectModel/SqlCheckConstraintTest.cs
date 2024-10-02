@@ -11,11 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var checkConstraint = new SqlCheckConstraint()
-            {
-                Name = "The name",
-                Code = default,
-            };
+            var checkConstraint = new SqlCheckConstraint("The name", default);
 
             checkConstraint.ToString().Should().Be("The name");
         }

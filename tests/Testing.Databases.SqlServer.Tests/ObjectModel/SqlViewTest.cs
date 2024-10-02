@@ -11,12 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var view = new SqlView()
-            {
-                Name = "The name",
-                Code = default,
-                Schema = "The schema",
-            };
+            var view = new SqlView("The schema", "The name", default);
 
             view.ToString().Should().Be("The schema.The name");
         }

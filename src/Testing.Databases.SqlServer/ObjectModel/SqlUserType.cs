@@ -11,29 +11,31 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlUserType : SqlObject
     {
-        internal SqlUserType()
+        internal SqlUserType(string name, short maxLength)
         {
+            this.Name = name;
+            this.MaxLength = maxLength;
         }
 
         /// <summary>
         /// Gets the name of the user type.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the max length of the type.
         /// </summary>
-        public required short MaxLength { get; init; }
+        public short MaxLength { get; }
 
         /// <summary>
         /// Gets a value indicating whether is the type is nullable.
         /// </summary>
-        public required bool IsNullable { get; init; }
+        public bool IsNullable { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether is the type is a table.
         /// </summary>
-        public required bool IsTableType { get; init; }
+        public bool IsTableType { get; internal set; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

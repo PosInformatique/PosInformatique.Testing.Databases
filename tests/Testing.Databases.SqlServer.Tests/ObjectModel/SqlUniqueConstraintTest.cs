@@ -11,11 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var uniqueConstraint = new SqlUniqueConstraint([])
-            {
-                Name = "The name",
-                Type = default,
-            };
+            var uniqueConstraint = new SqlUniqueConstraint("The name", default, []);
 
             uniqueConstraint.ToString().Should().Be("The name");
         }

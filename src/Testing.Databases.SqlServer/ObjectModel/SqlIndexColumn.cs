@@ -11,19 +11,21 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlIndexColumn : SqlObject
     {
-        internal SqlIndexColumn()
+        internal SqlIndexColumn(string name, int position)
         {
+            this.Name = name;
+            this.Position = position;
         }
 
         /// <summary>
         /// Gets the name of the column of the index.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the position of the column of the index.
         /// </summary>
-        public required int Position { get; init; }
+        public int Position { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

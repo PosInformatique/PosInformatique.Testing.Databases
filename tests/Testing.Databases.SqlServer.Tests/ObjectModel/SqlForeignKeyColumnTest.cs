@@ -11,12 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var column = new SqlForeignKeyColumn()
-            {
-                Name = "The name",
-                Referenced = "The referenced",
-                Position = default,
-            };
+            var column = new SqlForeignKeyColumn("The name", default, "The referenced");
 
             column.ToString().Should().Be("The name => The referenced");
         }

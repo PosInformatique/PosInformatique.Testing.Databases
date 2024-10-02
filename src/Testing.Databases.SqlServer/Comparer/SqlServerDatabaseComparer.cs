@@ -62,13 +62,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             var userTypesDifferences = SqlObjectComparer.Compare(sourceUserTypes.Result, targetUserTypes.Result, ut => ut.Name);
             var viewsDifferences = SqlObjectComparer.Compare(sourceViews.Result, targetViews.Result, v => v.Schema + "." + v.Name);
 
-            return new SqlDatabaseComparisonResults()
-            {
-                StoredProcedures = new ReadOnlyCollection<SqlObjectDifferences<SqlStoredProcedure>>(storedProceduresDifferences),
-                Tables = new ReadOnlyCollection<SqlTableDifferences>(tablesDifferences),
-                UserTypes = new ReadOnlyCollection<SqlObjectDifferences<SqlUserType>>(userTypesDifferences),
-                Views = new ReadOnlyCollection<SqlObjectDifferences<SqlView>>(viewsDifferences),
-            };
+            return new SqlDatabaseComparisonResults(storedProceduresDifferences, tablesDifferences, userTypesDifferences, viewsDifferences);
         }
     }
 }
