@@ -113,6 +113,37 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 UPDATE [TableTest]
                 SET [Id] = [Id] + 1
 
+                GO 10");
+
+            var table = database.ExecuteQuery("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
+
+        [Fact]
+        public void ExecuteScript_String_WithEmptyLinesAtTheEnd()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            database.ExecuteScript(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
                 GO 10
 
                 ");
@@ -146,7 +177,39 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 UPDATE [TableTest]
                 SET [Id] = [Id] + 1
 
+                GO 10"));
+
+            var table = database.ExecuteQuery("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
+
+        [Fact]
+        public void ExecuteScript_StringReader_WithEmptyLinesAtTheEnd()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            database.ExecuteScript(new StringReader(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
                 GO 10
+
 
                 "));
 

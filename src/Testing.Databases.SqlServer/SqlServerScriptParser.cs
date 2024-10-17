@@ -8,9 +8,12 @@ namespace PosInformatique.Testing.Databases.SqlServer
 {
     using System.Globalization;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     internal sealed class SqlServerScriptParser
     {
+        private static readonly Regex GoInstruction = new Regex("^GO\\s*(?<count>\\d+)?\\b", RegexOptions.Compiled);
+
         private readonly TextReader script;
 
         private bool isEndOfScript;
@@ -44,14 +47,14 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
                 line = line.Trim();
 
-                if (line.StartsWith("GO"))
-                {
-                    // Parse the number after the "GO".
-                    var textAfterGo = line.Substring(2).Trim();
+                var goInstructionMatch = GoInstruction.Match(line);
 
-                    if (textAfterGo != string.Empty)
+                if (goInstructionMatch.Success)
+                {
+                    // Retrieve the number after the "GO".
+                    if (goInstructionMatch.Groups["count"].Success)
                     {
-                        count = Convert.ToInt32(textAfterGo, CultureInfo.InvariantCulture);
+                        count = Convert.ToInt32(goInstructionMatch.Groups["count"].Value, CultureInfo.InvariantCulture);
                     }
 
                     // If no code parsed, we continue to parse the block.
@@ -65,6 +68,11 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 }
 
                 codeBuilder.AppendLine(line);
+            }
+
+            if (codeBuilder.Length == 0)
+            {
+                return null;
             }
 
             return new SqlServerScriptBlock(codeBuilder.ToString(), count);
