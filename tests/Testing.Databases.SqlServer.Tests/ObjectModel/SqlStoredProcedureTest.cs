@@ -11,12 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var storedProcedure = new SqlStoredProcedure()
-            {
-                Name = "The name",
-                Code = default,
-                Schema = "The schema",
-            };
+            var storedProcedure = new SqlStoredProcedure("The schema", "The name", default);
 
             storedProcedure.ToString().Should().Be("The schema.The name");
         }

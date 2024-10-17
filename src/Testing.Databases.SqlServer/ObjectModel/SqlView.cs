@@ -11,24 +11,27 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlView : SqlObject
     {
-        internal SqlView()
+        internal SqlView(string schema, string name, string code)
         {
+            this.Schema = schema;
+            this.Name = name;
+            this.Code = code;
         }
 
         /// <summary>
         /// Gets the schema which the view belong to.
         /// </summary>
-        public required string Schema { get; init; }
+        public string Schema { get; }
 
         /// <summary>
         /// Gets the name of the view.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the SQL code of the view.
         /// </summary>
-        public required string Code { get; init; }
+        public string Code { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

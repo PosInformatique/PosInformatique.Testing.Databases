@@ -11,21 +11,8 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var source = new SqlUserType()
-            {
-                IsNullable = default,
-                IsTableType = default,
-                MaxLength = default,
-                Name = "The source",
-            };
-
-            var target = new SqlUserType()
-            {
-                IsNullable = default,
-                IsTableType = default,
-                MaxLength = default,
-                Name = "The source",
-            };
+            var source = new SqlUserType("The source", default);
+            var target = new SqlUserType("The source", default);
 
             var properties = new[]
             {

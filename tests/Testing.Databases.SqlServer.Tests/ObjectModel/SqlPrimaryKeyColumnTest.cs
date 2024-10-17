@@ -11,11 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var column = new SqlPrimaryKeyColumn()
-            {
-                Name = "The name",
-                Position = default,
-            };
+            var column = new SqlPrimaryKeyColumn("The name", default);
 
             column.ToString().Should().Be("The name");
         }

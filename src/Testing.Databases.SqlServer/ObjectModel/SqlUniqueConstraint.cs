@@ -13,15 +13,18 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlUniqueConstraint : SqlObject
     {
-        internal SqlUniqueConstraint(IList<SqlIndexColumn> columns)
+        internal SqlUniqueConstraint(string name, string type, IList<SqlIndexColumn> columns)
         {
+            this.Name = name;
+            this.Type = type;
+
             this.Columns = new ReadOnlyCollection<SqlIndexColumn>(columns);
         }
 
         /// <summary>
         /// Gets the name of the unique constraint.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the columns of the unique constraint.
@@ -31,7 +34,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the type of the unique constraint.
         /// </summary>
-        public required string Type { get; init; }
+        public string Type { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

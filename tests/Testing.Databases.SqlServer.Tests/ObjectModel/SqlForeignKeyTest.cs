@@ -11,13 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var foreignKey = new SqlForeignKey([])
-            {
-                DeleteAction = default,
-                ReferencedTable = default,
-                UpdateAction = default,
-                Name = "The name",
-            };
+            var foreignKey = new SqlForeignKey("The name", default, default, default, []);
 
             foreignKey.ToString().Should().Be("The name");
         }

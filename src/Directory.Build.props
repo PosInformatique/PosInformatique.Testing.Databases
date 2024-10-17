@@ -11,11 +11,25 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
-        1.0.1
-        - Fix the documentation
-    
-        1.0.0
-        - Initial version
+      2.1.0
+      - PosInformatique.Testing.Databases.SqlServer target the .NET Standard 2.0 platform.
+      - PosInformatique.Testing.Databases.SqlServer.Dac target the .NET Core 6.0 and .NET Framework 4.6.2
+      - PosInformatique.Testing.Databases.SqlServer.EntityFramework target the .NET Core 6.0
+      - Reduce the dependencies to Entity Framework 6.0
+      - Reduce the dependencies of DACfx to a more earlier version.
+      - Add new method SqlServerDatabase.ExecuteScript() to execute T-SQL scripts.
+
+      2.0.0
+      - Add SqlServerDatabaseComparer class to perform comparison between two databases.
+      - Add new PosInformatique.Testing.Databases.SqlServer.Dac NuGet package which contains DAC package tools.
+      - Add new SqlServer.CreateDatabaseAsync() extension method to create a database from a DbContext.
+      - Reduce dependencies version of the Entity Framework Core and SQL Server Client NuGet packages.
+
+      1.0.1
+      - Fix the documentation
+
+      1.0.0
+      - Initial version
     </PackageReleaseNotes>
   </PropertyGroup>
   

@@ -16,7 +16,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             }
 
             return code
-                .ReplaceLineEndings(string.Empty)
+                .Replace(Environment.NewLine, string.Empty)
                 .Replace(" ", string.Empty)
                 .Replace("\t", string.Empty);
         }

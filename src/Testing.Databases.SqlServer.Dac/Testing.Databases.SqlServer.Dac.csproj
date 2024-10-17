@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net6.0;net462</TargetFrameworks>
     
     <Description>Testing.Databases.SqlServer.Dac is a library that contains a set of tools for testing to deploy DAC (Data-tier Applications) packages (.dacpac files).</Description>
     <PackageTags>testing unittest sqlserver repository tdd dataaccesslayer dacpac dac</PackageTags>

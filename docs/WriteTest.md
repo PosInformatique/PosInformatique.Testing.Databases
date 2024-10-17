@@ -298,6 +298,41 @@ public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
 Now, every time we will execute an test in the `CustomerRepositoryTest` class,
 a database will be deployed with these 3 `Customer` before the execution of the test.
 
+### Initializes the data from a T-SQL script
+
+Since the version 2.1.0, it is possible to execute a T-SQL script by using the `SqlServerDatabase.ExecuteScript()` method.
+
+For example, if we want to initialize the previous customers using a T-SQL, add a `.sql` file in the project with the following code:
+
+```sql
+INSERT INTO [Customer] ([FirstName], [LastName], [Revenue])
+VALUES
+    ('John', 'DOE', 110.50),
+    ('Marcel', 'DUPONT', 4852.45),
+    ('Andres', 'GARCIA', 0)
+```
+
+In Visual Studio, set the following project properties for the `InsertData.sql` file:
+- `Build Action`: `Content`. This option will recompile the test project every time the T-SQL script has been changed.
+- `Copy to Output Directory`: `Copy if newer`. This option allows the compiler to copy the file in the output directory and
+make it available for the tests in the current directory when execution the tests.
+
+In the constructor of the `CustomerRepositoryTest` call the script using the `SqlServerDatabase.ExecuteScript()` method.
+
+```csharp
+public CustomerRepositoryTest(SqlServerDatabaseInitializer initializer)
+{
+    using var dbContext = new DemoAppDbContext(DatabaseTestsConnectionStrings.CreateDbContextOptions<DemoAppDbContext>(DatabaseName));
+
+    this.database = initializer.Initialize(dbContext);
+
+    this.database.ExecuteScript(File.ReadAllText("InsertData.sql"));
+}
+```
+
+Now, every time we will execute an test in the `CustomerRepositoryTest` class,
+a database will be deployed and the `InsertData.sql` will be executed.
+
 ## Write the tests for methods that retrieve data
 
 This section describes how to write an test for methods that retrieve data (SELECT queries).

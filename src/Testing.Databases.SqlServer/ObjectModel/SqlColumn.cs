@@ -11,64 +11,76 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlColumn : SqlObject
     {
-        internal SqlColumn()
+        internal SqlColumn(
+            string name,
+            int position,
+            string typeName,
+            short maxLength,
+            byte precision,
+            byte scale)
         {
+            this.Name = name;
+            this.Position = position;
+            this.TypeName = typeName;
+            this.MaxLength = maxLength;
+            this.Precision = precision;
+            this.Scale = scale;
         }
 
         /// <summary>
         /// Gets the name of the column.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the position of the column in the database.
         /// </summary>
-        public required int Position { get; init; }
+        public int Position { get; }
 
         /// <summary>
         /// Gets the type name of the column.
         /// </summary>
-        public required string TypeName { get; init; }
+        public string TypeName { get; }
 
         /// <summary>
         /// Gets the max length of the column.
         /// </summary>
-        public required short MaxLength { get; init; }
+        public short MaxLength { get; }
 
         /// <summary>
         /// Gets the precision of the column.
         /// </summary>
-        public required byte Precision { get; init; }
+        public byte Precision { get; }
 
         /// <summary>
         /// Gets the scale of the column.
         /// </summary>
-        public required byte Scale { get; init; }
+        public byte Scale { get; }
 
         /// <summary>
         /// Gets the collation name of the column.
         /// </summary>
-        public required string? CollationName { get; init; }
+        public string? CollationName { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether if the column is nullable.
         /// </summary>
-        public required bool IsNullable { get; init; }
+        public bool IsNullable { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether if the column is identity.
         /// </summary>
-        public required bool IsIdentity { get; init; }
+        public bool IsIdentity { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether if the column is computed.
         /// </summary>
-        public required bool IsComputed { get; init; }
+        public bool IsComputed { get; internal set; }
 
         /// <summary>
         /// Gets the computed expression of the column.
         /// </summary>
-        public required string? ComputedExpression { get; init; }
+        public string? ComputedExpression { get; internal set; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

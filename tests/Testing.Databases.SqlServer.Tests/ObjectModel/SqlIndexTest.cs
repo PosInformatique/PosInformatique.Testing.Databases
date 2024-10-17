@@ -11,13 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var index = new SqlIndex(Array.Empty<SqlIndexColumn>(), Array.Empty<SqlIndexColumn>())
-            {
-                Filter = null,
-                IsUnique = default,
-                Name = "The name",
-                Type = default,
-            };
+            var index = new SqlIndex("The name", default, Array.Empty<SqlIndexColumn>(), Array.Empty<SqlIndexColumn>());
 
             index.ToString().Should().Be("The name");
         }

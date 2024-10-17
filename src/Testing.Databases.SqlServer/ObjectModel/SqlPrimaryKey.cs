@@ -13,20 +13,23 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlPrimaryKey : SqlObject
     {
-        internal SqlPrimaryKey(IList<SqlPrimaryKeyColumn> columns)
+        internal SqlPrimaryKey(string name, string type, IList<SqlPrimaryKeyColumn> columns)
         {
+            this.Name = name;
+            this.Type = type;
+
             this.Columns = new ReadOnlyCollection<SqlPrimaryKeyColumn>(columns);
         }
 
         /// <summary>
         /// Gets the name of the primary key.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the type of the primary key.
         /// </summary>
-        public required string Type { get; init; }
+        public string Type { get; }
 
         /// <summary>
         /// Gets the columns which belong to the primary key.

@@ -11,11 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var primaryKey = new SqlPrimaryKey([])
-            {
-                Name = "The name",
-                Type = default,
-            };
+            var primaryKey = new SqlPrimaryKey("The name", default, []);
 
             primaryKey.ToString().Should().Be("The name");
         }

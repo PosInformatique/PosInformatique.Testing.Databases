@@ -11,19 +11,21 @@ namespace PosInformatique.Testing.Databases
     /// </summary>
     public sealed class SqlCheckConstraint : SqlObject
     {
-        internal SqlCheckConstraint()
+        internal SqlCheckConstraint(string name, string code)
         {
+            this.Name = name;
+            this.Code = code;
         }
 
         /// <summary>
         /// Gets the name of the check constraint type.
         /// </summary>
-        public required string Name { get; init; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the code of the check constraint.
         /// </summary>
-        public required string Code { get; init; }
+        public string Code { get; }
 
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);

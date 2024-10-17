@@ -11,13 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var userType = new SqlUserType()
-            {
-                Name = "The name",
-                IsNullable = default,
-                IsTableType = default,
-                MaxLength = default,
-            };
+            var userType = new SqlUserType("The name", default);
 
             userType.ToString().Should().Be("The name");
         }

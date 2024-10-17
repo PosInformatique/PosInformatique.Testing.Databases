@@ -58,7 +58,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the primary key differences between the two SQL tables.
         /// </summary>
-        public required SqlPrimaryKeyDifferences? PrimaryKey { get; init; }
+        public SqlPrimaryKeyDifferences? PrimaryKey { get; internal set; }
 
         /// <summary>
         /// Gets the foreign keys differences between the two SQL tables.

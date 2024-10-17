@@ -11,20 +11,7 @@ namespace PosInformatique.Testing.Databases.Tests
         [Fact]
         public void ToStringTest()
         {
-            var column = new SqlColumn()
-            {
-                Name = "The name",
-                CollationName = default,
-                ComputedExpression = default,
-                IsComputed = default,
-                IsIdentity = default,
-                IsNullable = default,
-                MaxLength = default,
-                Position = default,
-                Precision = default,
-                Scale = default,
-                TypeName = default,
-            };
+            var column = new SqlColumn("The name", default, default, default, default, default);
 
             column.ToString().Should().Be("The name");
         }

@@ -93,7 +93,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             await Task.WhenAll(allColumns, allCheckConstraints, allForeignKeys, allIndexes, allPrimaryKeys, allTriggers, allUniqueConstraints);
 
             // Builds the SqlTable object
-            foreach (var table in result.AsEnumerable())
+            foreach (var table in result.Rows.Cast<DataRow>())
             {
                 // Check constraints
                 var checkConstraintsTable = allCheckConstraints.Result[(int)table["Id"]];
@@ -192,11 +192,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 }
 
                 // Build and add the table object
-                tables.Add(new SqlTable(columns, triggers, checkConstraints, indexes, foreignKeys, uniqueConstraints)
+                tables.Add(new SqlTable((string)table["Schema"], (string)table["Name"], columns, triggers, checkConstraints, indexes, foreignKeys, uniqueConstraints)
                 {
-                    Name = (string)table["Name"],
                     PrimaryKey = primaryKey,
-                    Schema = (string)table["Schema"],
                 });
             }
 
@@ -275,7 +273,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetColumnsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -307,7 +305,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetForeignKeysAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -342,7 +340,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetIndexesAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -382,7 +380,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetPrimaryKeysAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -411,7 +409,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetUniqueConstraintsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -440,7 +438,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static async Task<ILookup<int, DataRow>> GetTriggersAsync(SqlServerDatabase database, CancellationToken cancellationToken)
@@ -462,75 +460,54 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             var result = await database.ExecuteQueryAsync(sql, cancellationToken);
 
-            return result.AsEnumerable().ToLookup(c => (int)c["TableId"]);
+            return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
         private static SqlCheckConstraint ToCheckConstraint(DataRow row)
         {
-            return new SqlCheckConstraint()
-            {
-                Code = (string)row["Code"],
-                Name = (string)row["Name"],
-            };
+            return new SqlCheckConstraint((string)row["Name"], (string)row["Code"]);
         }
 
         private static SqlColumn ToColumn(DataRow row)
         {
-            return new SqlColumn()
+            return new SqlColumn(
+                (string)row["Name"],
+                Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture),
+                (string)row["TypeName"],
+                (short)row["MaxLength"],
+                (byte)row["Precision"],
+                (byte)row["Scale"])
             {
                 CollationName = NullIfDbNull<string>(row["CollationName"]),
                 ComputedExpression = NullIfDbNull<string>(row["ComputedExpression"]),
                 IsComputed = (bool)row["IsComputed"],
                 IsIdentity = (bool)row["IsIdentity"],
                 IsNullable = (bool)row["IsNullable"],
-                MaxLength = (short)row["MaxLength"],
-                Name = (string)row["Name"],
-                Precision = (byte)row["Precision"],
-                Position = Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture),
-                Scale = (byte)row["Scale"],
-                TypeName = (string)row["TypeName"],
             };
         }
 
         private static SqlForeignKey ToForeignKey(DataRow row, IList<SqlForeignKeyColumn> columns)
         {
-            return new SqlForeignKey(columns)
-            {
-                DeleteAction = (string)row["DeleteAction"],
-                Name = (string)row["ForeignKeyName"],
-                ReferencedTable = (string)row["ReferencedTableName"],
-                UpdateAction = (string)row["UpdateAction"],
-            };
+            return new SqlForeignKey((string)row["ForeignKeyName"], (string)row["ReferencedTableName"], (string)row["UpdateAction"], (string)row["DeleteAction"], columns);
         }
 
         private static SqlForeignKeyColumn ToForeignKeyColumn(DataRow row)
         {
-            return new SqlForeignKeyColumn()
-            {
-                Name = (string)row["ColumnName"],
-                Referenced = (string)row["ReferencedColumnName"],
-                Position = (int)row["Position"],
-            };
+            return new SqlForeignKeyColumn((string)row["ColumnName"], (int)row["Position"], (string)row["ReferencedColumnName"]);
         }
 
         private static SqlIndex ToIndex(DataRow row, IList<SqlIndexColumn> columns, IList<SqlIndexColumn> includedColumn)
         {
-            return new SqlIndex(columns, includedColumn)
+            return new SqlIndex((string)row["IndexName"], (string)row["Type"], columns, includedColumn)
             {
-                Name = (string)row["IndexName"],
                 Filter = NullIfDbNull<string>(row["Filter"]),
                 IsUnique = (bool)row["IsUnique"],
-                Type = (string)row["Type"],
             };
         }
 
         private static SqlIndexColumn ToIndexColumn(DataRow row)
         {
-            return new SqlIndexColumn()
-            {
-                Name = (string)row["ColumnName"],
-                Position = Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture),
-            };
+            return new SqlIndexColumn((string)row["ColumnName"], Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture));
         }
 
         private static SqlPrimaryKey? ToPrimaryKey(DataRow? row, IList<SqlPrimaryKeyColumn> columns)
@@ -540,70 +517,44 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 return null;
             }
 
-            return new SqlPrimaryKey(columns)
-            {
-                Name = (string)row["Name"],
-                Type = (string)row["Type"],
-            };
+            return new SqlPrimaryKey((string)row["Name"], (string)row["Type"], columns);
         }
 
         private static SqlPrimaryKeyColumn ToPrimaryKeyColumn(DataRow column)
         {
-            return new SqlPrimaryKeyColumn()
-            {
-                Name = (string)column["ColumnName"],
-                Position = (byte)column["Position"],
-            };
+            return new SqlPrimaryKeyColumn((string)column["ColumnName"], (byte)column["Position"]);
         }
 
         private static SqlStoredProcedure ToStoredProcedure(DataRow row)
         {
-            return new SqlStoredProcedure()
-            {
-                Code = (string)row["Code"],
-                Name = (string)row["Name"],
-                Schema = (string)row["Schema"],
-            };
+            return new SqlStoredProcedure((string)row["Schema"], (string)row["Name"], (string)row["Code"]);
         }
 
         private static SqlTrigger ToTrigger(DataRow row)
         {
-            return new SqlTrigger()
+            return new SqlTrigger((string)row["Name"], (string)row["Code"])
             {
-                Code = (string)row["Code"],
                 IsInsteadOfTrigger = (bool)row["IsInsteadOfTrigger"],
-                Name = (string)row["Name"],
             };
         }
 
         private static SqlUniqueConstraint ToUniqueConstraint(DataRow row, IList<SqlIndexColumn> columns)
         {
-            return new SqlUniqueConstraint(columns)
-            {
-                Name = (string)row["ConstraintName"],
-                Type = (string)row["Type"],
-            };
+            return new SqlUniqueConstraint((string)row["ConstraintName"], (string)row["Type"], columns);
         }
 
         private static SqlUserType ToUserType(DataRow row)
         {
-            return new SqlUserType()
+            return new SqlUserType((string)row["Name"], (short)row["MaxLength"])
             {
                 IsNullable = (bool)row["IsNullable"],
                 IsTableType = (bool)row["IsTableType"],
-                Name = (string)row["Name"],
-                MaxLength = (short)row["MaxLength"],
             };
         }
 
         private static SqlView ToView(DataRow row)
         {
-            return new SqlView()
-            {
-                Code = (string)row["Code"],
-                Name = (string)row["Name"],
-                Schema = (string)row["Schema"],
-            };
+            return new SqlView((string)row["Schema"], (string)row["Name"], (string)row["Code"]);
         }
 
         private static TValue? NullIfDbNull<TValue>(object value)
