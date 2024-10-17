@@ -17,7 +17,7 @@
       - PosInformatique.Testing.Databases.SqlServer.EntityFramework target the .NET Core 6.0
       - Reduce the dependencies to Entity Framework 6.0
       - Reduce the dependencies of DACfx to a more earlier version.
-      - Add new method SqlServerDatabase.ExecuteScript() to execute T-SQL script.
+      - Add new method SqlServerDatabase.ExecuteScript() to execute T-SQL scripts.
 
       2.0.0
       - Add SqlServerDatabaseComparer class to perform comparison between two databases.

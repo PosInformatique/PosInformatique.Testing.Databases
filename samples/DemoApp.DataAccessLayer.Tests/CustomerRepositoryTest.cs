@@ -35,6 +35,10 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Tests
             //   Also, we recommand to force to set the IDENTITY column values explicit to avoid
             //   to update lot of code if you delete some rows later...
             this.database.InsertCustomer(id: 20, firstName: "Andres", lastName: "GARCIA");
+
+            // - Here we use a T-SQL script to insert data in the Customer table.
+            //   The script can contains GO instructions.
+            this.database.ExecuteScript(File.ReadAllText("InsertData.sql"));
         }
 
         [Fact]
