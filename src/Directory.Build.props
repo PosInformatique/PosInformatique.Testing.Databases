@@ -11,6 +11,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
+      2.2.0
+      - Add SqlServer.CreateEmptyDatabaseAsync() method.
+      - Add SqlServer.DeleteDatabaseAsync() method.
+
       2.1.0
       - PosInformatique.Testing.Databases.SqlServer target the .NET Standard 2.0 platform.
       - PosInformatique.Testing.Databases.SqlServer.Dac target the .NET Core 6.0 and .NET Framework 4.6.2

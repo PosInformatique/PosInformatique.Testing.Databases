@@ -52,6 +52,21 @@ namespace PosInformatique.Testing.Databases.SqlServer
         }
 
         /// <summary>
+        /// Creates an empty database asynchronously in the SQL Server instance with the specified <paramref name="name"/>.
+        /// If the database already exists, it will be delete.
+        /// </summary>
+        /// <param name="name">Name of the database to create.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains an instance of <see cref="SqlServerDatabase"/> which allows to execute SQL commands/queries.</returns>
+        public async Task<SqlServerDatabase> CreateEmptyDatabaseAsync(string name, CancellationToken cancellationToken = default)
+        {
+            await this.DeleteDatabaseAsync(name, cancellationToken);
+            await this.Master.ExecuteNonQueryAsync($"CREATE DATABASE [{name}]", cancellationToken);
+
+            return this.GetDatabase(name);
+        }
+
+        /// <summary>
         /// Deletes a database in the SQL server instance with the specified <paramref name="name"/>.
         /// If the database does not exists, no exception is thrown.
         /// </summary>
@@ -60,6 +75,19 @@ namespace PosInformatique.Testing.Databases.SqlServer
         {
             this.Master.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') ALTER DATABASE [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
             this.Master.ExecuteNonQuery($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') DROP DATABASE [{name}]");
+        }
+
+        /// <summary>
+        /// Deletes a database asynchronously in the SQL server instance with the specified <paramref name="name"/>.
+        /// If the database does not exists, no exception is thrown.
+        /// </summary>
+        /// <param name="name">Name of the database to delete.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public async Task DeleteDatabaseAsync(string name, CancellationToken cancellationToken = default)
+        {
+            await this.Master.ExecuteNonQueryAsync($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') ALTER DATABASE [{name}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", cancellationToken);
+            await this.Master.ExecuteNonQueryAsync($"IF EXISTS (SELECT 1 FROM [sys].[databases] WHERE [name] = '{name}') DROP DATABASE [{name}]", cancellationToken);
         }
 
         /// <summary>
