@@ -164,6 +164,44 @@ namespace PosInformatique.Testing.Databases.SqlServer
             }
         }
 
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script">T-SQL script to execute.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ExecuteScriptAsync(this SqlServerDatabase database, string script, CancellationToken cancellationToken = default)
+        {
+            using var stringReader = new StringReader(script);
+
+            await ExecuteScriptAsync(database, stringReader);
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/> asynchronously.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script"><see cref="StringReader"/> which contains the T-SQL script to execute.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ExecuteScriptAsync(this SqlServerDatabase database, StringReader script, CancellationToken cancellationToken = default)
+        {
+            var parser = new SqlServerScriptParser(script);
+
+            var block = parser.ReadNextBlock();
+
+            while (block is not null)
+            {
+                for (var i = 0; i < block.Count; i++)
+                {
+                    await database.ExecuteNonQueryAsync(block.Code, cancellationToken);
+                }
+
+                block = parser.ReadNextBlock();
+            }
+        }
+
         private sealed class SqlInsertStatementBuilder
         {
             private readonly string tableName;

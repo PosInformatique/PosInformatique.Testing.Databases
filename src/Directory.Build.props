@@ -14,6 +14,7 @@
       2.2.0
       - Add SqlServer.CreateEmptyDatabaseAsync() method.
       - Add SqlServer.DeleteDatabaseAsync() method.
+      - Add SqlServer.ExecuteScriptAsync() method.
 
       2.1.0
       - PosInformatique.Testing.Databases.SqlServer target the .NET Standard 2.0 platform.
