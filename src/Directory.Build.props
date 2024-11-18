@@ -12,6 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
       2.2.0
+      - Add SqlServer.CreateDatabase() method to create database from an Entity Framework DbContext.
       - Add SqlServer.CreateEmptyDatabaseAsync() method.
       - Add SqlServer.DeleteDatabaseAsync() method.
       - Add SqlServer.ExecuteScriptAsync() method.
