@@ -100,34 +100,24 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="database">SQL Server database which the data have to be deleted.</param>
         public static void ClearAllData(this SqlServerDatabase database)
         {
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'");
+            foreach (var statement in GetClearDataStatements())
+            {
+                database.ExecuteNonQuery(statement);
+            }
+        }
 
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'");
-
-            // Re-initialize the seed of the IDENTITY columns.
-            // For each table which contains an IDENTITY column, execute the following SQL statement:
-            //   DBCC CHECKIDENT ('[<schema>].[<table>]', RESEED, <seed>)
-            database.ExecuteNonQuery(@"
-                DECLARE @sqlcmd VARCHAR(MAX);
-
-                SET @sqlcmd = (
-	                SELECT STRING_AGG(CAST('DBCC CHECKIDENT (''[' + [s].[name] + '].[' + [t].[name] + ']'', RESEED, ' + CAST([ic].[seed_value] AS VARCHAR(20)) + ')' AS NVARCHAR(MAX)),';' + CHAR(10)) WITHIN GROUP (ORDER BY [t].[name])
-	                FROM
-		                [sys].[schemas] AS [s],
-		                [sys].[tables] AS [t],
-		                [sys].[columns] AS [c],
-		                [sys].[identity_columns] AS [ic]
-	                WHERE
-			                [s].[schema_id] = [t].[schema_id]
-		                AND [t].[object_id] = [c].[object_id]
-		                AND [c].[is_identity] = 1
-		                AND [c].[object_id] = [ic].[object_id]
-		                AND [c].[column_id] = [ic].[column_id]
-                )
-
-                EXEC (@sqlcmd)");
-
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'");
+        /// <summary>
+        /// Clear all in the database asynchronously.
+        /// </summary>
+        /// <param name="database">SQL Server database which the data have to be deleted.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ClearAllDataAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
+        {
+            foreach (var statement in GetClearDataStatements())
+            {
+                await database.ExecuteNonQueryAsync(statement, cancellationToken);
+            }
         }
 
         /// <summary>
@@ -241,6 +231,34 @@ namespace PosInformatique.Testing.Databases.SqlServer
             }
 
             return statement;
+        }
+
+        private static string[] GetClearDataStatements()
+        {
+            return
+            [
+                "EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'",
+                "EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'",
+                @"DECLARE @sqlcmd VARCHAR(MAX);
+
+                SET @sqlcmd = (
+	                SELECT STRING_AGG(CAST('DBCC CHECKIDENT (''[' + [s].[name] + '].[' + [t].[name] + ']'', RESEED, ' + CAST([ic].[seed_value] AS VARCHAR(20)) + ')' AS NVARCHAR(MAX)),';' + CHAR(10)) WITHIN GROUP (ORDER BY [t].[name])
+	                FROM
+		                [sys].[schemas] AS [s],
+		                [sys].[tables] AS [t],
+		                [sys].[columns] AS [c],
+		                [sys].[identity_columns] AS [ic]
+	                WHERE
+			                [s].[schema_id] = [t].[schema_id]
+		                AND [t].[object_id] = [c].[object_id]
+		                AND [c].[is_identity] = 1
+		                AND [c].[object_id] = [ic].[object_id]
+		                AND [c].[column_id] = [ic].[column_id]
+                )
+
+                EXEC (@sqlcmd)",
+                "EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'",
+            ];
         }
 
         private sealed class SqlInsertStatementBuilder

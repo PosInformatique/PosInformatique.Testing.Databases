@@ -12,11 +12,12 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
       2.2.0
+      - Add SqlServerDatabase.ClearDataAsync() method.
       - Add SqlServer.CreateDatabase() method to create database from an Entity Framework DbContext.
       - Add SqlServer.CreateEmptyDatabaseAsync() method.
       - Add SqlServer.DeleteDatabaseAsync() method.
-      - Add SqlServer.ExecuteScriptAsync() method.
-      - Add SqlServer.InsertIntoAsync() method.
+      - Add SqlServerDatabase.ExecuteScriptAsync() method.
+      - Add SqlServerDatabase.InsertIntoAsync() method.
 
       2.1.0
       - PosInformatique.Testing.Databases.SqlServer target the .NET Standard 2.0 platform.
