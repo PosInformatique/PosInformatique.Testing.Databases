@@ -55,43 +55,43 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <returns>The number of the rows inserted.</returns>
         public static int InsertInto<T>(this SqlServerDatabase database, string tableName, bool disableIdentityInsert, params T[] objects)
         {
-            var builder = new SqlInsertStatementBuilder(tableName);
-            var properties = typeof(T).GetProperties();
-
-            foreach (var property in properties)
-            {
-                builder.AddColumn(property.Name);
-            }
-
-            foreach (var @object in objects)
-            {
-                foreach (var property in properties)
-                {
-                    _ = property.PropertyType switch
-                    {
-                        _ when property.GetValue(@object) == null => builder.AddValue("NULL"),
-                        _ when property.PropertyType == typeof(bool) => builder.AddValue(Convert.ToString(Convert.ToInt32((bool)property.GetValue(@object)!), CultureInfo.InvariantCulture)!),
-                        _ when property.PropertyType == typeof(bool?) => builder.AddValue(Convert.ToString(Convert.ToInt32(((bool?)property.GetValue(@object)!).Value), CultureInfo.InvariantCulture)!),
-                        _ when property.PropertyType == typeof(byte[]) => builder.AddValue((byte[])property.GetValue(@object)!),
-                        Type t when Array.Exists(AuthorizedNonStringTypes, at => at == t) => builder.AddValue(Convert.ToString(property.GetValue(@object), CultureInfo.InvariantCulture)!),
-                        _ => builder.AddValueWithQuotes((string)property.GetValue(@object)!),
-                    };
-                }
-
-                if (!@object!.Equals(objects[objects.Length - 1]))
-                {
-                    builder.NewRecord();
-                }
-            }
-
-            var statement = builder.ToString();
-
-            if (disableIdentityInsert)
-            {
-                statement = $"SET IDENTITY_INSERT [{tableName}] ON;" + statement + $"SET IDENTITY_INSERT [{tableName}] OFF;";
-            }
+            var statement = BuildInsertStatement(tableName, disableIdentityInsert, objects);
 
             return database.ExecuteNonQuery(statement);
+        }
+
+        /// <summary>
+        /// Insert data into the table asynchronously specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the number of the rows inserted.</returns>
+        public static async Task<int> InsertIntoAsync<T>(this SqlServerDatabase database, string tableName, params T[] objects)
+        {
+            return await InsertIntoAsync(database, tableName, false, objects);
+        }
+
+        /// <summary>
+        /// Insert data into the table asynchronously specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="disableIdentityInsert"><see langword="true"/> to disable auto incrementation of the <c>IDENTITY</c> column. In this case, the object must contains explicitely the value of the <c>IDENTITY</c>
+        /// column to insert.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the number of the rows inserted.</returns>
+        public static Task<int> InsertIntoAsync<T>(this SqlServerDatabase database, string tableName, bool disableIdentityInsert, params T[] objects)
+        {
+            var statement = BuildInsertStatement(tableName, disableIdentityInsert, objects);
+
+            return database.ExecuteNonQueryAsync(statement);
         }
 
         /// <summary>
@@ -200,6 +200,47 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
                 block = parser.ReadNextBlock();
             }
+        }
+
+        private static string BuildInsertStatement<T>(string tableName, bool disableIdentityInsert, params T[] objects)
+        {
+            var builder = new SqlInsertStatementBuilder(tableName);
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                builder.AddColumn(property.Name);
+            }
+
+            foreach (var @object in objects)
+            {
+                foreach (var property in properties)
+                {
+                    _ = property.PropertyType switch
+                    {
+                        _ when property.GetValue(@object) == null => builder.AddValue("NULL"),
+                        _ when property.PropertyType == typeof(bool) => builder.AddValue(Convert.ToString(Convert.ToInt32((bool)property.GetValue(@object)!), CultureInfo.InvariantCulture)!),
+                        _ when property.PropertyType == typeof(bool?) => builder.AddValue(Convert.ToString(Convert.ToInt32(((bool?)property.GetValue(@object)!).Value), CultureInfo.InvariantCulture)!),
+                        _ when property.PropertyType == typeof(byte[]) => builder.AddValue((byte[])property.GetValue(@object)!),
+                        Type t when Array.Exists(AuthorizedNonStringTypes, at => at == t) => builder.AddValue(Convert.ToString(property.GetValue(@object), CultureInfo.InvariantCulture)!),
+                        _ => builder.AddValueWithQuotes((string)property.GetValue(@object)!),
+                    };
+                }
+
+                if (!@object!.Equals(objects[objects.Length - 1]))
+                {
+                    builder.NewRecord();
+                }
+            }
+
+            var statement = builder.ToString();
+
+            if (disableIdentityInsert)
+            {
+                statement = $"SET IDENTITY_INSERT [{tableName}] ON;" + statement + $"SET IDENTITY_INSERT [{tableName}] OFF;";
+            }
+
+            return statement;
         }
 
         private sealed class SqlInsertStatementBuilder
