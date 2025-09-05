@@ -10,4 +10,7 @@
     [Computed]  AS [Scale] + [Precision],
     [SourceColumn] INT NOT NULL,
     [IdenticalColumn] INT NOT NULL,
+	[ColumnWithDefaultConstraint] VARCHAR(20) NOT NULL CONSTRAINT DF_TableDifference_ColumnWithDefaultConstraint DEFAULT 'Source expression',
+	[ColumnWithMissingDefaultConstraint] VARCHAR(20) NOT NULL CONSTRAINT DF_TableDifference_ColumnWithMissingDefaultConstraint DEFAULT 'Default value',
+	[ColumnWithOtherDefaultConstraintName] VARCHAR(20) NOT NULL CONSTRAINT DF_TableDifference_ColumnWithOtherDefaultConstraintName DEFAULT 'Same expression',
 )

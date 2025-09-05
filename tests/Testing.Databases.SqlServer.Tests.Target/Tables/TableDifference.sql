@@ -10,4 +10,7 @@
     [Computed]  AS [Scale] - [Precision],
     [TargetColumn] INT NOT NULL,
     [IdenticalColumn] INT NOT NULL,
+	[ColumnWithDefaultConstraint] VARCHAR(20) NOT NULL CONSTRAINT DF_TableDifference_ColumnWithDefaultConstraint DEFAULT 'Target expression',
+	[ColumnWithMissingDefaultConstraint] VARCHAR(20) NOT NULL,
+	[ColumnWithOtherDefaultConstraintName] VARCHAR(20) NOT NULL CONSTRAINT DF_TableDifference_WrongName DEFAULT 'Same expression',
 )

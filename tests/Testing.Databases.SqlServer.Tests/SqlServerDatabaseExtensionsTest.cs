@@ -219,5 +219,134 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             table.Rows[0]["Id"].Should().Be(10);
         }
+
+        [Fact]
+        public async Task ExecuteScriptAsync_String()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            await database.ExecuteScriptAsync(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
+                GO 10");
+
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
+
+        [Fact]
+        public async Task ExecuteScriptAsync_String_WithEmptyLinesAtTheEnd()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            await database.ExecuteScriptAsync(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
+                GO 10
+
+                ");
+
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
+
+        [Fact]
+        public async Task ExecuteScriptAsync_StringReader()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            await database.ExecuteScriptAsync(new StringReader(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
+                GO 10"));
+
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
+
+        [Fact]
+        public async Task ExecuteScriptAsync_StringReader_WithEmptyLinesAtTheEnd()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
+
+            await database.ExecuteScriptAsync(new StringReader(@"
+                CREATE TABLE TableTest
+                (
+                    Id          INT         NOT NULL
+                )
+
+                GO
+                GO
+
+                INSERT INTO [TableTest] ([Id]) VALUES (0)
+
+                GO
+                UPDATE [TableTest]
+                SET [Id] = [Id] + 1
+
+                GO 10
+
+
+                "));
+
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+
+            table.Rows.Should().HaveCount(1);
+
+            table.Rows[0]["Id"].Should().Be(10);
+        }
     }
 }

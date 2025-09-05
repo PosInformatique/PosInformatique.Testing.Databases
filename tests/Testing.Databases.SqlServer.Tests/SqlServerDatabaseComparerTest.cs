@@ -52,7 +52,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.StoredProcedures[2].Target.Should().BeNull();
 
             // Tables
-            differences.Tables.Should().HaveCount(3);
+            differences.Tables.Should().HaveCount(4);
 
             differences.Tables[0].Source.Name.Should().Be("TableDifference");
             differences.Tables[0].Source.Schema.Should().Be("dbo");
@@ -78,10 +78,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].CheckConstraints[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Tables / Columns
-            differences.Tables[0].Source.Columns.Should().HaveCount(10);
+            differences.Tables[0].Source.Columns.Should().HaveCount(13);
 
             differences.Tables[0].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[0].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[0].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[0].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[0].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[0].IsNullable.Should().BeFalse();
@@ -94,6 +95,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Source.Columns[1].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[1].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[1].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[1].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[1].IsNullable.Should().BeTrue();
@@ -106,6 +108,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[2].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Source.Columns[2].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[2].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[2].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[2].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[2].IsNullable.Should().BeFalse();
@@ -118,6 +121,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[3].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[3].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[3].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[3].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[3].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[3].IsNullable.Should().BeFalse();
@@ -130,6 +134,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[4].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[4].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[4].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[4].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[4].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[4].IsNullable.Should().BeFalse();
@@ -142,6 +147,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[5].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[5].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[5].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[5].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[5].IsIdentity.Should().BeTrue();
             differences.Tables[0].Source.Columns[5].IsNullable.Should().BeFalse();
@@ -154,6 +160,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[6].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[6].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[6].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[6].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[6].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[6].IsNullable.Should().BeTrue();
@@ -166,6 +173,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[7].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[7].ComputedExpression.Should().Be("([Scale]+[Precision])");
+            differences.Tables[0].Source.Columns[7].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[7].IsComputed.Should().BeTrue();
             differences.Tables[0].Source.Columns[7].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[7].IsNullable.Should().BeTrue();
@@ -178,6 +186,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[8].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[8].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[8].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[8].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[8].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[8].IsNullable.Should().BeFalse();
@@ -190,6 +199,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Source.Columns[9].CollationName.Should().BeNull();
             differences.Tables[0].Source.Columns[9].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[9].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[9].IsComputed.Should().BeFalse();
             differences.Tables[0].Source.Columns[9].IsIdentity.Should().BeFalse();
             differences.Tables[0].Source.Columns[9].IsNullable.Should().BeFalse();
@@ -200,13 +210,56 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[9].Scale.Should().Be(0);
             differences.Tables[0].Source.Columns[9].TypeName.Should().Be("int");
 
+            differences.Tables[0].Source.Columns[10].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Source.Columns[10].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[10].DefaultConstraint.Expression.Should().Be("('Source expression')");
+            differences.Tables[0].Source.Columns[10].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithDefaultConstraint");
+            differences.Tables[0].Source.Columns[10].IsComputed.Should().BeFalse();
+            differences.Tables[0].Source.Columns[10].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[10].IsNullable.Should().BeFalse();
+            differences.Tables[0].Source.Columns[10].MaxLength.Should().Be(20);
+            differences.Tables[0].Source.Columns[10].Name.Should().Be("ColumnWithDefaultConstraint");
+            differences.Tables[0].Source.Columns[10].Position.Should().Be(11);
+            differences.Tables[0].Source.Columns[10].Precision.Should().Be(0);
+            differences.Tables[0].Source.Columns[10].Scale.Should().Be(0);
+            differences.Tables[0].Source.Columns[10].TypeName.Should().Be("varchar");
+
+            differences.Tables[0].Source.Columns[11].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Source.Columns[11].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[11].DefaultConstraint.Expression.Should().Be("('Default value')");
+            differences.Tables[0].Source.Columns[11].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithMissingDefaultConstraint");
+            differences.Tables[0].Source.Columns[11].IsComputed.Should().BeFalse();
+            differences.Tables[0].Source.Columns[11].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[11].IsNullable.Should().BeFalse();
+            differences.Tables[0].Source.Columns[11].MaxLength.Should().Be(20);
+            differences.Tables[0].Source.Columns[11].Name.Should().Be("ColumnWithMissingDefaultConstraint");
+            differences.Tables[0].Source.Columns[11].Position.Should().Be(12);
+            differences.Tables[0].Source.Columns[11].Precision.Should().Be(0);
+            differences.Tables[0].Source.Columns[11].Scale.Should().Be(0);
+            differences.Tables[0].Source.Columns[11].TypeName.Should().Be("varchar");
+
+            differences.Tables[0].Source.Columns[12].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Source.Columns[12].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Source.Columns[12].DefaultConstraint.Expression.Should().Be("('Same expression')");
+            differences.Tables[0].Source.Columns[12].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithOtherDefaultConstraintName");
+            differences.Tables[0].Source.Columns[12].IsComputed.Should().BeFalse();
+            differences.Tables[0].Source.Columns[12].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[12].IsNullable.Should().BeFalse();
+            differences.Tables[0].Source.Columns[12].MaxLength.Should().Be(20);
+            differences.Tables[0].Source.Columns[12].Name.Should().Be("ColumnWithOtherDefaultConstraintName");
+            differences.Tables[0].Source.Columns[12].Position.Should().Be(13);
+            differences.Tables[0].Source.Columns[12].Precision.Should().Be(0);
+            differences.Tables[0].Source.Columns[12].Scale.Should().Be(0);
+            differences.Tables[0].Source.Columns[12].TypeName.Should().Be("varchar");
+
             differences.Tables[0].Target.Name.Should().Be("TableDifference");
             differences.Tables[0].Target.Schema.Should().Be("dbo");
 
-            differences.Tables[0].Target.Columns.Should().HaveCount(10);
+            differences.Tables[0].Target.Columns.Should().HaveCount(13);
 
             differences.Tables[0].Target.Columns[0].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Target.Columns[0].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[0].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[0].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[0].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[0].IsNullable.Should().BeFalse();
@@ -219,6 +272,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Target.Columns[1].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[1].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[1].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[1].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[1].IsNullable.Should().BeFalse();
@@ -231,6 +285,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[2].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[2].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[2].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[2].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[2].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[2].IsNullable.Should().BeFalse();
@@ -243,6 +298,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[3].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[0].Target.Columns[3].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[3].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[3].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[3].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[3].IsNullable.Should().BeFalse();
@@ -255,6 +311,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[4].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[4].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[4].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[4].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[4].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[4].IsNullable.Should().BeFalse();
@@ -267,6 +324,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[5].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[5].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[5].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[5].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[5].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[5].IsNullable.Should().BeFalse();
@@ -279,6 +337,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[6].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[6].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[6].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[6].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[6].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[6].IsNullable.Should().BeTrue();
@@ -291,6 +350,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[7].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[7].ComputedExpression.Should().Be("([Scale]-[Precision])");
+            differences.Tables[0].Target.Columns[7].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[7].IsComputed.Should().BeTrue();
             differences.Tables[0].Target.Columns[7].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[7].IsNullable.Should().BeTrue();
@@ -303,6 +363,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[8].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[8].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[8].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[8].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[8].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[8].IsNullable.Should().BeFalse();
@@ -315,6 +376,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[0].Target.Columns[9].CollationName.Should().BeNull();
             differences.Tables[0].Target.Columns[9].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[9].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[9].IsComputed.Should().BeFalse();
             differences.Tables[0].Target.Columns[9].IsIdentity.Should().BeFalse();
             differences.Tables[0].Target.Columns[9].IsNullable.Should().BeFalse();
@@ -325,43 +387,123 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[9].Scale.Should().Be(0);
             differences.Tables[0].Target.Columns[9].TypeName.Should().Be("int");
 
-            differences.Tables[0].Columns.Should().HaveCount(9);
+            differences.Tables[0].Target.Columns[10].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Target.Columns[10].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[10].DefaultConstraint.Expression.Should().Be("('Target expression')");
+            differences.Tables[0].Target.Columns[10].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithDefaultConstraint");
+            differences.Tables[0].Target.Columns[10].IsComputed.Should().BeFalse();
+            differences.Tables[0].Target.Columns[10].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[10].IsNullable.Should().BeFalse();
+            differences.Tables[0].Target.Columns[10].MaxLength.Should().Be(20);
+            differences.Tables[0].Target.Columns[10].Name.Should().Be("ColumnWithDefaultConstraint");
+            differences.Tables[0].Target.Columns[10].Position.Should().Be(11);
+            differences.Tables[0].Target.Columns[10].Precision.Should().Be(0);
+            differences.Tables[0].Target.Columns[10].Scale.Should().Be(0);
+            differences.Tables[0].Target.Columns[10].TypeName.Should().Be("varchar");
 
+            differences.Tables[0].Target.Columns[11].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Target.Columns[11].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[11].DefaultConstraint.Should().BeNull();
+            differences.Tables[0].Target.Columns[11].IsComputed.Should().BeFalse();
+            differences.Tables[0].Target.Columns[11].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[11].IsNullable.Should().BeFalse();
+            differences.Tables[0].Target.Columns[11].MaxLength.Should().Be(20);
+            differences.Tables[0].Target.Columns[11].Name.Should().Be("ColumnWithMissingDefaultConstraint");
+            differences.Tables[0].Target.Columns[11].Position.Should().Be(12);
+            differences.Tables[0].Target.Columns[11].Precision.Should().Be(0);
+            differences.Tables[0].Target.Columns[11].Scale.Should().Be(0);
+            differences.Tables[0].Target.Columns[11].TypeName.Should().Be("varchar");
+
+            differences.Tables[0].Target.Columns[12].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[0].Target.Columns[12].ComputedExpression.Should().BeNull();
+            differences.Tables[0].Target.Columns[12].DefaultConstraint.Expression.Should().Be("('Same expression')");
+            differences.Tables[0].Target.Columns[12].DefaultConstraint.Name.Should().Be("DF_TableDifference_WrongName");
+            differences.Tables[0].Target.Columns[12].IsComputed.Should().BeFalse();
+            differences.Tables[0].Target.Columns[12].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[12].IsNullable.Should().BeFalse();
+            differences.Tables[0].Target.Columns[12].MaxLength.Should().Be(20);
+            differences.Tables[0].Target.Columns[12].Name.Should().Be("ColumnWithOtherDefaultConstraintName");
+            differences.Tables[0].Target.Columns[12].Position.Should().Be(13);
+            differences.Tables[0].Target.Columns[12].Precision.Should().Be(0);
+            differences.Tables[0].Target.Columns[12].Scale.Should().Be(0);
+            differences.Tables[0].Target.Columns[12].TypeName.Should().Be("varchar");
+
+            differences.Tables[0].Columns.Should().HaveCount(12);
+
+            differences.Tables[0].Columns[0].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[0].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[0]);
             differences.Tables[0].Columns[0].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[0]);
             differences.Tables[0].Columns[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[1].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[1].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[1]);
             differences.Tables[0].Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[1]);
             differences.Tables[0].Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[2].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[2].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[3]);
             differences.Tables[0].Columns[2].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[2]);
             differences.Tables[0].Columns[2].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[3].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[3].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[2]);
             differences.Tables[0].Columns[3].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[3]);
             differences.Tables[0].Columns[3].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[4].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[4].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[4]);
             differences.Tables[0].Columns[4].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[4]);
             differences.Tables[0].Columns[4].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[5].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[5].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[5]);
             differences.Tables[0].Columns[5].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[5]);
             differences.Tables[0].Columns[5].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[6].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[6].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[7]);
             differences.Tables[0].Columns[6].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[7]);
             differences.Tables[0].Columns[6].Type.Should().Be(SqlObjectDifferenceType.Different);
 
+            differences.Tables[0].Columns[7].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Columns[7].Source.Should().BeNull();
             differences.Tables[0].Columns[7].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[8]);
             differences.Tables[0].Columns[7].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
 
-            differences.Tables[0].Columns[8].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[8]);
-            differences.Tables[0].Columns[8].Target.Should().BeNull();
-            differences.Tables[0].Columns[8].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
+            differences.Tables[0].Columns[8].DefaultConstraint.Source.Should().BeSameAs(differences.Tables[0].Source.Columns[10].DefaultConstraint);
+            differences.Tables[0].Columns[8].DefaultConstraint.Target.Should().BeSameAs(differences.Tables[0].Target.Columns[10].DefaultConstraint);
+            differences.Tables[0].Columns[8].DefaultConstraint.Type.Should().Be(SqlObjectDifferenceType.Different);
+            differences.Tables[0].Columns[8].DefaultConstraint.Properties.Should().HaveCount(1);
+            differences.Tables[0].Columns[8].DefaultConstraint.Properties[0].Name.Should().Be("Expression");
+            differences.Tables[0].Columns[8].DefaultConstraint.Properties[0].Source.Should().Be("('Source expression')");
+            differences.Tables[0].Columns[8].DefaultConstraint.Properties[0].Target.Should().Be("('Target expression')");
+            differences.Tables[0].Columns[8].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[10]);
+            differences.Tables[0].Columns[8].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[10]);
+            differences.Tables[0].Columns[8].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[9].DefaultConstraint.Source.Should().BeSameAs(differences.Tables[0].Source.Columns[11].DefaultConstraint);
+            differences.Tables[0].Columns[9].DefaultConstraint.Target.Should().BeSameAs(differences.Tables[0].Target.Columns[11].DefaultConstraint);
+            differences.Tables[0].Columns[9].DefaultConstraint.Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
+            differences.Tables[0].Columns[9].DefaultConstraint.Properties.Should().BeEmpty();
+            differences.Tables[0].Columns[9].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[11]);
+            differences.Tables[0].Columns[9].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[11]);
+            differences.Tables[0].Columns[9].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[10].DefaultConstraint.Source.Should().BeSameAs(differences.Tables[0].Source.Columns[12].DefaultConstraint);
+            differences.Tables[0].Columns[10].DefaultConstraint.Target.Should().BeSameAs(differences.Tables[0].Target.Columns[12].DefaultConstraint);
+            differences.Tables[0].Columns[10].DefaultConstraint.Type.Should().Be(SqlObjectDifferenceType.Different);
+            differences.Tables[0].Columns[10].DefaultConstraint.Properties.Should().HaveCount(1);
+            differences.Tables[0].Columns[10].DefaultConstraint.Properties[0].Name.Should().Be("Name");
+            differences.Tables[0].Columns[10].DefaultConstraint.Properties[0].Source.Should().Be("DF_TableDifference_ColumnWithOtherDefaultConstraintName");
+            differences.Tables[0].Columns[10].DefaultConstraint.Properties[0].Target.Should().Be("DF_TableDifference_WrongName");
+            differences.Tables[0].Columns[10].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[12]);
+            differences.Tables[0].Columns[10].Target.Should().BeSameAs(differences.Tables[0].Target.Columns[12]);
+            differences.Tables[0].Columns[10].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[0].Columns[11].DefaultConstraint.Should().BeNull();
+            differences.Tables[0].Columns[11].Source.Should().BeSameAs(differences.Tables[0].Source.Columns[8]);
+            differences.Tables[0].Columns[11].Target.Should().BeNull();
+            differences.Tables[0].Columns[11].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
 
             // Tables / Foreign keys
             differences.Tables[0].Source.ForeignKeys.Should().HaveCount(1);
@@ -542,7 +684,6 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].PrimaryKey.Columns[1].Source.Should().BeSameAs(differences.Tables[0].Source.PrimaryKey.Columns[0]);
             differences.Tables[0].PrimaryKey.Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[1]);
             differences.Tables[0].PrimaryKey.Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
-
             differences.Tables[0].PrimaryKey.Properties.Should().HaveCount(1);
             differences.Tables[0].PrimaryKey.Properties[0].Name.Should().Be("Type");
             differences.Tables[0].PrimaryKey.Properties[0].Source.Should().Be("NONCLUSTERED");
@@ -625,6 +766,28 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Target.Columns[0].Precision.Should().Be(10);
             differences.Tables[1].Target.Columns[0].Scale.Should().Be(0);
             differences.Tables[1].Target.Columns[0].TypeName.Should().Be("int");
+            differences.Tables[1].Target.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
+            differences.Tables[1].Target.Columns[1].ComputedExpression.Should().BeNull();
+            differences.Tables[1].Target.Columns[1].IsComputed.Should().BeFalse();
+            differences.Tables[1].Target.Columns[1].IsIdentity.Should().BeFalse();
+            differences.Tables[1].Target.Columns[1].IsNullable.Should().BeTrue();
+            differences.Tables[1].Target.Columns[1].MaxLength.Should().Be(50);
+            differences.Tables[1].Target.Columns[1].Name.Should().Be("TargetName");
+            differences.Tables[1].Target.Columns[1].Position.Should().Be(2);
+            differences.Tables[1].Target.Columns[1].Precision.Should().Be(0);
+            differences.Tables[1].Target.Columns[1].Scale.Should().Be(0);
+            differences.Tables[1].Target.Columns[1].TypeName.Should().Be("varchar");
+            differences.Tables[1].Target.Columns[2].CollationName.Should().BeNull();
+            differences.Tables[1].Target.Columns[2].ComputedExpression.Should().BeNull();
+            differences.Tables[1].Target.Columns[2].IsComputed.Should().BeFalse();
+            differences.Tables[1].Target.Columns[2].IsIdentity.Should().BeFalse();
+            differences.Tables[1].Target.Columns[2].IsNullable.Should().BeFalse();
+            differences.Tables[1].Target.Columns[2].MaxLength.Should().Be(4);
+            differences.Tables[1].Target.Columns[2].Name.Should().Be("TargetForeignKeyId");
+            differences.Tables[1].Target.Columns[2].Position.Should().Be(3);
+            differences.Tables[1].Target.Columns[2].Precision.Should().Be(10);
+            differences.Tables[1].Target.Columns[2].Scale.Should().Be(0);
+            differences.Tables[1].Target.Columns[2].TypeName.Should().Be("int");
             differences.Tables[1].Target.ForeignKeys.Should().HaveCount(1);
             differences.Tables[1].Target.ForeignKeys[0].Columns.Should().HaveCount(1);
             differences.Tables[1].Target.ForeignKeys[0].Columns[0].Name.Should().Be("TargetForeignKeyId");
@@ -666,13 +829,28 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
 
             differences.Tables[2].Columns.Should().BeEmpty();
-            differences.Tables[2].Indexes.Should().BeEmpty();
-            differences.Tables[2].PrimaryKey.Should().BeNull();
+            differences.Tables[2].Indexes.Should().HaveCount(2);
+            differences.Tables[2].Indexes[0].Columns.Should().BeEmpty();
+            differences.Tables[2].Indexes[0].IncludedColumns.Should().BeEmpty();
+            differences.Tables[2].Indexes[0].Properties.Should().BeEmpty();
+            differences.Tables[2].Indexes[0].Source.Should().BeNull();
+            differences.Tables[2].Indexes[0].Target.Should().BeSameAs(differences.Tables[2].Target.Indexes[0]);
+            differences.Tables[2].Indexes[0].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
+            differences.Tables[2].Indexes[1].Columns.Should().BeEmpty();
+            differences.Tables[2].Indexes[1].IncludedColumns.Should().BeEmpty();
+            differences.Tables[2].Indexes[1].Properties.Should().BeEmpty();
+            differences.Tables[2].Indexes[1].Source.Should().BeSameAs(differences.Tables[2].Source.Indexes[0]);
+            differences.Tables[2].Indexes[1].Target.Should().BeNull();
+            differences.Tables[2].Indexes[1].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
+            differences.Tables[2].PrimaryKey.Source.Should().BeSameAs(differences.Tables[2].Source.PrimaryKey);
+            differences.Tables[2].PrimaryKey.Target.Should().BeSameAs(differences.Tables[2].Target.PrimaryKey);
+            differences.Tables[2].PrimaryKey.Properties.Should().HaveCount(1);
+            differences.Tables[2].PrimaryKey.Properties[0].Name.Should().Be("Name");
+            differences.Tables[2].PrimaryKey.Properties[0].Source.Should().Be("PK_TableWithDifferentPrimaryKey_Source");
+            differences.Tables[2].PrimaryKey.Properties[0].Target.Should().Be("PK_TableWithDifferentPrimaryKey_Target");
             differences.Tables[2].UniqueConstraints.Should().BeEmpty();
-            differences.Tables[2].Source.CheckConstraints.Should().HaveCount(1);
-            differences.Tables[2].Source.CheckConstraints[0].Name.Should().Be("CheckConstraintSource");
-            differences.Tables[2].Source.CheckConstraints[0].Code.Should().Be("([Id]>(0))");
-            differences.Tables[2].Source.Columns.Should().HaveCount(3);
+            differences.Tables[2].Source.CheckConstraints.Should().BeEmpty();
+            differences.Tables[2].Source.Columns.Should().HaveCount(1);
             differences.Tables[2].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[2].Source.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[2].Source.Columns[0].IsComputed.Should().BeFalse();
@@ -684,45 +862,111 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[2].Source.Columns[0].Precision.Should().Be(10);
             differences.Tables[2].Source.Columns[0].Scale.Should().Be(0);
             differences.Tables[2].Source.Columns[0].TypeName.Should().Be("int");
-            differences.Tables[2].Source.Indexes.Should().HaveCount(2);
+            differences.Tables[2].Source.Indexes.Should().HaveCount(1);
             differences.Tables[2].Source.Indexes[0].Columns.Should().HaveCount(1);
-            differences.Tables[2].Source.Indexes[0].Columns[0].Name.Should().Be("SourceName");
+            differences.Tables[2].Source.Indexes[0].Columns[0].Name.Should().Be("Id");
             differences.Tables[2].Source.Indexes[0].Columns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.Indexes[0].Filter.Should().Be("([SourceName]='')");
-            differences.Tables[2].Source.Indexes[0].IncludedColumns.Should().HaveCount(1);
-            differences.Tables[2].Source.Indexes[0].IncludedColumns[0].Name.Should().Be("SourceForeignKeyId");
-            differences.Tables[2].Source.Indexes[0].IncludedColumns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.Indexes[0].IsUnique.Should().BeFalse();
-            differences.Tables[2].Source.Indexes[0].Name.Should().Be("IndexSource");
-            differences.Tables[2].Source.Indexes[1].Columns.Should().HaveCount(1);
-            differences.Tables[2].Source.Indexes[1].Columns[0].Name.Should().Be("Id");
-            differences.Tables[2].Source.Indexes[1].Columns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.Indexes[1].Filter.Should().BeNull();
-            differences.Tables[2].Source.Indexes[1].IncludedColumns.Should().HaveCount(0);
-            differences.Tables[2].Source.ForeignKeys.Should().HaveCount(1);
-            differences.Tables[2].Source.ForeignKeys[0].Columns.Should().HaveCount(1);
-            differences.Tables[2].Source.ForeignKeys[0].Columns[0].Name.Should().Be("SourceForeignKeyId");
-            differences.Tables[2].Source.ForeignKeys[0].Columns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.ForeignKeys[0].DeleteAction.Should().Be("NO_ACTION");
-            differences.Tables[2].Source.ForeignKeys[0].Name.Should().Be("ForeignKeySource");
-            differences.Tables[2].Source.ForeignKeys[0].ReferencedTable.Should().Be("ReferencedTable");
-            differences.Tables[2].Source.ForeignKeys[0].UpdateAction.Should().Be("NO_ACTION");
-            differences.Tables[2].Source.Name.Should().Be("TableSource");
+            differences.Tables[2].Source.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[2].Source.Indexes[0].IncludedColumns.Should().BeEmpty();
+            differences.Tables[2].Source.Indexes[0].IsUnique.Should().BeTrue();
+            differences.Tables[2].Source.Indexes[0].Name.Should().Be("PK_TableWithDifferentPrimaryKey_Source");
+            differences.Tables[2].Source.ForeignKeys.Should().BeEmpty();
+            differences.Tables[2].Source.Name.Should().Be("TableWithDifferentPrimaryKey");
             differences.Tables[2].Source.Schema.Should().Be("dbo");
-            differences.Tables[2].Source.PrimaryKey.Name.Should().Be("PrimaryKeySource");
+            differences.Tables[2].Source.PrimaryKey.Name.Should().Be("PK_TableWithDifferentPrimaryKey_Source");
             differences.Tables[2].Source.PrimaryKey.Type.Should().Be("CLUSTERED");
-            differences.Tables[2].Source.Triggers.Should().HaveCount(1);
-            differences.Tables[2].Source.Triggers[0].Name.Should().Be("TriggerSource");
-            differences.Tables[2].Source.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerSource]\r\n\tON [dbo].[TableSource]\r\n\tFOR DELETE, INSERT, UPDATE\r\n\tAS\r\n\tBEGIN\r\n\t\tSET NOCOUNT ON\r\n\tEND");
-            differences.Tables[2].Source.Triggers[0].IsInsteadOfTrigger.Should().BeFalse();
-            differences.Tables[2].Source.UniqueConstraints.Should().HaveCount(1);
-            differences.Tables[2].Source.UniqueConstraints[0].Columns.Should().HaveCount(1);
-            differences.Tables[2].Source.UniqueConstraints[0].Columns[0].Name.Should().Be("Id");
-            differences.Tables[2].Source.UniqueConstraints[0].Columns[0].Position.Should().Be(1);
-            differences.Tables[2].Source.UniqueConstraints[0].Name.Should().Be("UniqueConstraintSource");
-            differences.Tables[2].Source.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
+            differences.Tables[2].Source.Triggers.Should().BeEmpty();
+            differences.Tables[2].Source.UniqueConstraints.Should().BeEmpty();
+            differences.Tables[2].Target.CheckConstraints.Should().BeEmpty();
+            differences.Tables[2].Target.Columns.Should().HaveCount(1);
+            differences.Tables[2].Target.Columns[0].CollationName.Should().BeNull();
+            differences.Tables[2].Target.Columns[0].ComputedExpression.Should().BeNull();
+            differences.Tables[2].Target.Columns[0].IsComputed.Should().BeFalse();
+            differences.Tables[2].Target.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[2].Target.Columns[0].IsNullable.Should().BeFalse();
+            differences.Tables[2].Target.Columns[0].MaxLength.Should().Be(4);
+            differences.Tables[2].Target.Columns[0].Name.Should().Be("Id");
+            differences.Tables[2].Target.Columns[0].Position.Should().Be(1);
+            differences.Tables[2].Target.Columns[0].Precision.Should().Be(10);
+            differences.Tables[2].Target.Columns[0].Scale.Should().Be(0);
+            differences.Tables[2].Target.Columns[0].TypeName.Should().Be("int");
+            differences.Tables[2].Target.Indexes.Should().HaveCount(1);
+            differences.Tables[2].Target.Indexes[0].Columns.Should().HaveCount(1);
+            differences.Tables[2].Target.Indexes[0].Columns[0].Name.Should().Be("Id");
+            differences.Tables[2].Target.Indexes[0].Columns[0].Position.Should().Be(1);
+            differences.Tables[2].Target.Indexes[0].Filter.Should().BeNull();
+            differences.Tables[2].Target.Indexes[0].IncludedColumns.Should().BeEmpty();
+            differences.Tables[2].Target.Indexes[0].IsUnique.Should().BeTrue();
+            differences.Tables[2].Target.Indexes[0].Name.Should().Be("PK_TableWithDifferentPrimaryKey_Target");
+            differences.Tables[2].Target.ForeignKeys.Should().BeEmpty();
+            differences.Tables[2].Target.Name.Should().Be("TableWithDifferentPrimaryKey");
+            differences.Tables[2].Target.Schema.Should().Be("dbo");
+            differences.Tables[2].Target.PrimaryKey.Name.Should().Be("PK_TableWithDifferentPrimaryKey_Target");
+            differences.Tables[2].Target.PrimaryKey.Type.Should().Be("CLUSTERED");
+            differences.Tables[2].Target.Triggers.Should().BeEmpty();
+            differences.Tables[2].Target.UniqueConstraints.Should().BeEmpty();
             differences.Tables[2].Triggers.Should().BeEmpty();
-            differences.Tables[2].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
+            differences.Tables[2].Type.Should().Be(SqlObjectDifferenceType.Different);
+
+            differences.Tables[3].Columns.Should().BeEmpty();
+            differences.Tables[3].Indexes.Should().BeEmpty();
+            differences.Tables[3].PrimaryKey.Should().BeNull();
+            differences.Tables[3].UniqueConstraints.Should().BeEmpty();
+            differences.Tables[3].Source.CheckConstraints.Should().HaveCount(1);
+            differences.Tables[3].Source.CheckConstraints[0].Name.Should().Be("CheckConstraintSource");
+            differences.Tables[3].Source.CheckConstraints[0].Code.Should().Be("([Id]>(0))");
+            differences.Tables[3].Source.Columns.Should().HaveCount(3);
+            differences.Tables[3].Source.Columns[0].CollationName.Should().BeNull();
+            differences.Tables[3].Source.Columns[0].ComputedExpression.Should().BeNull();
+            differences.Tables[3].Source.Columns[0].IsComputed.Should().BeFalse();
+            differences.Tables[3].Source.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[3].Source.Columns[0].IsNullable.Should().BeFalse();
+            differences.Tables[3].Source.Columns[0].MaxLength.Should().Be(4);
+            differences.Tables[3].Source.Columns[0].Name.Should().Be("Id");
+            differences.Tables[3].Source.Columns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.Columns[0].Precision.Should().Be(10);
+            differences.Tables[3].Source.Columns[0].Scale.Should().Be(0);
+            differences.Tables[3].Source.Columns[0].TypeName.Should().Be("int");
+            differences.Tables[3].Source.Indexes.Should().HaveCount(2);
+            differences.Tables[3].Source.Indexes[0].Columns.Should().HaveCount(1);
+            differences.Tables[3].Source.Indexes[0].Columns[0].Name.Should().Be("SourceName");
+            differences.Tables[3].Source.Indexes[0].Columns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.Indexes[0].Filter.Should().Be("([SourceName]='')");
+            differences.Tables[3].Source.Indexes[0].IncludedColumns.Should().HaveCount(1);
+            differences.Tables[3].Source.Indexes[0].IncludedColumns[0].Name.Should().Be("SourceForeignKeyId");
+            differences.Tables[3].Source.Indexes[0].IncludedColumns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.Indexes[0].IsUnique.Should().BeFalse();
+            differences.Tables[3].Source.Indexes[0].Name.Should().Be("IndexSource");
+            differences.Tables[3].Source.Indexes[1].Columns.Should().HaveCount(1);
+            differences.Tables[3].Source.Indexes[1].Columns[0].Name.Should().Be("Id");
+            differences.Tables[3].Source.Indexes[1].Columns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.Indexes[1].Filter.Should().BeNull();
+            differences.Tables[3].Source.Indexes[1].IncludedColumns.Should().HaveCount(0);
+            differences.Tables[3].Source.ForeignKeys.Should().HaveCount(1);
+            differences.Tables[3].Source.ForeignKeys[0].Columns.Should().HaveCount(1);
+            differences.Tables[3].Source.ForeignKeys[0].Columns[0].Name.Should().Be("SourceForeignKeyId");
+            differences.Tables[3].Source.ForeignKeys[0].Columns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.ForeignKeys[0].DeleteAction.Should().Be("NO_ACTION");
+            differences.Tables[3].Source.ForeignKeys[0].Name.Should().Be("ForeignKeySource");
+            differences.Tables[3].Source.ForeignKeys[0].ReferencedTable.Should().Be("ReferencedTable");
+            differences.Tables[3].Source.ForeignKeys[0].UpdateAction.Should().Be("NO_ACTION");
+            differences.Tables[3].Source.Name.Should().Be("TableSource");
+            differences.Tables[3].Source.Schema.Should().Be("dbo");
+            differences.Tables[3].Source.PrimaryKey.Name.Should().Be("PrimaryKeySource");
+            differences.Tables[3].Source.PrimaryKey.Type.Should().Be("CLUSTERED");
+            differences.Tables[3].Source.Triggers.Should().HaveCount(1);
+            differences.Tables[3].Source.Triggers[0].Name.Should().Be("TriggerSource");
+            differences.Tables[3].Source.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerSource]\r\n\tON [dbo].[TableSource]\r\n\tFOR DELETE, INSERT, UPDATE\r\n\tAS\r\n\tBEGIN\r\n\t\tSET NOCOUNT ON\r\n\tEND");
+            differences.Tables[3].Source.Triggers[0].IsInsteadOfTrigger.Should().BeFalse();
+            differences.Tables[3].Source.UniqueConstraints.Should().HaveCount(1);
+            differences.Tables[3].Source.UniqueConstraints[0].Columns.Should().HaveCount(1);
+            differences.Tables[3].Source.UniqueConstraints[0].Columns[0].Name.Should().Be("Id");
+            differences.Tables[3].Source.UniqueConstraints[0].Columns[0].Position.Should().Be(1);
+            differences.Tables[3].Source.UniqueConstraints[0].Name.Should().Be("UniqueConstraintSource");
+            differences.Tables[3].Source.UniqueConstraints[0].Type.Should().Be("NONCLUSTERED");
+            differences.Tables[3].Target.Should().BeNull();
+            differences.Tables[3].Triggers.Should().BeEmpty();
+            differences.Tables[3].Type.Should().Be(SqlObjectDifferenceType.MissingInTarget);
 
             // UserTypes
             differences.UserTypes.Should().HaveCount(3);

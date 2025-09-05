@@ -55,6 +55,145 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <returns>The number of the rows inserted.</returns>
         public static int InsertInto<T>(this SqlServerDatabase database, string tableName, bool disableIdentityInsert, params T[] objects)
         {
+            var statement = BuildInsertStatement(tableName, disableIdentityInsert, objects);
+
+            return database.ExecuteNonQuery(statement);
+        }
+
+        /// <summary>
+        /// Insert data into the table asynchronously specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the number of the rows inserted.</returns>
+        public static async Task<int> InsertIntoAsync<T>(this SqlServerDatabase database, string tableName, params T[] objects)
+        {
+            return await InsertIntoAsync(database, tableName, false, objects);
+        }
+
+        /// <summary>
+        /// Insert data into the table asynchronously specified by the <paramref name="tableName"/> argument. The row
+        /// to insert are represents by objects (or anonymous objects) which the property name must match the
+        /// the column name.
+        /// </summary>
+        /// <typeparam name="T">Type of the object which contains the data to insert in the table.</typeparam>
+        /// <param name="database">SQL Server database which contains the table where the data will be inserted.</param>
+        /// <param name="tableName">SQL table where the data will be inserted.</param>
+        /// <param name="disableIdentityInsert"><see langword="true"/> to disable auto incrementation of the <c>IDENTITY</c> column. In this case, the object must contains explicitely the value of the <c>IDENTITY</c>
+        /// column to insert.</param>
+        /// <param name="objects">Set of object which represents the row to insert. Each object must have property which are mapped to the column to insert.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains the number of the rows inserted.</returns>
+        public static Task<int> InsertIntoAsync<T>(this SqlServerDatabase database, string tableName, bool disableIdentityInsert, params T[] objects)
+        {
+            var statement = BuildInsertStatement(tableName, disableIdentityInsert, objects);
+
+            return database.ExecuteNonQueryAsync(statement);
+        }
+
+        /// <summary>
+        /// Clear all in the database.
+        /// </summary>
+        /// <param name="database">SQL Server database which the data have to be deleted.</param>
+        public static void ClearAllData(this SqlServerDatabase database)
+        {
+            foreach (var statement in GetClearDataStatements())
+            {
+                database.ExecuteNonQuery(statement);
+            }
+        }
+
+        /// <summary>
+        /// Clear all in the database asynchronously.
+        /// </summary>
+        /// <param name="database">SQL Server database which the data have to be deleted.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ClearAllDataAsync(this SqlServerDatabase database, CancellationToken cancellationToken = default)
+        {
+            foreach (var statement in GetClearDataStatements())
+            {
+                await database.ExecuteNonQueryAsync(statement, cancellationToken);
+            }
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script">T-SQL script to execute.</param>
+        public static void ExecuteScript(this SqlServerDatabase database, string script)
+        {
+            using var stringReader = new StringReader(script);
+
+            ExecuteScript(database, stringReader);
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script"><see cref="StringReader"/> which contains the T-SQL script to execute.</param>
+        public static void ExecuteScript(this SqlServerDatabase database, StringReader script)
+        {
+            var parser = new SqlServerScriptParser(script);
+
+            var block = parser.ReadNextBlock();
+
+            while (block is not null)
+            {
+                for (var i = 0; i < block.Count; i++)
+                {
+                    database.ExecuteNonQuery(block.Code);
+                }
+
+                block = parser.ReadNextBlock();
+            }
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/>.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script">T-SQL script to execute.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ExecuteScriptAsync(this SqlServerDatabase database, string script, CancellationToken cancellationToken = default)
+        {
+            using var stringReader = new StringReader(script);
+
+            await ExecuteScriptAsync(database, stringReader);
+        }
+
+        /// <summary>
+        /// Execute an T-SQL script on the <paramref name="database"/> asynchronously.
+        /// </summary>
+        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
+        /// <param name="script"><see cref="StringReader"/> which contains the T-SQL script to execute.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation.</returns>
+        public static async Task ExecuteScriptAsync(this SqlServerDatabase database, StringReader script, CancellationToken cancellationToken = default)
+        {
+            var parser = new SqlServerScriptParser(script);
+
+            var block = parser.ReadNextBlock();
+
+            while (block is not null)
+            {
+                for (var i = 0; i < block.Count; i++)
+                {
+                    await database.ExecuteNonQueryAsync(block.Code, cancellationToken);
+                }
+
+                block = parser.ReadNextBlock();
+            }
+        }
+
+        private static string BuildInsertStatement<T>(string tableName, bool disableIdentityInsert, params T[] objects)
+        {
             var builder = new SqlInsertStatementBuilder(tableName);
             var properties = typeof(T).GetProperties();
 
@@ -91,24 +230,16 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 statement = $"SET IDENTITY_INSERT [{tableName}] ON;" + statement + $"SET IDENTITY_INSERT [{tableName}] OFF;";
             }
 
-            return database.ExecuteNonQuery(statement);
+            return statement;
         }
 
-        /// <summary>
-        /// Clear all in the database.
-        /// </summary>
-        /// <param name="database">SQL Server database which the data have to be deleted.</param>
-        public static void ClearAllData(this SqlServerDatabase database)
+        private static string[] GetClearDataStatements()
         {
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'");
-
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'");
-
-            // Re-initialize the seed of the IDENTITY columns.
-            // For each table which contains an IDENTITY column, execute the following SQL statement:
-            //   DBCC CHECKIDENT ('[<schema>].[<table>]', RESEED, <seed>)
-            database.ExecuteNonQuery(@"
-                DECLARE @sqlcmd VARCHAR(MAX);
+            return
+            [
+                "EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT all'",
+                "EXEC sp_msforeachtable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?'",
+                @"DECLARE @sqlcmd VARCHAR(MAX);
 
                 SET @sqlcmd = (
 	                SELECT STRING_AGG(CAST('DBCC CHECKIDENT (''[' + [s].[name] + '].[' + [t].[name] + ']'', RESEED, ' + CAST([ic].[seed_value] AS VARCHAR(20)) + ')' AS NVARCHAR(MAX)),';' + CHAR(10)) WITHIN GROUP (ORDER BY [t].[name])
@@ -125,43 +256,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
 		                AND [c].[column_id] = [ic].[column_id]
                 )
 
-                EXEC (@sqlcmd)");
-
-            database.ExecuteNonQuery("EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'");
-        }
-
-        /// <summary>
-        /// Execute an T-SQL script on the <paramref name="database"/>.
-        /// </summary>
-        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
-        /// <param name="script">T-SQL script to execute.</param>
-        public static void ExecuteScript(this SqlServerDatabase database, string script)
-        {
-            using var stringReader = new StringReader(script);
-
-            ExecuteScript(database, stringReader);
-        }
-
-        /// <summary>
-        /// Execute an T-SQL script on the <paramref name="database"/>.
-        /// </summary>
-        /// <param name="database"><see cref="SqlServerDatabase"/> where the <paramref name="script"/> will be executed.</param>
-        /// <param name="script"><see cref="StringReader"/> which contains the T-SQL script to execute.</param>
-        public static void ExecuteScript(this SqlServerDatabase database, StringReader script)
-        {
-            var parser = new SqlServerScriptParser(script);
-
-            var block = parser.ReadNextBlock();
-
-            while (block is not null)
-            {
-                for (var i = 0; i < block.Count; i++)
-                {
-                    database.ExecuteNonQuery(block.Code);
-                }
-
-                block = parser.ReadNextBlock();
-            }
+                EXEC (@sqlcmd)",
+                "EXEC sp_msforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all'",
+            ];
         }
 
         private sealed class SqlInsertStatementBuilder

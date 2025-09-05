@@ -11,6 +11,8 @@ namespace PosInformatique.Testing.Databases
         void Visit<TSqlObject>(SqlObjectDifferences<TSqlObject> differences)
             where TSqlObject : SqlObject;
 
+        void Visit(SqlColumnDifferences differences);
+
         void Visit(SqlForeignKeyDifferences differences);
 
         void Visit(SqlIndexDifferences differences);

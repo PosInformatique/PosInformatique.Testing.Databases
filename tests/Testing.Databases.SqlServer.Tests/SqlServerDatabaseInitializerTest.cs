@@ -66,5 +66,47 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             // Insert a row which should not be use in other tests.
             this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
+
+        [Fact]
+        public async Task Test1Async()
+        {
+            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
+            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+
+            // Check the constructor has been called
+            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable");
+
+            table.Rows.Should().HaveCount(2);
+
+            table.Rows[0]["Id"].Should().Be(1);
+            table.Rows[0]["Name"].Should().Be("Name 1");
+
+            table.Rows[1]["Id"].Should().Be(2);
+            table.Rows[1]["Name"].Should().Be("Name 2");
+
+            // Insert a row which should not be use in other tests.
+            await this.database.InsertIntoAsync("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
+        }
+
+        [Fact]
+        public async Task Test2Async()
+        {
+            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
+            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+
+            // Check the constructor has been called
+            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable");
+
+            table.Rows.Should().HaveCount(2);
+
+            table.Rows[0]["Id"].Should().Be(1);
+            table.Rows[0]["Name"].Should().Be("Name 1");
+
+            table.Rows[1]["Id"].Should().Be(2);
+            table.Rows[1]["Name"].Should().Be("Name 2");
+
+            // Insert a row which should not be use in other tests.
+            await this.database.InsertIntoAsync("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
+        }
     }
 }

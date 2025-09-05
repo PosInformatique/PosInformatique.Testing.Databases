@@ -75,6 +75,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
             // Gets the check constraints
             var allCheckConstraints = GetCheckConstraintsAsync(database, cancellationToken);
 
+            // Gets the default constraints
+            var allDefaultConstraints = GetDefaultConstraintsAsync(database, cancellationToken);
+
             // Gets the indexes
             var allForeignKeys = GetForeignKeysAsync(database, cancellationToken);
 
@@ -90,7 +93,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             // Gets the unique constraints
             var allUniqueConstraints = GetUniqueConstraintsAsync(database, cancellationToken);
 
-            await Task.WhenAll(allColumns, allCheckConstraints, allForeignKeys, allIndexes, allPrimaryKeys, allTriggers, allUniqueConstraints);
+            await Task.WhenAll(allColumns, allCheckConstraints, allDefaultConstraints, allForeignKeys, allIndexes, allPrimaryKeys, allTriggers, allUniqueConstraints);
 
             // Builds the SqlTable object
             foreach (var table in result.Rows.Cast<DataRow>())
@@ -108,12 +111,17 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 var columnsTable = allColumns.Result[(int)table["Id"]];
                 var columns = new List<SqlColumn>();
 
+                var defaultConstraintsTable = allDefaultConstraints.Result[(int)table["Id"]];
+
                 foreach (var column in columnsTable.OrderBy(r => r["Position"]))
                 {
-                    columns.Add(ToColumn(column));
+                    var position = Convert.ToInt32(column["Position"], CultureInfo.InvariantCulture);
+                    var defaultConstraint = defaultConstraintsTable.SingleOrDefault(r => (int)r["ColumnId"] == position);
+
+                    columns.Add(ToColumn(column, defaultConstraint));
                 }
 
-                // Indexes
+                // Foreign keys
                 var foreignKeysTable = allForeignKeys.Result[(int)table["Id"]];
                 var foreignKeys = new List<SqlForeignKey>();
 
@@ -308,6 +316,28 @@ namespace PosInformatique.Testing.Databases.SqlServer
             return result.Rows.Cast<DataRow>().ToLookup(c => (int)c["TableId"]);
         }
 
+        private static async Task<ILookup<int, DataRow>> GetDefaultConstraintsAsync(SqlServerDatabase database, CancellationToken cancellationToken)
+        {
+            const string sql = @"
+                SELECT
+				    [t].[object_id] AS [TableId],
+                    [df].[parent_column_id] AS [ColumnId],
+				    [df].[name] AS [Name],
+				    [df].[definition] AS [Expression]
+			    FROM
+				    [sys].[default_constraints] AS [df],
+				    [sys].[tables] AS [t]
+			    WHERE
+					[df].[parent_object_id] = [t].[object_id]
+                ORDER BY
+                    [t].[name],
+				    [df].[name]";
+
+            var result = await database.ExecuteQueryAsync(sql, cancellationToken);
+
+            return result.Rows.Cast<DataRow>().ToLookup(row => (int)row["TableId"]);
+        }
+
         private static async Task<ILookup<int, DataRow>> GetForeignKeysAsync(SqlServerDatabase database, CancellationToken cancellationToken)
         {
             const string sql = @"
@@ -468,7 +498,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             return new SqlCheckConstraint((string)row["Name"], (string)row["Code"]);
         }
 
-        private static SqlColumn ToColumn(DataRow row)
+        private static SqlColumn ToColumn(DataRow row, DataRow? defaultConstraintRow)
         {
             return new SqlColumn(
                 (string)row["Name"],
@@ -480,10 +510,18 @@ namespace PosInformatique.Testing.Databases.SqlServer
             {
                 CollationName = NullIfDbNull<string>(row["CollationName"]),
                 ComputedExpression = NullIfDbNull<string>(row["ComputedExpression"]),
+                DefaultConstraint = defaultConstraintRow != null ? ToDefaultConstraint(defaultConstraintRow) : null,
                 IsComputed = (bool)row["IsComputed"],
                 IsIdentity = (bool)row["IsIdentity"],
                 IsNullable = (bool)row["IsNullable"],
             };
+        }
+
+        private static SqlDefaultConstraint ToDefaultConstraint(DataRow row)
+        {
+            return new SqlDefaultConstraint(
+                (string)row["Name"],
+                (string)row["Expression"]);
         }
 
         private static SqlForeignKey ToForeignKey(DataRow row, IList<SqlForeignKeyColumn> columns)

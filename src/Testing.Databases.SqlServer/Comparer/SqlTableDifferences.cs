@@ -18,7 +18,7 @@ namespace PosInformatique.Testing.Databases
             SqlTable? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlObjectDifferences<SqlColumn>> columns,
+            IList<SqlColumnDifferences> columns,
             IList<SqlObjectDifferences<SqlTrigger>> triggers,
             IList<SqlObjectDifferences<SqlCheckConstraint>> checkConstraints,
             IList<SqlIndexDifferences> indexes,
@@ -26,7 +26,7 @@ namespace PosInformatique.Testing.Databases
             IList<SqlUniqueConstraintDifferences> uniqueConstraints)
             : base(source, target, type, properties)
         {
-            this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlColumn>>(columns);
+            this.Columns = new ReadOnlyCollection<SqlColumnDifferences>(columns);
             this.Triggers = new ReadOnlyCollection<SqlObjectDifferences<SqlTrigger>>(triggers);
             this.CheckConstraints = new ReadOnlyCollection<SqlObjectDifferences<SqlCheckConstraint>>(checkConstraints);
             this.Indexes = new ReadOnlyCollection<SqlIndexDifferences>(indexes);
@@ -48,7 +48,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the columns differences between the two SQL tables.
         /// </summary>
-        public ReadOnlyCollection<SqlObjectDifferences<SqlColumn>> Columns { get; }
+        public ReadOnlyCollection<SqlColumnDifferences> Columns { get; }
 
         /// <summary>
         /// Gets the indexes differences between the two SQL tables.

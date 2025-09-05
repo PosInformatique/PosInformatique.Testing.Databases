@@ -15,13 +15,33 @@ namespace PosInformatique.Testing.Databases.SqlServer
     public static class EntityFrameworkSqlServerExtensions
     {
         /// <summary>
-        /// Deploy a database using a DACPAC file.
+        /// Creates a database using the specified Entity Framework <paramref name="context"/>.
         /// </summary>
-        /// <remarks>If a database  already exists, it will be deleted.</remarks>
+        /// <remarks>If the database already exists, it will be deleted.</remarks>
         /// <param name="server"><see cref="SqlServer"/> instance where the database will be created.</param>
         /// <param name="name">Name of the database to create.</param>
         /// <param name="context"><see cref="DbContext"/> which represents the database to create.</param>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which represents the deployed database.</returns>
+        public static SqlServerDatabase CreateDatabase(this SqlServer server, string name, DbContext context)
+        {
+            var database = server.GetDatabase(name);
+
+            context.Database.SetConnectionString(database.ConnectionString);
+
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            return database;
+        }
+
+        /// <summary>
+        /// Creates a database using the specified Entity Framework <paramref name="context"/>.
+        /// </summary>
+        /// <remarks>If the database already exists, it will be deleted.</remarks>
+        /// <param name="server"><see cref="SqlServer"/> instance where the database will be created.</param>
+        /// <param name="name">Name of the database to create.</param>
+        /// <param name="context"><see cref="DbContext"/> which represents the database to create.</param>
+        /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains an instance of the <see cref="SqlServerDatabase"/> that represents the deployed database.</returns>
         public static async Task<SqlServerDatabase> CreateDatabaseAsync(this SqlServer server, string name, DbContext context)
         {
             var database = server.GetDatabase(name);

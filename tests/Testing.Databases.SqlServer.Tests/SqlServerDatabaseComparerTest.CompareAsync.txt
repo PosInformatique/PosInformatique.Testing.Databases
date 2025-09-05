@@ -53,6 +53,21 @@
         Source: ([Scale]+[Precision])
         Target: ([Scale]-[Precision])
   - TargetColumn (Missing in the source)
+  - ColumnWithDefaultConstraint
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithDefaultConstraint
+      * Expression:
+          Source: ('Source expression')
+          Target: ('Target expression')
+  - ColumnWithMissingDefaultConstraint
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithMissingDefaultConstraint (Missing in the target)
+  - ColumnWithOtherDefaultConstraintName
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithOtherDefaultConstraintName
+      * Name:
+          Source: DF_TableDifference_ColumnWithOtherDefaultConstraintName
+          Target: DF_TableDifference_WrongName
   - SourceColumn (Missing in the target)
   ------ Foreign keys ------
   - ForeignKeyDifference
@@ -99,7 +114,8 @@
       * Position:
           Source: 1
           Target: 2
-    ------ Primary key ------
+  ------ Primary key ------
+  - PrimaryKeyDifference
     * Type:
         Source: NONCLUSTERED
         Target: CLUSTERED
@@ -149,6 +165,15 @@
           Source: 1
           Target: 2
 - dbo.TableTarget (Missing in the source)
+- dbo.TableWithDifferentPrimaryKey
+  ------ Indexes ------
+  - PK_TableWithDifferentPrimaryKey_Target (Missing in the source)
+  - PK_TableWithDifferentPrimaryKey_Source (Missing in the target)
+  ------ Primary key ------
+  - PK_TableWithDifferentPrimaryKey_Source
+    * Name:
+        Source: PK_TableWithDifferentPrimaryKey_Source
+        Target: PK_TableWithDifferentPrimaryKey_Target
 - dbo.TableSource (Missing in the target)
 ------ Stored procedures ------
 - dbo.StoredProcedureDifference

@@ -64,6 +64,13 @@ namespace PosInformatique.Testing.Databases
             }
         }
 
+        public void Visit(SqlColumnDifferences differences)
+        {
+            this.Visit<SqlColumn>(differences);
+
+            this.Generate(differences.DefaultConstraint, "Default constraint");
+        }
+
         public void Visit(SqlForeignKeyDifferences differences)
         {
             this.WriteProperties(differences.Properties);
@@ -98,13 +105,7 @@ namespace PosInformatique.Testing.Databases
 
                 this.Generate(differences.Indexes, "Indexes");
 
-                if (differences.PrimaryKey is not null)
-                {
-                    this.Indent();
-                    this.WriteLine($"------ Primary key ------");
-                    differences.PrimaryKey.Accept(this);
-                    this.Unindent();
-                }
+                this.Generate(differences.PrimaryKey, "Primary key");
 
                 this.Generate(differences.Triggers, "Triggers");
 
@@ -119,6 +120,17 @@ namespace PosInformatique.Testing.Databases
             this.WriteProperties(differences.Properties);
 
             this.Generate(differences.Columns, "Columns");
+        }
+
+        private void Generate<TSqlObject>(SqlObjectDifferences<TSqlObject>? difference, string typeName)
+            where TSqlObject : SqlObject
+        {
+            if (difference is null)
+            {
+                return;
+            }
+
+            this.Generate([difference], typeName);
         }
 
         private void Generate<TSqlObject>(IEnumerable<SqlObjectDifferences<TSqlObject>> differences, string typeName)
