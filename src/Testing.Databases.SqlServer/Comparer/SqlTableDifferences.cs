@@ -18,7 +18,6 @@ namespace PosInformatique.Testing.Databases
             SqlTable? target,
             SqlObjectDifferenceType type,
             IReadOnlyList<SqlObjectPropertyDifference>? properties,
-            IList<SqlPrimaryKeyDifferences> primaryKeys,
             IList<SqlColumnDifferences> columns,
             IList<SqlObjectDifferences<SqlTrigger>> triggers,
             IList<SqlObjectDifferences<SqlCheckConstraint>> checkConstraints,
@@ -27,7 +26,6 @@ namespace PosInformatique.Testing.Databases
             IList<SqlUniqueConstraintDifferences> uniqueConstraints)
             : base(source, target, type, properties)
         {
-            this.PrimaryKeys = new ReadOnlyCollection<SqlPrimaryKeyDifferences>(primaryKeys);
             this.Columns = new ReadOnlyCollection<SqlColumnDifferences>(columns);
             this.Triggers = new ReadOnlyCollection<SqlObjectDifferences<SqlTrigger>>(triggers);
             this.CheckConstraints = new ReadOnlyCollection<SqlObjectDifferences<SqlCheckConstraint>>(checkConstraints);
@@ -38,7 +36,7 @@ namespace PosInformatique.Testing.Databases
 
         internal SqlTableDifferences(
             SqlObjectDifferences<SqlTable> differences)
-            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [], [], [], [], [], [], [])
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [], [], [], [], [], [])
         {
         }
 
@@ -60,7 +58,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets the primary key differences between the two SQL tables.
         /// </summary>
-        public ReadOnlyCollection<SqlPrimaryKeyDifferences> PrimaryKeys { get; }
+        public SqlPrimaryKeyDifferences? PrimaryKey { get; internal set; }
 
         /// <summary>
         /// Gets the foreign keys differences between the two SQL tables.

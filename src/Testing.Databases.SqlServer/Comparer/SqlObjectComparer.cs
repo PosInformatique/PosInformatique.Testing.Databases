@@ -211,7 +211,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             var indexesDifferences = Compare(sourceTable.Indexes, table.Indexes, i => i.Name, diff => new SqlIndexDifferences(diff));
 
             // Compare the primary key
-            var primaryKeyDifferences = Compare(CreateArray(sourceTable.PrimaryKey), CreateArray(table.PrimaryKey), pk => pk.Name, diff => new SqlPrimaryKeyDifferences(diff));
+            var primaryKeyDifferences = (SqlPrimaryKeyDifferences?)Compare(sourceTable.PrimaryKey, table.PrimaryKey);
 
             // Compare the triggers
             var triggersDifferences = Compare(sourceTable.Triggers, table.Triggers, tr => tr.Name);
@@ -219,9 +219,12 @@ namespace PosInformatique.Testing.Databases.SqlServer
             // Compare the unique constraints
             var uniqueConstraintsDifferences = Compare(sourceTable.UniqueConstraints, table.UniqueConstraints, uc => uc.Name, diff => new SqlUniqueConstraintDifferences(diff));
 
-            if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count + primaryKeyDifferences.Count > 0)
+            if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count > 0 || primaryKeyDifferences is not null)
             {
-                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, [], primaryKeyDifferences, columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences);
+                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, [], columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
+                {
+                    PrimaryKey = primaryKeyDifferences,
+                };
             }
 
             return this.CreateDifferences(table);
@@ -326,17 +329,6 @@ namespace PosInformatique.Testing.Databases.SqlServer
         private static TSqlObject? Find<TSqlObject, TKey>(IReadOnlyList<TSqlObject> objects, Func<TSqlObject, TKey> keySelector, TKey value)
         {
             return objects.SingleOrDefault(o => Equals(keySelector(o), value));
-        }
-
-        private static T[] CreateArray<T>(T? value)
-            where T : class
-        {
-            if (value is null)
-            {
-                return [];
-            }
-
-            return [value];
         }
 
         private SqlObjectPropertyDifference? CompareProperty<TSqlObject>(TSqlObject target, Func<TSqlObject, object?> propertyValueForComparison, string name, Func<TSqlObject, object?>? propertyValueToDisplay = null)

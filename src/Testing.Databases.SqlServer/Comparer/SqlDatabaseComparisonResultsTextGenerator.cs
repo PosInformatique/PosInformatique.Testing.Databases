@@ -105,7 +105,7 @@ namespace PosInformatique.Testing.Databases
 
                 this.Generate(differences.Indexes, "Indexes");
 
-                this.Generate(differences.PrimaryKeys, "Primary keys");
+                this.Generate(differences.PrimaryKey, "Primary key");
 
                 this.Generate(differences.Triggers, "Triggers");
 

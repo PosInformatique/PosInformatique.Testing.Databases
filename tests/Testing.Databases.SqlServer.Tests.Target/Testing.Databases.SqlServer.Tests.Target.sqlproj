@@ -115,5 +115,6 @@
     <Build Include="Tables\CheckConstraints\CheckConstraintIdentical.sql" />
     <Build Include="Tables\Triggers\TriggerIdentical.sql" />
     <Build Include="Tables\__EFMigrationsHistoryTarget.sql" />
+    <Build Include="Tables\TableWithDifferentPrimaryKey.sql" />
   </ItemGroup>
 </Project>
