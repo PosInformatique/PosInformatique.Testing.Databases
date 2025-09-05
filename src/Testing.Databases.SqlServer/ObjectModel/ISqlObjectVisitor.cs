@@ -27,6 +27,13 @@ namespace PosInformatique.Testing.Databases
         TResult Visit(SqlColumn column);
 
         /// <summary>
+        /// Visits the specified <paramref name="defaultConstraint"/>.
+        /// </summary>
+        /// <param name="defaultConstraint"><see cref="SqlDefaultConstraint"/> to visit.</param>
+        /// <returns>The result of the visit.</returns>
+        TResult Visit(SqlDefaultConstraint defaultConstraint);
+
+        /// <summary>
         /// Visits the specified <paramref name="foreignKey"/>.
         /// </summary>
         /// <param name="foreignKey"><see cref="SqlForeignKey"/> to visit.</param>

@@ -82,6 +82,11 @@ namespace PosInformatique.Testing.Databases
         /// </summary>
         public string? ComputedExpression { get; internal set; }
 
+        /// <summary>
+        /// Gets the default constraint of the column.
+        /// </summary>
+        public SqlDefaultConstraint? DefaultConstraint { get; internal set; }
+
         /// <inheritdoc />
         public override TResult Accept<TResult>(ISqlObjectVisitor<TResult> visitor) => visitor.Visit(this);
 

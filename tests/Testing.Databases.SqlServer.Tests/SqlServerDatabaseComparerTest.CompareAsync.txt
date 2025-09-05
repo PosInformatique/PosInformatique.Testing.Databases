@@ -53,6 +53,21 @@
         Source: ([Scale]+[Precision])
         Target: ([Scale]-[Precision])
   - TargetColumn (Missing in the source)
+  - ColumnWithDefaultConstraint
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithDefaultConstraint
+      * Expression:
+          Source: ('Source expression')
+          Target: ('Target expression')
+  - ColumnWithMissingDefaultConstraint
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithMissingDefaultConstraint (Missing in the target)
+  - ColumnWithOtherDefaultConstraintName
+    ------ Default constraint ------
+    - DF_TableDifference_ColumnWithOtherDefaultConstraintName
+      * Name:
+          Source: DF_TableDifference_ColumnWithOtherDefaultConstraintName
+          Target: DF_TableDifference_WrongName
   - SourceColumn (Missing in the target)
   ------ Foreign keys ------
   - ForeignKeyDifference
