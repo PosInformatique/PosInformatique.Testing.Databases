@@ -99,7 +99,8 @@
       * Position:
           Source: 1
           Target: 2
-    ------ Primary key ------
+  ------ Primary keys ------
+  - PrimaryKeyDifference
     * Type:
         Source: NONCLUSTERED
         Target: CLUSTERED

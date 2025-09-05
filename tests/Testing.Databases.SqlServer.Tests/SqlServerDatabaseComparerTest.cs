@@ -535,21 +535,22 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.PrimaryKey.Columns[1].Name.Should().Be("Type");
             differences.Tables[0].Target.PrimaryKey.Columns[1].Position.Should().Be(2);
 
-            differences.Tables[0].PrimaryKey.Columns.Should().HaveCount(2);
-            differences.Tables[0].PrimaryKey.Columns[0].Source.Should().BeSameAs(differences.Tables[0].Source.PrimaryKey.Columns[1]);
-            differences.Tables[0].PrimaryKey.Columns[0].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[0]);
-            differences.Tables[0].PrimaryKey.Columns[0].Type.Should().Be(SqlObjectDifferenceType.Different);
-            differences.Tables[0].PrimaryKey.Columns[1].Source.Should().BeSameAs(differences.Tables[0].Source.PrimaryKey.Columns[0]);
-            differences.Tables[0].PrimaryKey.Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[1]);
-            differences.Tables[0].PrimaryKey.Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
+            differences.Tables[0].PrimaryKeys.Should().HaveCount(1);
+            differences.Tables[0].PrimaryKeys[0].Columns.Should().HaveCount(2);
+            differences.Tables[0].PrimaryKeys[0].Columns[0].Source.Should().BeSameAs(differences.Tables[0].Source.PrimaryKey.Columns[1]);
+            differences.Tables[0].PrimaryKeys[0].Columns[0].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[0]);
+            differences.Tables[0].PrimaryKeys[0].Columns[0].Type.Should().Be(SqlObjectDifferenceType.Different);
+            differences.Tables[0].PrimaryKeys[0].Columns[1].Source.Should().BeSameAs(differences.Tables[0].Source.PrimaryKey.Columns[0]);
+            differences.Tables[0].PrimaryKeys[0].Columns[1].Target.Should().BeSameAs(differences.Tables[0].Target.PrimaryKey.Columns[1]);
+            differences.Tables[0].PrimaryKeys[0].Columns[1].Type.Should().Be(SqlObjectDifferenceType.Different);
 
-            differences.Tables[0].PrimaryKey.Properties.Should().HaveCount(1);
-            differences.Tables[0].PrimaryKey.Properties[0].Name.Should().Be("Type");
-            differences.Tables[0].PrimaryKey.Properties[0].Source.Should().Be("NONCLUSTERED");
-            differences.Tables[0].PrimaryKey.Properties[0].Target.Should().Be("CLUSTERED");
-            differences.Tables[0].PrimaryKey.Source.Should().Be(differences.Tables[0].Source.PrimaryKey);
-            differences.Tables[0].PrimaryKey.Target.Should().Be(differences.Tables[0].Target.PrimaryKey);
-            differences.Tables[0].PrimaryKey.Type.Should().Be(SqlObjectDifferenceType.Different);
+            differences.Tables[0].PrimaryKeys[0].Properties.Should().HaveCount(1);
+            differences.Tables[0].PrimaryKeys[0].Properties[0].Name.Should().Be("Type");
+            differences.Tables[0].PrimaryKeys[0].Properties[0].Source.Should().Be("NONCLUSTERED");
+            differences.Tables[0].PrimaryKeys[0].Properties[0].Target.Should().Be("CLUSTERED");
+            differences.Tables[0].PrimaryKeys[0].Source.Should().Be(differences.Tables[0].Source.PrimaryKey);
+            differences.Tables[0].PrimaryKeys[0].Target.Should().Be(differences.Tables[0].Target.PrimaryKey);
+            differences.Tables[0].PrimaryKeys[0].Type.Should().Be(SqlObjectDifferenceType.Different);
 
             // Tables / Triggers
             differences.Tables[0].Source.Triggers.Should().HaveCount(1);
@@ -607,7 +608,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             // Missing tables
             differences.Tables[1].Columns.Should().BeEmpty();
             differences.Tables[1].Indexes.Should().BeEmpty();
-            differences.Tables[1].PrimaryKey.Should().BeNull();
+            differences.Tables[1].PrimaryKeys.Should().BeEmpty();
             differences.Tables[1].Source.Should().BeNull();
             differences.Tables[1].UniqueConstraints.Should().BeEmpty();
             differences.Tables[1].Target.CheckConstraints.Should().HaveCount(1);
@@ -667,7 +668,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             differences.Tables[2].Columns.Should().BeEmpty();
             differences.Tables[2].Indexes.Should().BeEmpty();
-            differences.Tables[2].PrimaryKey.Should().BeNull();
+            differences.Tables[2].PrimaryKeys.Should().BeEmpty();
             differences.Tables[2].UniqueConstraints.Should().BeEmpty();
             differences.Tables[2].Source.CheckConstraints.Should().HaveCount(1);
             differences.Tables[2].Source.CheckConstraints[0].Name.Should().Be("CheckConstraintSource");

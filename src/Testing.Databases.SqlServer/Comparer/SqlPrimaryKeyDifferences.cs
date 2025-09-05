@@ -24,6 +24,12 @@ namespace PosInformatique.Testing.Databases
             this.Columns = new ReadOnlyCollection<SqlObjectDifferences<SqlPrimaryKeyColumn>>(columns);
         }
 
+        internal SqlPrimaryKeyDifferences(
+            SqlObjectDifferences<SqlPrimaryKey> differences)
+            : this(differences.Source, differences.Target, differences.Type, differences.Properties, [])
+        {
+        }
+
         /// <summary>
         /// Gets the difference of the columns in the primary key compared.
         /// </summary>

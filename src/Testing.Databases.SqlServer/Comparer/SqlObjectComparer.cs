@@ -61,7 +61,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
         public static IList<SqlTableDifferences> Compare(IReadOnlyList<SqlTable> source, IReadOnlyList<SqlTable> target)
         {
-            return Compare(source, target, t => t.Name, diff => new SqlTableDifferences(diff) { PrimaryKey = null });
+            return Compare(source, target, t => t.Name, diff => new SqlTableDifferences(diff));
         }
 
         public SqlObjectDifferences? Visit(SqlCheckConstraint checkConstraint)
@@ -200,7 +200,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             var indexesDifferences = Compare(sourceTable.Indexes, table.Indexes, i => i.Name, diff => new SqlIndexDifferences(diff));
 
             // Compare the primary key
-            var primaryKeyDifferences = (SqlPrimaryKeyDifferences?)Compare(CreateArray(sourceTable.PrimaryKey), CreateArray(table.PrimaryKey), pk => pk.Name).SingleOrDefault();
+            var primaryKeyDifferences = Compare(CreateArray(sourceTable.PrimaryKey), CreateArray(table.PrimaryKey), pk => pk.Name, diff => new SqlPrimaryKeyDifferences(diff));
 
             // Compare the triggers
             var triggersDifferences = Compare(sourceTable.Triggers, table.Triggers, tr => tr.Name);
@@ -208,12 +208,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
             // Compare the unique constraints
             var uniqueConstraintsDifferences = Compare(sourceTable.UniqueConstraints, table.UniqueConstraints, uc => uc.Name, diff => new SqlUniqueConstraintDifferences(diff));
 
-            if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count > 0 || primaryKeyDifferences is not null)
+            if (columnsDifferences.Count + triggersDifferences.Count + checkConstraintDifferences.Count + indexesDifferences.Count + foreignKeysDifferences.Count + uniqueConstraintsDifferences.Count + primaryKeyDifferences.Count > 0)
             {
-                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, [], columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences)
-                {
-                    PrimaryKey = primaryKeyDifferences,
-                };
+                return new SqlTableDifferences(sourceTable, table, SqlObjectDifferenceType.Different, [], primaryKeyDifferences, columnsDifferences, triggersDifferences, checkConstraintDifferences, indexesDifferences, foreignKeysDifferences, uniqueConstraintsDifferences);
             }
 
             return this.CreateDifferences(table);

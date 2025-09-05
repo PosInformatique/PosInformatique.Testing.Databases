@@ -98,13 +98,7 @@ namespace PosInformatique.Testing.Databases
 
                 this.Generate(differences.Indexes, "Indexes");
 
-                if (differences.PrimaryKey is not null)
-                {
-                    this.Indent();
-                    this.WriteLine($"------ Primary key ------");
-                    differences.PrimaryKey.Accept(this);
-                    this.Unindent();
-                }
+                this.Generate(differences.PrimaryKeys, "Primary keys");
 
                 this.Generate(differences.Triggers, "Triggers");
 
