@@ -179,6 +179,12 @@
     * Name:
         Source: PK_TableWithDifferentPrimaryKey_Source
         Target: PK_TableWithDifferentPrimaryKey_Target
+- dbo.TableWithNoPrimaryKey
+  ------ Columns ------
+  - Id
+    * Identity:
+        Source: (Seed: 10, Increment: 20)
+        Target: (Seed: 10, Increment: 30)
 - dbo.TableSource (Missing in the target)
 ------ Stored procedures ------
 - dbo.StoredProcedureDifference

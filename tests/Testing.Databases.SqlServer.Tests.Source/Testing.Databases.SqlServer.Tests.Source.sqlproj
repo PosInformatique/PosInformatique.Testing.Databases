@@ -102,5 +102,6 @@
     <Build Include="Views\ViewDifference.sql" />
     <Build Include="Tables\__EFMigrationsHistorySource.sql" />
     <Build Include="Tables\TableWithDifferentPrimaryKey.sql" />
+    <Build Include="Tables\TableWithNoPrimaryKey.sql" />
   </ItemGroup>
 </Project>
