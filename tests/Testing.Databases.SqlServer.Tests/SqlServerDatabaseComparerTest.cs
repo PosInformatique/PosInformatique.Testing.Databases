@@ -84,7 +84,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[0].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[0].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[0].MaxLength.Should().Be(4);
             differences.Tables[0].Source.Columns[0].Name.Should().Be("Type");
@@ -97,7 +97,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[1].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[1].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[1].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[1].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[1].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[1].IsNullable.Should().BeTrue();
             differences.Tables[0].Source.Columns[1].MaxLength.Should().Be(50);
             differences.Tables[0].Source.Columns[1].Name.Should().Be("Nullable");
@@ -110,7 +110,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[2].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[2].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[2].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[2].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[2].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[2].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[2].MaxLength.Should().Be(50);
             differences.Tables[0].Source.Columns[2].Name.Should().Be("MaxLength");
@@ -123,7 +123,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[3].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[3].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[3].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[3].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[3].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[3].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[3].MaxLength.Should().Be(9);
             differences.Tables[0].Source.Columns[3].Name.Should().Be("Precision");
@@ -136,7 +136,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[4].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[4].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[4].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[4].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[4].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[4].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[4].MaxLength.Should().Be(9);
             differences.Tables[0].Source.Columns[4].Name.Should().Be("Scale");
@@ -149,7 +149,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[5].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[5].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[5].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[5].IsIdentity.Should().BeTrue();
+            differences.Tables[0].Source.Columns[5].Identity.Increment.Should().Be(3);
+            differences.Tables[0].Source.Columns[5].Identity.Seed.Should().Be(2);
             differences.Tables[0].Source.Columns[5].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[5].MaxLength.Should().Be(4);
             differences.Tables[0].Source.Columns[5].Name.Should().Be("Identity");
@@ -162,7 +163,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[6].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[6].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[6].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[6].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[6].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[6].IsNullable.Should().BeTrue();
             differences.Tables[0].Source.Columns[6].MaxLength.Should().Be(4);
             differences.Tables[0].Source.Columns[6].Name.Should().Be("ForeignKeyId");
@@ -175,7 +176,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[7].ComputedExpression.Should().Be("([Scale]+[Precision])");
             differences.Tables[0].Source.Columns[7].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[7].IsComputed.Should().BeTrue();
-            differences.Tables[0].Source.Columns[7].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[7].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[7].IsNullable.Should().BeTrue();
             differences.Tables[0].Source.Columns[7].MaxLength.Should().Be(9);
             differences.Tables[0].Source.Columns[7].Name.Should().Be("Computed");
@@ -188,7 +189,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[8].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[8].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[8].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[8].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[8].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[8].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[8].MaxLength.Should().Be(4);
             differences.Tables[0].Source.Columns[8].Name.Should().Be("SourceColumn");
@@ -201,7 +202,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[9].ComputedExpression.Should().BeNull();
             differences.Tables[0].Source.Columns[9].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Source.Columns[9].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[9].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[9].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[9].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[9].MaxLength.Should().Be(4);
             differences.Tables[0].Source.Columns[9].Name.Should().Be("IdenticalColumn");
@@ -215,7 +216,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[10].DefaultConstraint.Expression.Should().Be("('Source expression')");
             differences.Tables[0].Source.Columns[10].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithDefaultConstraint");
             differences.Tables[0].Source.Columns[10].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[10].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[10].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[10].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[10].MaxLength.Should().Be(20);
             differences.Tables[0].Source.Columns[10].Name.Should().Be("ColumnWithDefaultConstraint");
@@ -229,7 +230,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[11].DefaultConstraint.Expression.Should().Be("('Default value')");
             differences.Tables[0].Source.Columns[11].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithMissingDefaultConstraint");
             differences.Tables[0].Source.Columns[11].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[11].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[11].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[11].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[11].MaxLength.Should().Be(20);
             differences.Tables[0].Source.Columns[11].Name.Should().Be("ColumnWithMissingDefaultConstraint");
@@ -243,7 +244,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Columns[12].DefaultConstraint.Expression.Should().Be("('Same expression')");
             differences.Tables[0].Source.Columns[12].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithOtherDefaultConstraintName");
             differences.Tables[0].Source.Columns[12].IsComputed.Should().BeFalse();
-            differences.Tables[0].Source.Columns[12].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Source.Columns[12].Identity.Should().BeNull();
             differences.Tables[0].Source.Columns[12].IsNullable.Should().BeFalse();
             differences.Tables[0].Source.Columns[12].MaxLength.Should().Be(20);
             differences.Tables[0].Source.Columns[12].Name.Should().Be("ColumnWithOtherDefaultConstraintName");
@@ -261,7 +262,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[0].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[0].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[0].MaxLength.Should().Be(50);
             differences.Tables[0].Target.Columns[0].Name.Should().Be("Type");
@@ -274,7 +275,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[1].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[1].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[1].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[1].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[1].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[1].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[1].MaxLength.Should().Be(50);
             differences.Tables[0].Target.Columns[1].Name.Should().Be("Nullable");
@@ -287,7 +288,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[2].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[2].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[2].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[2].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[2].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[2].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[2].MaxLength.Should().Be(5);
             differences.Tables[0].Target.Columns[2].Name.Should().Be("Precision");
@@ -300,7 +301,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[3].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[3].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[3].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[3].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[3].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[3].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[3].MaxLength.Should().Be(20);
             differences.Tables[0].Target.Columns[3].Name.Should().Be("MaxLength");
@@ -313,7 +314,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[4].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[4].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[4].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[4].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[4].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[4].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[4].MaxLength.Should().Be(9);
             differences.Tables[0].Target.Columns[4].Name.Should().Be("Scale");
@@ -326,7 +327,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[5].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[5].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[5].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[5].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[5].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[5].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[5].MaxLength.Should().Be(4);
             differences.Tables[0].Target.Columns[5].Name.Should().Be("Identity");
@@ -339,7 +340,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[6].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[6].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[6].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[6].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[6].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[6].IsNullable.Should().BeTrue();
             differences.Tables[0].Target.Columns[6].MaxLength.Should().Be(4);
             differences.Tables[0].Target.Columns[6].Name.Should().Be("ForeignKeyId");
@@ -352,7 +353,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[7].ComputedExpression.Should().Be("([Scale]-[Precision])");
             differences.Tables[0].Target.Columns[7].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[7].IsComputed.Should().BeTrue();
-            differences.Tables[0].Target.Columns[7].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[7].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[7].IsNullable.Should().BeTrue();
             differences.Tables[0].Target.Columns[7].MaxLength.Should().Be(9);
             differences.Tables[0].Target.Columns[7].Name.Should().Be("Computed");
@@ -365,7 +366,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[8].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[8].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[8].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[8].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[8].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[8].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[8].MaxLength.Should().Be(4);
             differences.Tables[0].Target.Columns[8].Name.Should().Be("TargetColumn");
@@ -378,7 +379,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[9].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[9].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[9].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[9].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[9].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[9].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[9].MaxLength.Should().Be(4);
             differences.Tables[0].Target.Columns[9].Name.Should().Be("IdenticalColumn");
@@ -392,7 +393,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[10].DefaultConstraint.Expression.Should().Be("('Target expression')");
             differences.Tables[0].Target.Columns[10].DefaultConstraint.Name.Should().Be("DF_TableDifference_ColumnWithDefaultConstraint");
             differences.Tables[0].Target.Columns[10].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[10].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[10].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[10].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[10].MaxLength.Should().Be(20);
             differences.Tables[0].Target.Columns[10].Name.Should().Be("ColumnWithDefaultConstraint");
@@ -405,7 +406,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[11].ComputedExpression.Should().BeNull();
             differences.Tables[0].Target.Columns[11].DefaultConstraint.Should().BeNull();
             differences.Tables[0].Target.Columns[11].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[11].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[11].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[11].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[11].MaxLength.Should().Be(20);
             differences.Tables[0].Target.Columns[11].Name.Should().Be("ColumnWithMissingDefaultConstraint");
@@ -419,7 +420,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Target.Columns[12].DefaultConstraint.Expression.Should().Be("('Same expression')");
             differences.Tables[0].Target.Columns[12].DefaultConstraint.Name.Should().Be("DF_TableDifference_WrongName");
             differences.Tables[0].Target.Columns[12].IsComputed.Should().BeFalse();
-            differences.Tables[0].Target.Columns[12].IsIdentity.Should().BeFalse();
+            differences.Tables[0].Target.Columns[12].Identity.Should().BeNull();
             differences.Tables[0].Target.Columns[12].IsNullable.Should().BeFalse();
             differences.Tables[0].Target.Columns[12].MaxLength.Should().Be(20);
             differences.Tables[0].Target.Columns[12].Name.Should().Be("ColumnWithOtherDefaultConstraintName");
@@ -758,7 +759,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Target.Columns[0].CollationName.Should().BeNull();
             differences.Tables[1].Target.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[1].Target.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[1].Target.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[1].Target.Columns[0].Identity.Should().BeNull();
             differences.Tables[1].Target.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[1].Target.Columns[0].MaxLength.Should().Be(4);
             differences.Tables[1].Target.Columns[0].Name.Should().Be("Id");
@@ -769,7 +770,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Target.Columns[1].CollationName.Should().Be("SQL_Latin1_General_CP1_CI_AS");
             differences.Tables[1].Target.Columns[1].ComputedExpression.Should().BeNull();
             differences.Tables[1].Target.Columns[1].IsComputed.Should().BeFalse();
-            differences.Tables[1].Target.Columns[1].IsIdentity.Should().BeFalse();
+            differences.Tables[1].Target.Columns[1].Identity.Should().BeNull();
             differences.Tables[1].Target.Columns[1].IsNullable.Should().BeTrue();
             differences.Tables[1].Target.Columns[1].MaxLength.Should().Be(50);
             differences.Tables[1].Target.Columns[1].Name.Should().Be("TargetName");
@@ -780,7 +781,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Target.Columns[2].CollationName.Should().BeNull();
             differences.Tables[1].Target.Columns[2].ComputedExpression.Should().BeNull();
             differences.Tables[1].Target.Columns[2].IsComputed.Should().BeFalse();
-            differences.Tables[1].Target.Columns[2].IsIdentity.Should().BeFalse();
+            differences.Tables[1].Target.Columns[2].Identity.Should().BeNull();
             differences.Tables[1].Target.Columns[2].IsNullable.Should().BeFalse();
             differences.Tables[1].Target.Columns[2].MaxLength.Should().Be(4);
             differences.Tables[1].Target.Columns[2].Name.Should().Be("TargetForeignKeyId");
@@ -828,7 +829,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Triggers.Should().BeEmpty();
             differences.Tables[1].Type.Should().Be(SqlObjectDifferenceType.MissingInSource);
 
-            differences.Tables[2].Columns.Should().BeEmpty();
+            differences.Tables[2].Columns.Should().HaveCount(1);
+            differences.Tables[2].Columns[0].Properties.Should().HaveCount(1);
+            differences.Tables[2].Columns[0].Properties[0].Name.Should().Be("Identity");
+            differences.Tables[2].Columns[0].Properties[0].Source.Should().BeSameAs(differences.Tables[2].Source.Columns[0].Identity);
+            differences.Tables[2].Columns[0].Properties[0].Target.Should().BeSameAs(differences.Tables[2].Target.Columns[0].Identity);
             differences.Tables[2].Indexes.Should().HaveCount(2);
             differences.Tables[2].Indexes[0].Columns.Should().BeEmpty();
             differences.Tables[2].Indexes[0].IncludedColumns.Should().BeEmpty();
@@ -854,7 +859,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[2].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[2].Source.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[2].Source.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[2].Source.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[2].Source.Columns[0].Identity.Increment.Should().Be(20);
+            differences.Tables[2].Source.Columns[0].Identity.Seed.Should().Be(10);
             differences.Tables[2].Source.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[2].Source.Columns[0].MaxLength.Should().Be(4);
             differences.Tables[2].Source.Columns[0].Name.Should().Be("Id");
@@ -882,7 +888,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[2].Target.Columns[0].CollationName.Should().BeNull();
             differences.Tables[2].Target.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[2].Target.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[2].Target.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[2].Target.Columns[0].Identity.Increment.Should().Be(2);
+            differences.Tables[2].Target.Columns[0].Identity.Seed.Should().Be(1);
             differences.Tables[2].Target.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[2].Target.Columns[0].MaxLength.Should().Be(4);
             differences.Tables[2].Target.Columns[0].Name.Should().Be("Id");
@@ -919,7 +926,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[3].Source.Columns[0].CollationName.Should().BeNull();
             differences.Tables[3].Source.Columns[0].ComputedExpression.Should().BeNull();
             differences.Tables[3].Source.Columns[0].IsComputed.Should().BeFalse();
-            differences.Tables[3].Source.Columns[0].IsIdentity.Should().BeFalse();
+            differences.Tables[3].Source.Columns[0].Identity.Should().BeNull();
             differences.Tables[3].Source.Columns[0].IsNullable.Should().BeFalse();
             differences.Tables[3].Source.Columns[0].MaxLength.Should().Be(4);
             differences.Tables[3].Source.Columns[0].Name.Should().Be("Id");

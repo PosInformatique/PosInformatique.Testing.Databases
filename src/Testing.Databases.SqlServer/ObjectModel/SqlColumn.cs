@@ -70,7 +70,7 @@ namespace PosInformatique.Testing.Databases
         /// <summary>
         /// Gets a value indicating whether if the column is identity.
         /// </summary>
-        public bool IsIdentity { get; internal set; }
+        public SqlColumnIdentity? Identity { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether if the column is computed.

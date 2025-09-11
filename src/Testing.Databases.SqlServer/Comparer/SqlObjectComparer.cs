@@ -6,6 +6,8 @@
 
 namespace PosInformatique.Testing.Databases.SqlServer
 {
+    using System.Diagnostics.CodeAnalysis;
+
     internal sealed class SqlObjectComparer : ISqlObjectVisitor<SqlObjectDifferences?>
     {
         private readonly SqlObject source;
@@ -73,7 +75,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 this.CompareProperty(column, t => t.Precision, nameof(column.Precision)),
                 this.CompareProperty(column, t => t.Scale, nameof(column.Scale)),
                 this.CompareProperty(column, t => t.IsNullable, nameof(column.IsNullable)),
-                this.CompareProperty(column, t => t.IsIdentity, nameof(column.IsIdentity)),
+                this.CompareProperty(column, t => t.Identity, nameof(column.Identity), equalityComparer: SqlColumnIdentityComparer.Instance),
                 this.CompareProperty(column, t => t.CollationName, nameof(column.CollationName)),
                 this.CompareProperty(column, t => t.IsComputed, nameof(column.IsComputed)),
                 this.CompareProperty(column, t => TsqlCodeHelper.RemoveNotUsefulCharacters(t.ComputedExpression), nameof(column.ComputedExpression), t => t.ComputedExpression));
@@ -331,7 +333,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             return objects.SingleOrDefault(o => Equals(keySelector(o), value));
         }
 
-        private SqlObjectPropertyDifference? CompareProperty<TSqlObject>(TSqlObject target, Func<TSqlObject, object?> propertyValueForComparison, string name, Func<TSqlObject, object?>? propertyValueToDisplay = null)
+        private SqlObjectPropertyDifference? CompareProperty<TSqlObject, TProperty>(TSqlObject target, Func<TSqlObject, TProperty?> propertyValueForComparison, string name, Func<TSqlObject, TProperty?>? propertyValueToDisplay = null, IEqualityComparer<TProperty?>? equalityComparer = null)
             where TSqlObject : SqlObject
         {
             var source = (TSqlObject)this.source;
@@ -344,7 +346,12 @@ namespace PosInformatique.Testing.Databases.SqlServer
             var sourceValue = propertyValueForComparison(source);
             var targetValue = propertyValueForComparison(target);
 
-            if (!Equals(sourceValue, targetValue))
+            if (equalityComparer is null)
+            {
+                equalityComparer = EqualityComparer<TProperty?>.Default;
+            }
+
+            if (!equalityComparer.Equals(sourceValue, targetValue))
             {
                 return new SqlObjectPropertyDifference(name, propertyValueToDisplay(source), propertyValueToDisplay(target));
             }
@@ -363,6 +370,51 @@ namespace PosInformatique.Testing.Databases.SqlServer
             }
 
             return new SqlObjectDifferences<TSqlObject>((TSqlObject)this.source, target, SqlObjectDifferenceType.Different, properties!);
+        }
+
+        private sealed class SqlColumnIdentityComparer : IEqualityComparer<SqlColumnIdentity?>
+        {
+            private SqlColumnIdentityComparer()
+            {
+            }
+
+            public static SqlColumnIdentityComparer Instance { get; } = new SqlColumnIdentityComparer();
+
+            public bool Equals(SqlColumnIdentity? x, SqlColumnIdentity? y)
+            {
+                if (x is null)
+                {
+                    if (y is null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                if (y is null)
+                {
+                    return false;
+                }
+
+                if (x.Seed != y.Seed)
+                {
+                    return false;
+                }
+
+                if (x.Increment != y.Increment)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            [ExcludeFromCodeCoverage]
+            public int GetHashCode(SqlColumnIdentity? obj)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
