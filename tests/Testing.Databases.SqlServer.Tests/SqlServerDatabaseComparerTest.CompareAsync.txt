@@ -164,6 +164,7 @@
       * Position:
           Source: 1
           Target: 2
+  - UniqueConstraintDifferenceMissingInTarget (Missing in the target)
 - dbo.TableTarget (Missing in the source)
 - dbo.TableWithDifferentPrimaryKey
   ------ Columns ------

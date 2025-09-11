@@ -103,5 +103,6 @@
     <Build Include="Tables\__EFMigrationsHistorySource.sql" />
     <Build Include="Tables\TableWithDifferentPrimaryKey.sql" />
     <Build Include="Tables\TableWithNoPrimaryKey.sql" />
+    <Build Include="Tables\UniqueConstraints\UniqueConstraintDifferenceMissingInTarget.sql" />
   </ItemGroup>
 </Project>
