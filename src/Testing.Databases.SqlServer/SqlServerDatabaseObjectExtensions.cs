@@ -298,13 +298,18 @@ namespace PosInformatique.Testing.Databases.SqlServer
 	                [c].[collation_name] AS [CollationName],
 	                [c].[is_nullable] AS [IsNullable],
 	                [c].[is_identity] AS [IsIdentity],
+                    [ic].[seed_value] AS [IdentitySeed],
+                    [ic].[increment_value] AS [IdentityIncrement],
 	                [c].[is_computed] AS [IsComputed],
 	                [cc].[definition] AS [ComputedExpression]
                 FROM
 	                [sys].[columns] AS [c]
 		                LEFT OUTER JOIN
 	                [sys].[computed_columns] AS [cc]
-		                ON ([c].[object_id] = [cc].[object_id] AND [c].[column_id] = [cc].[column_id]),
+		                ON ([c].[object_id] = [cc].[object_id] AND [c].[column_id] = [cc].[column_id])
+                        LEFT OUTER JOIN
+	                [sys].[identity_columns] AS [ic]
+		                ON ([c].[object_id] = [ic].[object_id] AND [c].[column_id] = [ic].[column_id]),
 	                [sys].[tables] AS [t],
 	                [sys].[types] AS [ty]
                 WHERE
@@ -500,6 +505,13 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
         private static SqlColumn ToColumn(DataRow row, DataRow? defaultConstraintRow)
         {
+            SqlColumnIdentity? identity = null;
+
+            if ((bool)row["IsIdentity"] == true)
+            {
+                identity = new SqlColumnIdentity((int)row["IdentitySeed"], (int)row["IdentityIncrement"]);
+            }
+
             return new SqlColumn(
                 (string)row["Name"],
                 Convert.ToInt32(row["Position"], CultureInfo.InvariantCulture),
@@ -512,7 +524,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
                 ComputedExpression = NullIfDbNull<string>(row["ComputedExpression"]),
                 DefaultConstraint = defaultConstraintRow != null ? ToDefaultConstraint(defaultConstraintRow) : null,
                 IsComputed = (bool)row["IsComputed"],
-                IsIdentity = (bool)row["IsIdentity"],
+                Identity = identity,
                 IsNullable = (bool)row["IsNullable"],
             };
         }

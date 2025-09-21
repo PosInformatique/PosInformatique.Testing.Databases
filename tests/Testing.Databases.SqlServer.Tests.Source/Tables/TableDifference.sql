@@ -5,7 +5,7 @@
 	[MaxLength]	VARCHAR(50) NOT NULL,
 	[Precision]	DECIMAL(10, 2) NOT NULL,
 	[Scale]		DECIMAL(10, 2) NOT NULL,
-	[Identity]	INT NOT NULL IDENTITY,
+	[Identity]	INT NOT NULL IDENTITY (2, 3),
 	[ForeignKeyId] INT NULL,
     [Computed]  AS [Scale] + [Precision],
     [SourceColumn] INT NOT NULL,

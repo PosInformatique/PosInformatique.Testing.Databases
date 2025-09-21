@@ -42,9 +42,9 @@
         Source: 2
         Target: 4
   - Identity
-    * IsIdentity:
-        Source: True
-        Target: False
+    * Identity:
+        Source: (Seed: 2, Increment: 3)
+        Target: <No value>
   - Computed
     * Scale:
         Source: 2
@@ -164,8 +164,14 @@
       * Position:
           Source: 1
           Target: 2
+  - UniqueConstraintDifferenceMissingInTarget (Missing in the target)
 - dbo.TableTarget (Missing in the source)
 - dbo.TableWithDifferentPrimaryKey
+  ------ Columns ------
+  - Id
+    * Identity:
+        Source: (Seed: 10, Increment: 20)
+        Target: (Seed: 1, Increment: 2)
   ------ Indexes ------
   - PK_TableWithDifferentPrimaryKey_Target (Missing in the source)
   - PK_TableWithDifferentPrimaryKey_Source (Missing in the target)
@@ -174,6 +180,12 @@
     * Name:
         Source: PK_TableWithDifferentPrimaryKey_Source
         Target: PK_TableWithDifferentPrimaryKey_Target
+- dbo.TableWithNoPrimaryKey
+  ------ Columns ------
+  - Id
+    * Identity:
+        Source: (Seed: 10, Increment: 20)
+        Target: (Seed: 10, Increment: 30)
 - dbo.TableSource (Missing in the target)
 ------ Stored procedures ------
 - dbo.StoredProcedureDifference
