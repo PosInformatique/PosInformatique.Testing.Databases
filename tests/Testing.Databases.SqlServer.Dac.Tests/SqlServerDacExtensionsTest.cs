@@ -40,10 +40,10 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         }
 
         [Fact]
-        public void DeployDacPackage_WithSpecificFile()
+        public void DeployDacPackage_WithSpecificDataFileName()
         {
             // Create existing database to be sure the database is recreated when deploying the database with a DACPAC
-            CreateDatabase("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificFile");
+            CreateDatabase("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName");
 
             using var temporaryFolder = TemporaryFolder.Create();
 
@@ -54,7 +54,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"),
             };
 
-            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificFile", settings);
+            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName", settings);
 
             var table = database.ExecuteQuery("SELECT * FROM MyTable");
 
@@ -72,7 +72,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             result.Rows.Should().HaveCount(2);
 
-            result.Rows[0]["name"].Should().Be("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificFile");
+            result.Rows[0]["name"].Should().Be("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName");
             result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"));
             result.Rows[0]["type_desc"].Should().Be("ROWS");
 
@@ -81,7 +81,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
             // Delete the database (for deleting the temporary folder).
-            server.DeleteDatabase("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificFile");
+            server.DeleteDatabase("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName");
         }
 
         private static void CreateDatabase(string name)

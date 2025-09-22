@@ -13,8 +13,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
         private readonly SqlServerDatabase database;
 
+        private readonly SqlServerDatabaseInitializer initializer;
+
         public SqlServerDatabaseInitializerTest(SqlServerDatabaseInitializer initializer)
         {
+            this.initializer = initializer;
             this.database = initializer.Initialize("Testing.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
 
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
@@ -29,6 +32,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         [Fact]
         public void Test1()
         {
+            this.initializer.IsInitialized.Should().BeTrue();
+
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
             currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
 
@@ -50,6 +55,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         [Fact]
         public void Test2()
         {
+            this.initializer.IsInitialized.Should().BeTrue();
+
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
             currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
 
@@ -71,6 +78,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         [Fact]
         public async Task Test1Async()
         {
+            this.initializer.IsInitialized.Should().BeTrue();
+
             var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
             currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
 
@@ -92,6 +101,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         [Fact]
         public async Task Test2Async()
         {
+            this.initializer.IsInitialized.Should().BeTrue();
+
             var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
             currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
 
@@ -108,6 +119,62 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             // Insert a row which should not be use in other tests.
             await this.database.InsertIntoAsync("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
+        }
+
+        [Fact]
+        public void Initialize_WithSpecificDataFileName()
+        {
+            this.initializer.IsInitialized.Should().BeTrue();
+
+            // Create existing database to be sure the database is recreated when deploying the database with a DACPAC
+            CreateDatabase("SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName");
+
+            using var temporaryFolder = TemporaryFolder.Create();
+
+            var server = new SqlServer(ConnectionString);
+
+            var settings = new SqlServerDacDeploymentSettings()
+            {
+                DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"),
+            };
+
+            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName", settings);
+
+            var table = database.ExecuteQuery("SELECT * FROM MyTable");
+
+            table.Rows.Should().BeEmpty();
+
+            // Insert data to check the connection.
+            database.InsertInto("MyTable", new { Id = 1, Name = "Name 1" });
+            database.InsertInto("MyTable", new { Id = 2, Name = "Name 2" });
+
+            // Check the location of the database
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf")).Should().BeTrue();
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName_log.ldf")).Should().BeTrue();
+
+            var result = database.ExecuteQuery("SELECT * FROM [sys].[database_files] ORDER BY [physical_name]");
+
+            result.Rows.Should().HaveCount(2);
+
+            result.Rows[0]["name"].Should().Be("SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName");
+            result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"));
+            result.Rows[0]["type_desc"].Should().Be("ROWS");
+
+            result.Rows[1]["name"].Should().Be("TheSpecificDataFileName_log");
+            result.Rows[1]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName_log.ldf"));
+            result.Rows[1]["type_desc"].Should().Be("LOG");
+
+            // Delete the database (for deleting the temporary folder).
+            server.DeleteDatabase("SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName");
+        }
+
+        private static void CreateDatabase(string name)
+        {
+            var server = new SqlServer(ConnectionString);
+
+            var database = server.CreateEmptyDatabase(name);
+
+            database.ExecuteNonQuery("CREATE TABLE OtherTable (Id INT)");
         }
     }
 }
