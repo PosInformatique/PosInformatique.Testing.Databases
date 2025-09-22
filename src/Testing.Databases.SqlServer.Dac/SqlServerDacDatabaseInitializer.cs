@@ -13,7 +13,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
     /// Call the <see cref="Initialize(SqlServerDatabaseInitializer, string, string)"/> method to initialize a database from
     /// a DACPAC file.
     /// </summary>
-    /// <remarks>The database will be created the call of the <see cref="Initialize(string, string)"/> method. For the next calls
+    /// <remarks>The database will be created the call of the <see cref="Initialize(SqlServerDatabaseInitializer, string, string)"/> method. For the next calls
     /// the database is preserved but all the data are deleted.</remarks>
     public static class SqlServerDacDatabaseInitializer
     {

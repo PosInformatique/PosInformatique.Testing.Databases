@@ -21,6 +21,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             table.Rows.Should().BeEmpty();
 
+            // Insert data to check the connection.
             this.database.InsertInto("MyTable", new { Id = 1, Name = "Name 1" });
             this.database.InsertInto("MyTable", new { Id = 2, Name = "Name 2" });
         }

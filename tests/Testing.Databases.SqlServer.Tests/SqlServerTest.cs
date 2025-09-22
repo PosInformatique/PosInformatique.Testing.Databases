@@ -51,7 +51,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         }
 
         [Fact]
-        public async Task CreateAndDelete_WithSpecificName()
+        public async Task CreateAndDelete_WithSpecificDataFileName()
         {
             using var temporaryFolder = TemporaryFolder.Create();
 
@@ -59,36 +59,36 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var settings = new SqlDatabaseCreationSettings()
             {
-                DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificName.mdf"),
+                DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"),
             };
 
-            var database = server.CreateEmptyDatabase("CreateAndDeleteDB_WithSpecificName", settings);
+            var database = server.CreateEmptyDatabase("CreateAndDeleteDB_WithSpecificDataFileName", settings);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificName;Integrated Security=True");
+            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificDataFileName;Integrated Security=True");
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificName'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'");
             table.Rows.Should().HaveCount(1);
 
             // Check the location of the database
-            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificName.mdf")).Should().BeTrue();
-            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificName_log.ldf")).Should().BeTrue();
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf")).Should().BeTrue();
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName_log.ldf")).Should().BeTrue();
 
             var result = database.ExecuteQuery("SELECT * FROM [sys].[database_files] ORDER BY [physical_name]");
 
             result.Rows.Should().HaveCount(2);
 
-            result.Rows[0]["name"].Should().Be("CreateAndDeleteDB_WithSpecificName");
-            result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificName.mdf"));
+            result.Rows[0]["name"].Should().Be("CreateAndDeleteDB_WithSpecificDataFileName");
+            result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"));
             result.Rows[0]["type_desc"].Should().Be("ROWS");
 
-            result.Rows[1]["name"].Should().Be("TheSpecificName_log");
-            result.Rows[1]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificName_log.ldf"));
+            result.Rows[1]["name"].Should().Be("TheSpecificDataFileName_log");
+            result.Rows[1]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName_log.ldf"));
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
             // Delete the database
-            server.DeleteDatabase("CreateAndDeleteDB_WithSpecificName");
+            server.DeleteDatabase("CreateAndDeleteDB_WithSpecificDataFileName");
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificName'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'");
             table.Rows.Should().BeEmpty();
         }
 
@@ -112,7 +112,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         }
 
         [Fact]
-        public async Task CreateAndDeleteAsync_WithSpecificName()
+        public async Task CreateAndDeleteAsync_WithSpecificDataFileName()
         {
             using var temporaryFolder = TemporaryFolder.Create();
 
@@ -120,68 +120,37 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var settings = new SqlDatabaseCreationSettings()
             {
-                DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificNameAsync.mdf"),
+                DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileNameAsync.mdf"),
             };
 
-            var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDB_WithSpecificNameAsync", settings);
+            var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync", settings);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificNameAsync;Integrated Security=True");
+            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificDataFileNameAsync;Integrated Security=True");
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificNameAsync'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
             table.Rows.Should().HaveCount(1);
 
             // Check the location of the database
-            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificNameAsync.mdf")).Should().BeTrue();
-            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificNameAsync_log.ldf")).Should().BeTrue();
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileNameAsync.mdf")).Should().BeTrue();
+            File.Exists(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileNameAsync_log.ldf")).Should().BeTrue();
 
             var result = database.ExecuteQuery("SELECT * FROM [sys].[database_files] ORDER BY [physical_name]");
 
             result.Rows.Should().HaveCount(2);
 
-            result.Rows[0]["name"].Should().Be("CreateAndDeleteDB_WithSpecificNameAsync");
-            result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificNameAsync.mdf"));
+            result.Rows[0]["name"].Should().Be("CreateAndDeleteDB_WithSpecificDataFileNameAsync");
+            result.Rows[0]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileNameAsync.mdf"));
             result.Rows[0]["type_desc"].Should().Be("ROWS");
 
-            result.Rows[1]["name"].Should().Be("TheSpecificNameAsync_log");
-            result.Rows[1]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificNameAsync_log.ldf"));
+            result.Rows[1]["name"].Should().Be("TheSpecificDataFileNameAsync_log");
+            result.Rows[1]["physical_name"].Should().Be(Path.Combine(temporaryFolder.Path, "TheSpecificDataFileNameAsync_log.ldf"));
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
             // Delete the database
-            await server.DeleteDatabaseAsync("CreateAndDeleteDB_WithSpecificNameAsync");
+            await server.DeleteDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync");
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificNameAsync'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
             table.Rows.Should().BeEmpty();
-        }
-
-        private sealed class TemporaryFolder : IDisposable
-        {
-            private TemporaryFolder(string path)
-            {
-                this.Path = path;
-            }
-
-            public string Path { get; }
-
-            public static TemporaryFolder Create()
-            {
-                var temporaryFolder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "PosInformatique.Testing.Databases.SqlServer.Tests", Guid.NewGuid().ToString());
-
-                Directory.CreateDirectory(temporaryFolder);
-
-                return new TemporaryFolder(temporaryFolder);
-            }
-
-            public void Dispose()
-            {
-                try
-                {
-                    Directory.Delete(this.Path, true);
-                }
-                catch (IOException)
-                {
-                    // Ignore the errors.
-                }
-            }
         }
     }
 }
