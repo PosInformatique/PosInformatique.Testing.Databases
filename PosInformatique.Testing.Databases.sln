@@ -59,6 +59,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Databases.SqlServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Databases.SqlServer.Dac.Tests", "tests\Testing.Databases.SqlServer.Dac.Tests\Testing.Databases.SqlServer.Dac.Tests.csproj", "{6751A585-1BB0-49A1-BF68-D7FBD3392DF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Databases.SqlServer.SqlCmd", "src\Testing.Databases.SqlServer.SqlCmd\Testing.Databases.SqlServer.SqlCmd.csproj", "{D3004122-CCDD-4EAD-BD9E-DA6DFF470943}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Databases.SqlServer.SqlCmd.Tests", "tests\Testing.Databases.SqlServer.SqlCmd.Tests\Testing.Databases.SqlServer.SqlCmd.Tests.csproj", "{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +111,14 @@ Global
 		{6751A585-1BB0-49A1-BF68-D7FBD3392DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6751A585-1BB0-49A1-BF68-D7FBD3392DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6751A585-1BB0-49A1-BF68-D7FBD3392DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3004122-CCDD-4EAD-BD9E-DA6DFF470943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3004122-CCDD-4EAD-BD9E-DA6DFF470943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3004122-CCDD-4EAD-BD9E-DA6DFF470943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3004122-CCDD-4EAD-BD9E-DA6DFF470943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <Description>Testing.Databases.SqlServer.SqlCmd is a library that contains a set of tools for testing Data Access Layer using SQLCMD tool to initialize the database with a SQL script.</Description>
+    <PackageTags>testing unittest sqlcmd sqlserver repository tdd dataaccesslayer</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
