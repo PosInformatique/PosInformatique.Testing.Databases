@@ -121,13 +121,13 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             server.Master.Invoking(m => m.RunScript(temporaryFile.FileName, settings))
                 .Should().ThrowExactly<SqlCmdException>()
-                .Which.Output.Should().Be(
+                .Which.Output.Should().StartWith(
                 """
                 GOOOOOO !
                 Changed database context to 'SqlCmdSqlServerExtensionsTest_RunScript_WithErros'.
-                Msg 102, Level 15, State 1, Server TOURREAU-LAPTOP\LOCALDB#19CCEEF8, Line 1
-                Incorrect syntax near 'ErrorBlabla'.
-                """);
+                Msg 102, Level 15, State 1,
+                """)
+                .And.EndWith("Incorrect syntax near 'ErrorBlabla'.");
 
             var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErros");
 
