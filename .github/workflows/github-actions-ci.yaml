@@ -17,6 +17,8 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
+        volumes:
+          - ${{ runner.temp }}/other_databases_path:/other_databases_path
     steps:
       - uses: actions/checkout@v4
 
@@ -49,6 +51,7 @@ jobs:
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "junit;LogFilePath=./TestResults/junit.xml"
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
+          SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/other_databases_path"
 
       - name: Publish tests report
         uses: dorny/test-reporter@v1
