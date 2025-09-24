@@ -26,8 +26,8 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// to retrieve the output result of the script execution.</exception>
         public static void RunScript(this SqlServerDatabase database, string fileName, SqlCmdRunScriptSettings? settings = null)
         {
-            ArgumentNullException.ThrowIfNull(database, nameof(database));
-            ArgumentNullException.ThrowIfNull(fileName, nameof(fileName));
+            Guard.ThrowIfNull(database, nameof(database));
+            Guard.ThrowIfNull(fileName, nameof(fileName));
 
             if (!File.Exists(fileName))
             {
