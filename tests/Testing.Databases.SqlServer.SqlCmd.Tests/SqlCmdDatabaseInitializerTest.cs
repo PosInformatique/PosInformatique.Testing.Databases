@@ -90,7 +90,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             this.initializer.IsInitialized.Should().BeTrue();
 
             var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
             var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable");
