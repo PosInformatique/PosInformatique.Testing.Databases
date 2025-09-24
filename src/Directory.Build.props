@@ -49,7 +49,7 @@
   </PropertyGroup>
   
   <!-- Add the InternalsVisibleToAttribute for the tests -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 	    <_Parameter1>$(AssemblyName).Tests</_Parameter1>
     </AssemblyAttribute>
