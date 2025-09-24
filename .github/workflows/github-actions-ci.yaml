@@ -47,6 +47,10 @@ jobs:
           sudo apt-get install -y mssql-tools
           echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
 
+      - name: Install JUnit logger
+        run: dotnet tool install --global JUnitXml.TestLogger
+        shell: bash
+
       - name: Run tests
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "junit;LogFilePath=./TestResults/junit.xml"
         env:
