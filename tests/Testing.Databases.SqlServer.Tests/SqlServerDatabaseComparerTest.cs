@@ -40,8 +40,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.StoredProcedures[0].Target.Schema.Should().Be("dbo");
             differences.StoredProcedures[0].Properties.Should().HaveCount(1);
             differences.StoredProcedures[0].Properties[0].Name.Should().Be("Code");
-            differences.StoredProcedures[0].Properties[0].Source.Should().Be("CREATE PROCEDURE [dbo].[StoredProcedureDifference]\r\n\t@param1 int = 0,\r\n\t@param2 int\r\nAS\r\n\tSELECT @param2\r\nRETURN 0\r\n");
-            differences.StoredProcedures[0].Properties[0].Target.Should().Be("CREATE PROCEDURE [dbo].[StoredProcedureDifference]\r\n\t@param1 int = 0,\r\n\t@param2 int\r\nAS\r\n\tSELECT @param1\r\nRETURN 0\r\n");
+            differences.StoredProcedures[0].Properties[0].Source.Should().Be($"CREATE PROCEDURE [dbo].[StoredProcedureDifference]{Environment.NewLine}\t@param1 int = 0,{Environment.NewLine}\t@param2 int{Environment.NewLine}AS{Environment.NewLine}\tSELECT @param2{Environment.NewLine}RETURN 0{Environment.NewLine}");
+            differences.StoredProcedures[0].Properties[0].Target.Should().Be($"CREATE PROCEDURE [dbo].[StoredProcedureDifference]{Environment.NewLine}\t@param1 int = 0,{Environment.NewLine}\t@param2 int{Environment.NewLine}AS{Environment.NewLine}\tSELECT @param1{Environment.NewLine}RETURN 0{Environment.NewLine}");
 
             differences.StoredProcedures[1].Source.Should().BeNull();
             differences.StoredProcedures[1].Target.Name.Should().Be("StoredProcedureTarget");
@@ -697,13 +697,13 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Source.Triggers.Should().HaveCount(1);
 
             differences.Tables[0].Source.Triggers[0].Name.Should().Be("TriggerDifference");
-            differences.Tables[0].Source.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tINSTEAD OF INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From source'\r\n\tEND\r\n");
+            differences.Tables[0].Source.Triggers[0].Code.Should().Be($"CREATE TRIGGER [TriggerDifference]{Environment.NewLine}\tON [dbo].[TableDifference]{Environment.NewLine}\tINSTEAD OF INSERT{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tPRINT 'From source'{Environment.NewLine}\tEND{Environment.NewLine}");
             differences.Tables[0].Source.Triggers[0].IsInsteadOfTrigger.Should().BeTrue();
 
             differences.Tables[0].Target.Triggers.Should().HaveCount(1);
 
             differences.Tables[0].Target.Triggers[0].Name.Should().Be("TriggerDifference");
-            differences.Tables[0].Target.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tFOR INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From target'\r\n\tEND\r\n");
+            differences.Tables[0].Target.Triggers[0].Code.Should().Be($"CREATE TRIGGER [TriggerDifference]{Environment.NewLine}\tON [dbo].[TableDifference]{Environment.NewLine}\tFOR INSERT{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tPRINT 'From target'{Environment.NewLine}\tEND{Environment.NewLine}");
             differences.Tables[0].Target.Triggers[0].IsInsteadOfTrigger.Should().BeFalse();
 
             differences.Tables[0].Triggers.Should().HaveCount(1);
@@ -712,8 +712,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[0].Triggers[0].Properties[0].Source.Should().Be(true);
             differences.Tables[0].Triggers[0].Properties[0].Target.Should().Be(false);
             differences.Tables[0].Triggers[0].Properties[1].Name.Should().Be("Code");
-            differences.Tables[0].Triggers[0].Properties[1].Source.Should().Be("CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tINSTEAD OF INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From source'\r\n\tEND\r\n");
-            differences.Tables[0].Triggers[0].Properties[1].Target.Should().Be("CREATE TRIGGER [TriggerDifference]\r\n\tON [dbo].[TableDifference]\r\n\tFOR INSERT\r\n\tAS\r\n\tBEGIN\r\n\t\tPRINT 'From target'\r\n\tEND\r\n");
+            differences.Tables[0].Triggers[0].Properties[1].Source.Should().Be($"CREATE TRIGGER [TriggerDifference]{Environment.NewLine}\tON [dbo].[TableDifference]{Environment.NewLine}\tINSTEAD OF INSERT{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tPRINT 'From source'{Environment.NewLine}\tEND{Environment.NewLine}");
+            differences.Tables[0].Triggers[0].Properties[1].Target.Should().Be($"CREATE TRIGGER [TriggerDifference]{Environment.NewLine}\tON [dbo].[TableDifference]{Environment.NewLine}\tFOR INSERT{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tPRINT 'From target'{Environment.NewLine}\tEND{Environment.NewLine}");
             differences.Tables[0].Triggers[0].Source.Should().BeSameAs(differences.Tables[0].Source.Triggers[0]);
             differences.Tables[0].Triggers[0].Target.Should().BeSameAs(differences.Tables[0].Target.Triggers[0]);
             differences.Tables[0].Triggers[0].Type.Should().Be(SqlObjectDifferenceType.Different);
@@ -827,7 +827,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[1].Target.Schema.Should().Be("dbo");
             differences.Tables[1].Target.Triggers.Should().HaveCount(1);
             differences.Tables[1].Target.Triggers[0].Name.Should().Be("TriggerTarget");
-            differences.Tables[1].Target.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerTarget]\r\n\tON [dbo].[TableTarget]\r\n\tFOR DELETE, INSERT, UPDATE\r\n\tAS\r\n\tBEGIN\r\n\t\tSET NOCOUNT ON\r\n\tEND\r\n");
+            differences.Tables[1].Target.Triggers[0].Code.Should().Be($"CREATE TRIGGER [TriggerTarget]{Environment.NewLine}\tON [dbo].[TableTarget]{Environment.NewLine}\tFOR DELETE, INSERT, UPDATE{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tSET NOCOUNT ON{Environment.NewLine}\tEND{Environment.NewLine}");
             differences.Tables[1].Target.Triggers[0].IsInsteadOfTrigger.Should().BeFalse();
             differences.Tables[1].Target.UniqueConstraints.Should().HaveCount(1);
             differences.Tables[1].Target.UniqueConstraints[0].Columns.Should().HaveCount(1);
@@ -1047,7 +1047,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Tables[4].Source.PrimaryKey.Type.Should().Be("CLUSTERED");
             differences.Tables[4].Source.Triggers.Should().HaveCount(1);
             differences.Tables[4].Source.Triggers[0].Name.Should().Be("TriggerSource");
-            differences.Tables[4].Source.Triggers[0].Code.Should().Be("CREATE TRIGGER [TriggerSource]\r\n\tON [dbo].[TableSource]\r\n\tFOR DELETE, INSERT, UPDATE\r\n\tAS\r\n\tBEGIN\r\n\t\tSET NOCOUNT ON\r\n\tEND\r\n");
+            differences.Tables[4].Source.Triggers[0].Code.Should().Be($"CREATE TRIGGER [TriggerSource]{Environment.NewLine}\tON [dbo].[TableSource]{Environment.NewLine}\tFOR DELETE, INSERT, UPDATE{Environment.NewLine}\tAS{Environment.NewLine}\tBEGIN{Environment.NewLine}\t\tSET NOCOUNT ON{Environment.NewLine}\tEND{Environment.NewLine}");
             differences.Tables[4].Source.Triggers[0].IsInsteadOfTrigger.Should().BeFalse();
             differences.Tables[4].Source.UniqueConstraints.Should().HaveCount(1);
             differences.Tables[4].Source.UniqueConstraints[0].Columns.Should().HaveCount(1);
@@ -1092,8 +1092,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             differences.Views[0].Target.Schema.Should().Be("dbo");
             differences.Views[0].Properties.Should().HaveCount(1);
             differences.Views[0].Properties[0].Name.Should().Be("Code");
-            differences.Views[0].Properties[0].Source.Should().Be("CREATE VIEW [dbo].[ViewDifference]\r\n\tAS SELECT * FROM [TableDifference] WHERE [Type] = 10\r\n");
-            differences.Views[0].Properties[0].Target.Should().Be("CREATE VIEW [dbo].[ViewDifference]\r\n\tAS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'\r\n");
+            differences.Views[0].Properties[0].Source.Should().Be($"CREATE VIEW [dbo].[ViewDifference]{Environment.NewLine}\tAS SELECT * FROM [TableDifference] WHERE [Type] = 10{Environment.NewLine}");
+            differences.Views[0].Properties[0].Target.Should().Be($"CREATE VIEW [dbo].[ViewDifference]{Environment.NewLine}\tAS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'{Environment.NewLine}");
 
             differences.Views[1].Source.Should().BeNull();
             differences.Views[1].Target.Name.Should().Be("ViewTarget");

@@ -36,7 +36,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         public void Test1()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
@@ -57,7 +57,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         public void Test2()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");

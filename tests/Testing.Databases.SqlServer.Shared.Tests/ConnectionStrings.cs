@@ -26,5 +26,17 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             return connectionStringBuilder.ToString();
         }
+
+        public static string ExtractUserName(string connectionString)
+        {
+            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+
+            if (connectionStringBuilder.IntegratedSecurity == true)
+            {
+                return $"{Environment.UserDomainName}\\{Environment.UserName}";
+            }
+
+            return connectionStringBuilder.UserID;
+        }
     }
 }
