@@ -8,6 +8,46 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          SA_PASSWORD: "Your_password123"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "timeout 5s /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Your_password123 -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore PosInformatique.Testing.Databases.sln
+
+      - name: Build solution
+        run: dotnet build PosInformatique.Testing.Databases.sln --configuration Release --no-restore
+
+      - name: Restore samples
+        run: dotnet restore samples/PosInformatique.Testing.Databases.Samples.sln
+
+      - name: Build samples
+        run: dotnet build samples/PosInformatique.Testing.Databases.Samples.sln --configuration Debug --no-restore
+
+      - name: Run tests
+        run: dotnet test PosInformatique.Testing.Databases.sln --configuration Debug --no-build --logger:"trx;LogFileName=test_results.trx"
+        env:
+          SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+
+  build-samples:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,34 +56,10 @@ jobs:
         uses: nuget/setup-nuget@v2
 
       - name: Restore NuGet packages
-        run: nuget restore PosInformatique.Testing.Databases.sln
-      
+        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Build
-        run: msbuild "PosInformatique.Testing.Databases.sln" /p:Configuration=Debug
-        
-      - name: Restore NuGet packages
-        run: nuget restore "samples/PosInformatique.Testing.Databases.Samples.sln"
-
-      - name: Build the samples
+      - name: Build samples with Visual Studio
         run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
-
-      - name: Creates the LocalDB for the tests
-        shell: cmd
-        run: SqlLocalDB create posinfo-tests
-
-      - name: Creates the SQL Login service accounts for the tests
-        shell: cmd
-        run: sqlcmd -S "(localDB)\posinfo-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
-
-      # Use this fix https://github.com/microsoft/vstest-action/issues/31#issuecomment-2159463764
-      - name: Test with the dotnet CLI
-        uses: rusty-bender/vstest-action@main
-        with:
-          searchFolder: .\
-          testAssembly: |
-            /tests/**/*tests.dll
-            !./**/*TestAdapter.dll
-            !./**/obj/**
