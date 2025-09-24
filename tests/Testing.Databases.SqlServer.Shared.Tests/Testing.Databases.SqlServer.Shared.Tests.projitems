@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConnectionStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OtherDatabasePath.cs" />
   </ItemGroup>
 </Project>

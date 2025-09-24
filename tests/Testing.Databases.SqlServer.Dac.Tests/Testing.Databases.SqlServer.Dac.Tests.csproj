@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Testing.Databases.SqlServer.Tests\TemporaryFolder.cs" Link="TemporaryFolder.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="..\Testing.Databases.SqlServer.Tests.DacPac\bin\$(Configuration)\netstandard2.1\PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac" Link="PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
