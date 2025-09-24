@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class SqlServerDacExtensionsTest
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Integrated Security=True";
+        private static readonly string ConnectionString = ConnectionStrings.Get();
 
         [Theory]
         [InlineData(false)]

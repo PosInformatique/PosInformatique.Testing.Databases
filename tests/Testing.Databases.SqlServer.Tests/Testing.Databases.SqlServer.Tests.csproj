@@ -40,4 +40,6 @@
     <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.Target\Testing.Databases.SqlServer.Tests.Target.sqlproj" />
   </ItemGroup>
 
+  <Import Project="..\Testing.Databases.SqlServer.Shared.Tests\Testing.Databases.SqlServer.Shared.Tests.projitems" Label="Shared" />
+
 </Project>

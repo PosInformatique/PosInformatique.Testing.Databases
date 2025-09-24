@@ -22,4 +22,6 @@
     <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.EntityFramework\Testing.Databases.SqlServer.EntityFramework.csproj" />
   </ItemGroup>
 
+  <Import Project="..\Testing.Databases.SqlServer.Shared.Tests\Testing.Databases.SqlServer.Shared.Tests.projitems" Label="Shared" />
+
 </Project>

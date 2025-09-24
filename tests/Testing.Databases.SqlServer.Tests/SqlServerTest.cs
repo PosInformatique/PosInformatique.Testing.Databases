@@ -9,7 +9,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class SqlServerTest
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Initial Catalog={nameof(SqlServerTest)}; Integrated Security=True";
+        private static readonly string ConnectionString = ConnectionStrings.Get(nameof(SqlServerTest));
 
         [Theory]
         [InlineData("Data Source=TheServer; Initial Catalog=TheDB; User ID=TheID; Password=ThePassword", "Data Source=TheServer;Initial Catalog=master;User ID=TheID;Password=ThePassword")]
@@ -38,7 +38,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("CreateAndDeleteDB", settings);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB"));
 
             var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB'");
             table.Rows.Should().HaveCount(1);
@@ -64,7 +64,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("CreateAndDeleteDB_WithSpecificDataFileName", settings);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificDataFileName;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB_WithSpecificDataFileName"));
 
             var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'");
             table.Rows.Should().HaveCount(1);
@@ -99,7 +99,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDBAsync", new SqlDatabaseCreationSettings(), CancellationToken.None);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDBAsync;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDBAsync"));
 
             var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDBAsync'");
             table.Rows.Should().HaveCount(1);
@@ -125,7 +125,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync", settings);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=CreateAndDeleteDB_WithSpecificDataFileNameAsync;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB_WithSpecificDataFileNameAsync"));
 
             var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
             table.Rows.Should().HaveCount(1);

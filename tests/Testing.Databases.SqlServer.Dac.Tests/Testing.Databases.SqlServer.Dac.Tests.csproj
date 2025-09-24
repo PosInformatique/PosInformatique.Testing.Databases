@@ -27,9 +27,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.Dac\Testing.Databases.SqlServer.Dac.csproj" />
     <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.DacPac\Testing.Databases.SqlServer.Tests.DacPac.sqlproj" />
   </ItemGroup>
+  
+  <Import Project="..\Testing.Databases.SqlServer.Shared.Tests\Testing.Databases.SqlServer.Shared.Tests.projitems" Label="Shared" />
 
 </Project>

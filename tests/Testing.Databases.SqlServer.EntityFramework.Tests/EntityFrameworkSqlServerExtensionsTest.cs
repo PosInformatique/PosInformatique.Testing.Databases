@@ -11,7 +11,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class EntityFrameworkSqlServerExtensionsTest
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Integrated Security=True";
+        private static readonly string ConnectionString = ConnectionStrings.Get();
 
         [Fact]
         public async Task Create_WithNoExistingDatabase()
@@ -26,7 +26,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateDatabase(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
             var tables = await database.GetTablesAsync();
 
@@ -54,7 +54,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateDatabase(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
             var tables = await database.GetTablesAsync();
 
@@ -80,7 +80,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
             var tables = await database.GetTablesAsync();
 
@@ -108,7 +108,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
-            database.ConnectionString.Should().Be("Data Source=(localDB)\\posinfo-tests;Initial Catalog=EntityFrameworkSqlServerExtensionsTest;Integrated Security=True");
+            database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
             var tables = await database.GetTablesAsync();
 
