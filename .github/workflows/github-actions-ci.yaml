@@ -20,8 +20,7 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-        volumes:
-          - /var/opt/mssql/data:/var/opt/mssql/data
+
     steps:
       - uses: actions/checkout@v4
 
