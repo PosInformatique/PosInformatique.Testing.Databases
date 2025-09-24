@@ -13,15 +13,10 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          SA_PASSWORD: "Your_password123"
+          SA_PASSWORD: "P@ssw0rd12345!"
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-        options: >-
-          --health-cmd "timeout 5s /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Your_password123 -Q 'SELECT 1' || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
     steps:
       - uses: actions/checkout@v4
 
@@ -42,10 +37,19 @@ jobs:
       - name: Build samples
         run: dotnet build samples/PosInformatique.Testing.Databases.Samples.sln --configuration Debug --no-restore
 
+      - name: Install SQL Server command-line tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update
+          sudo apt-get install -y mssql-tools
+          echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+          source ~/.bashrc
+
       - name: Run tests
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Debug --no-build --logger:"trx;LogFileName=test_results.trx"
         env:
-          SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+          SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
 
   build-samples:
     runs-on: windows-latest
