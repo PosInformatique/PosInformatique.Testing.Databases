@@ -18,7 +18,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         public SqlServerDatabaseInitializerTest(SqlServerDatabaseInitializer initializer)
         {
             this.initializer = initializer;
-            this.database = initializer.Initialize("Testing.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
+            this.database = initializer.Initialize("PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac", ConnectionString);
 
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
 
@@ -138,7 +138,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"),
             };
 
-            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName", settings);
+            var database = server.DeployDacPackage("PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName", settings);
 
             var table = database.ExecuteQuery("SELECT * FROM MyTable");
 

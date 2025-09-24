@@ -28,7 +28,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 settings = new SqlServerDacDeploymentSettings();
             }
 
-            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage", settings);
+            var database = server.DeployDacPackage("PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage", settings);
 
             var table = database.ExecuteQuery("SELECT * FROM MyTable");
 
@@ -54,7 +54,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 DataFileName = Path.Combine(temporaryFolder.Path, "TheSpecificDataFileName.mdf"),
             };
 
-            var database = server.DeployDacPackage("Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName", settings);
+            var database = server.DeployDacPackage("PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac", "SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName", settings);
 
             var table = database.ExecuteQuery("SELECT * FROM MyTable");
 
