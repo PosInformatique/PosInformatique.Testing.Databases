@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     services:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
@@ -47,15 +50,18 @@ jobs:
           sudo apt-get install -y mssql-tools
           echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
 
-      - name: Install JUnit logger
-        run: dotnet tool install --global JUnitXml.TestLogger
-        shell: bash
-
       - name: Run tests
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
           SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path"
+  
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: (!cancelled())
+        with:
+          files: |
+            TestResults/**/*.xml
 
   build-samples:
     runs-on: windows-latest
