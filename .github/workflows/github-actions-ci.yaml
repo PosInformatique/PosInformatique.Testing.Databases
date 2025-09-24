@@ -57,19 +57,6 @@ jobs:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
           SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path"
 
-      - name: Convert TRX to JUnit
-        uses: NasAmin/trx2junit@v3.0.0
-        with:
-          input: ./TestResults
-
-      - name: Publish tests report
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: PosInformatique.Testing.Databases
-          path: ./TestResults/*.xml
-          reporter: jest-junit
-
   build-samples:
     runs-on: windows-latest
     steps:
