@@ -19,7 +19,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             process.Invoking(p => p.WaitForExit())
                 .Should().ThrowExactly<ObjectDisposedException>()
-                .WithMessage("Cannot access a disposed object.\r\nObject name: 'PosInformatique.Testing.Databases.SqlServer.SqlCmdProcess'.")
+                .WithMessage($"Cannot access a disposed object.{Environment.NewLine}Object name: 'PosInformatique.Testing.Databases.SqlServer.SqlCmdProcess'.")
                 .Which.ObjectName.Should().Be("PosInformatique.Testing.Databases.SqlServer.SqlCmdProcess");
         }
     }
