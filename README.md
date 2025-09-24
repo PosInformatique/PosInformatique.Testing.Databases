@@ -177,12 +177,19 @@ For Entity Framework migration:
 ## 📦 NuGet package dependency versions
 
 These tools rely on a minimal set of NuGet dependencies to ensure broad compatibility.  
-They are built for **.NET 6.0** but also work seamlessly with newer versions of .NET:
+They are built for **.NET Core 6.0** and **.NET Framework 4.6.2** but also work seamlessly with newer versions of .NET:
 
-- .NET 7.0  
-- .NET 8.0  
-- .NET 9.0  
-- .NET 10.0  
+- .NET Framework 4.6.2  
+- .NET Framework 4.7
+- .NET Framework 4.7.1
+- .NET Framework 4.7.2  
+- .NET Framework 4.8
+- .NET Framework 4.8.1
+- .NET Core 6.0  
+- .NET Core 7.0  
+- .NET Core 8.0  
+- .NET Core 9.0  
+- .NET Core 10.0  
 
 ### Dependency versions
 

@@ -33,9 +33,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
         public static SqlServerDatabase Initialize(this SqlServerDatabaseInitializer initializer, string fileName, string connectionString, SqlCmdRunScriptSettings? settings = null)
         {
-            ArgumentNullException.ThrowIfNull(initializer, nameof(initializer));
-            ArgumentNullException.ThrowIfNull(fileName, nameof(fileName));
-            ArgumentNullException.ThrowIfNull(connectionString, nameof(connectionString));
+            Guard.ThrowIfNull(initializer, nameof(initializer));
+            Guard.ThrowIfNull(fileName, nameof(fileName));
+            Guard.ThrowIfNull(connectionString, nameof(connectionString));
 
             if (!File.Exists(fileName))
             {

@@ -22,9 +22,22 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="fileName">File name (including the path) for the DACPAC file to deploy.</param>
         /// <param name="databaseName">Name of the database which will be created.</param>
         /// <param name="settings">Additional settings of the database to deploy.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="server"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="fileName"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="databaseName"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="FileNotFoundException">If no file exists with the specified <paramref name="fileName"/> argument.</exception>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which represents the deployed database.</returns>
         public static SqlServerDatabase DeployDacPackage(this SqlServer server, string fileName, string databaseName, SqlServerDacDeploymentSettings? settings = null)
         {
+            Guard.ThrowIfNull(server, nameof(server));
+            Guard.ThrowIfNull(fileName, nameof(fileName));
+            Guard.ThrowIfNull(databaseName, nameof(databaseName));
+
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException($"Could not find file '{fileName}'", fileName);
+            }
+
             using (var package = DacPackage.Load(fileName))
             {
                 // Currently DacFx does not support to define explicitly the location of the database files.

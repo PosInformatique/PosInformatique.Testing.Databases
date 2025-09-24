@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Databases.SqlServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Databases.SqlServer.SqlCmd.Tests", "tests\Testing.Databases.SqlServer.SqlCmd.Tests\Testing.Databases.SqlServer.SqlCmd.Tests.csproj", "{F8E025D7-4E2F-437A-ABFA-C43A1368E15A}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Testing.Databases.SqlServer.Shared", "src\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.shproj", "{B9F8C52D-4652-4FC6-A695-DC2F61BA05C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,5 +134,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FAC64573-D665-48A8-AC75-7B82B692EC9E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems*{157ddf0d-9410-4646-94b9-9cee4c140f5e}*SharedItemsImports = 5
+		src\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems*{8be60460-eba5-43de-b85d-c756e2988dc8}*SharedItemsImports = 5
+		src\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems*{b9f8c52d-4652-4fc6-a695-dc2f61ba05c9}*SharedItemsImports = 13
+		src\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems*{d3004122-ccdd-4ead-bd9e-da6dff470943}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

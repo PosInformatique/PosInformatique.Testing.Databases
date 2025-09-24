@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net462</TargetFrameworks>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <Description>Testing.Databases.SqlServer.SqlCmd is a library that contains a set of tools for testing Data Access Layer using SQLCMD tool to initialize the database with a SQL script.</Description>
@@ -19,5 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
   </ItemGroup>
+
+  <Import Project="..\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems" Label="Shared" />
 
 </Project>

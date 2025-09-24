@@ -121,6 +121,70 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             tables[0].Columns[1].Name.Should().Be("Name");
         }
 
+        [Fact]
+        public void CreateDatabase_WithServerNull()
+        {
+            var act = () =>
+            {
+                EntityFrameworkSqlServerExtensions.CreateDatabase(null, default, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("server");
+        }
+
+        [Fact]
+        public void CreateDatabase_WithNameArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.CreateDatabase(null, default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("name");
+        }
+
+        [Fact]
+        public void CreateDatabase_WithContextArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.CreateDatabase("The name", default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("context");
+        }
+
+        [Fact]
+        public void CreateDatabaseAsync_WithServerNull()
+        {
+            var act = async () =>
+            {
+                await EntityFrameworkSqlServerExtensions.CreateDatabaseAsync(null, default, default);
+            };
+
+            act.Should().ThrowExactlyAsync<ArgumentNullException>()
+               .WithParameterName("server");
+        }
+
+        [Fact]
+        public void CreateDatabaseAsync_WithNameArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.CreateDatabaseAsync(null, default))
+                .Should().ThrowExactlyAsync<ArgumentNullException>()
+                .WithParameterName("name");
+        }
+
+        [Fact]
+        public void CreateDatabaseAsync_WithContextArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.CreateDatabaseAsync("The name", default))
+                .Should().ThrowExactlyAsync<ArgumentNullException>()
+                .WithParameterName("context");
+        }
+
         private sealed class DbContextTest : DbContext
         {
             public DbContextTest(DbContextOptions<DbContextTest> options)

@@ -168,6 +168,49 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             server.DeleteDatabase("SqlServerDatabaseInitializerTest_Initialize_WithSpecificDataFileName");
         }
 
+        [Fact]
+        public void Initialize_WithInitializerArgumentNull()
+        {
+            var act = () =>
+            {
+                SqlServerDacDatabaseInitializer.Initialize(null, default, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("initializer");
+        }
+
+        [Fact]
+        public void Initialize_WithFileNameArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize(null, default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("packageName");
+        }
+
+        [Fact]
+        public void Initialize_WithConnectionStringArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize("The file name", null))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("connectionString");
+        }
+
+        [Fact]
+        public void Initialize_WithPackageNotFound()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize("C:/Directory/FileNotFound.sql", "The connection stirng"))
+                .Should().ThrowExactly<FileNotFoundException>()
+                .WithMessage("Could not find file 'C:/Directory/FileNotFound.sql'")
+                .Which.FileName.Should().Be("C:/Directory/FileNotFound.sql");
+        }
+
         private static void CreateDatabase(string name)
         {
             var server = new SqlServer(ConnectionString);

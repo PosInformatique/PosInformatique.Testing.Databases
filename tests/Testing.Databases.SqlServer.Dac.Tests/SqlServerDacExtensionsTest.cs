@@ -84,6 +84,49 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             server.DeleteDatabase("SqlServerDacExtensionsTest_DeployDacPackage_WithSpecificDataFileName");
         }
 
+        [Fact]
+        public void DeployDacPackage_WithDatabaseArgumentNull()
+        {
+            var act = () =>
+            {
+                SqlServerDacExtensions.DeployDacPackage(null, default, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("server");
+        }
+
+        [Fact]
+        public void DeployDacPackage_WithFileNameArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.DeployDacPackage(null, default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("fileName");
+        }
+
+        [Fact]
+        public void DeployDacPackage_WithDatabaseNameArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.DeployDacPackage("C:/Directory/FileNotFound.sql", null))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("databaseName");
+        }
+
+        [Fact]
+        public void DeployDacPackage_WithFileNotFound()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Invoking(s => s.DeployDacPackage("C:/Directory/FileNotFound.sql", "The database"))
+                .Should().ThrowExactly<FileNotFoundException>()
+                .WithMessage("Could not find file 'C:/Directory/FileNotFound.sql'")
+                .Which.FileName.Should().Be("C:/Directory/FileNotFound.sql");
+        }
+
         private static void CreateDatabase(string name)
         {
             var server = new SqlServer(ConnectionString);

@@ -74,6 +74,28 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
 
+        [Fact]
+        public void Initialize_WithInitializerArgumentNull()
+        {
+            var act = () =>
+            {
+                EntityFrameworkDatabaseInitializerExtensions.Initialize(null, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("initializer");
+        }
+
+        [Fact]
+        public void Initialize_WithFileNameArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize(null))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("context");
+        }
+
         private sealed class DbContextTest : DbContext
         {
             public DbContextTest(DbContextOptions<DbContextTest> options)

@@ -24,4 +24,6 @@
     <ProjectReference Include="..\Testing.Databases.SqlServer\Testing.Databases.SqlServer.csproj" />
   </ItemGroup>
 
+  <Import Project="..\Testing.Databases.SqlServer.Shared\Testing.Databases.SqlServer.Shared.projitems" Label="Shared" />
+
 </Project>

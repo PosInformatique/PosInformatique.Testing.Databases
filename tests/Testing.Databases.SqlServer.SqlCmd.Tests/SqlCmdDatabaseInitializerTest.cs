@@ -131,7 +131,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         }
 
         [Fact]
-        public void Initialize_WithDatabaseArgumentNull()
+        public void Initialize_WithInitializerArgumentNull()
         {
             var act = () =>
             {

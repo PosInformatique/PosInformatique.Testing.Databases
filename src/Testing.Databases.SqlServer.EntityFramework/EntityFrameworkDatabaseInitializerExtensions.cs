@@ -21,8 +21,13 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="initializer"><see cref="SqlServerDatabaseInitializer"/> which the initialization will be perform on.</param>
         /// <param name="context">Instance of the <see cref="DbContext"/> which represents the database schema to initialize.</param>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="initializer"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="context"/> argument is <see langword="null"/>.</exception>
         public static SqlServerDatabase Initialize(this SqlServerDatabaseInitializer initializer, DbContext context)
         {
+            Guard.ThrowIfNull(initializer, nameof(initializer));
+            Guard.ThrowIfNull(context, nameof(context));
+
             var connectionString = context.Database.GetConnectionString();
 
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
