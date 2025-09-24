@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Testing.Databases.SqlServer.Tests.DacPac\bin\Debug\Testing.Databases.SqlServer.Tests.DacPac.dacpac" Link="Testing.Databases.SqlServer.Tests.DacPac.dacpac">
+    <Content Include="..\Testing.Databases.SqlServer.Tests.DacPac\bin\$(Configuration)\netstandard2.1\PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac" Link="PosInformatique.Testing.Databases.SqlServer.Tests.DacPac.dacpac">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -30,7 +30,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.Dac\Testing.Databases.SqlServer.Dac.csproj" />
-    <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.DacPac\Testing.Databases.SqlServer.Tests.DacPac.sqlproj" />
+    <ProjectReference Include="..\Testing.Databases.SqlServer.Tests.DacPac\Testing.Databases.SqlServer.Tests.DacPac.csproj" ReferenceOutputAssembly="False" />
   </ItemGroup>
   
   <Import Project="..\Testing.Databases.SqlServer.Shared.Tests\Testing.Databases.SqlServer.Shared.Tests.projitems" Label="Shared" />

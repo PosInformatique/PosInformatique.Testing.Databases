@@ -142,6 +142,7 @@
             BEGIN
               PRINT 'From source'
             END
+          
         Target: 
           CREATE TRIGGER [TriggerDifference]
             ON [dbo].[TableDifference]
@@ -150,6 +151,7 @@
             BEGIN
               PRINT 'From target'
             END
+          
   ------ Unique constraints ------
   - UniqueConstraintDifference
     * Type:
@@ -197,6 +199,7 @@
         AS
           SELECT @param2
         RETURN 0
+        
       Target: 
         CREATE PROCEDURE [dbo].[StoredProcedureDifference]
           @param1 int = 0,
@@ -204,6 +207,7 @@
         AS
           SELECT @param1
         RETURN 0
+        
 - dbo.StoredProcedureTarget (Missing in the source)
 - dbo.StoredProcedureSource (Missing in the target)
 ------ User types ------
@@ -222,8 +226,10 @@
       Source: 
         CREATE VIEW [dbo].[ViewDifference]
           AS SELECT * FROM [TableDifference] WHERE [Type] = 10
+        
       Target: 
         CREATE VIEW [dbo].[ViewDifference]
           AS SELECT * FROM [TableDifference] WHERE [Type] = 'The type'
+        
 - dbo.ViewTarget (Missing in the source)
 - dbo.ViewSource (Missing in the target)

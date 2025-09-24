@@ -1,0 +1,18 @@
+﻿<Project Sdk="MSBuild.Sdk.SqlProj/3.2.0">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <SqlServerVersion>Sql150</SqlServerVersion>
+
+    <TreatTSqlWarningsAsErrors>True</TreatTSqlWarningsAsErrors>
+
+    <GenerateCreateScript>True</GenerateCreateScript>
+    <IncludeCompositeObjects>False</IncludeCompositeObjects>
+    <CreateNewDatabase>True</CreateNewDatabase>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
+
+</Project>
