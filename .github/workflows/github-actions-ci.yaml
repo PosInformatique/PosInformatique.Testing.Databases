@@ -43,8 +43,7 @@ jobs:
           curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
           sudo apt-get update
           sudo apt-get install -y mssql-tools
-          echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-          source ~/.bashrc
+          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
 
       - name: Run tests
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build
