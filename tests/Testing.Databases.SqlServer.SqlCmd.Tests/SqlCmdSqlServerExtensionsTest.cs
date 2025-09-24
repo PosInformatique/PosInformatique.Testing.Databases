@@ -119,15 +119,18 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 CREATE TABLE ErrorBlabla
                 """);
 
-            server.Master.Invoking(m => m.RunScript(temporaryFile.FileName, settings))
-                .Should().ThrowExactly<SqlCmdException>()
-                .Which.Output.Should().StartWith(
+            var exception = server.Master.Invoking(m => m.RunScript(temporaryFile.FileName, settings))
+                .Should().ThrowExactly<SqlCmdException>();
+
+            exception.Which.Output.Should().StartWith(
                 """
                 GOOOOOO !
                 Changed database context to 'SqlCmdSqlServerExtensionsTest_RunScript_WithErros'.
                 Msg 102, Level 15, State 1,
                 """)
                 .And.EndWith("Incorrect syntax near 'ErrorBlabla'.");
+
+            exception.Which.Message.Should().Be($"Some errors has been occurred when executing the '{temporaryFile.FileName}'.{Environment.NewLine}{Environment.NewLine}-- Output --{Environment.NewLine}{exception.Which.Output}");
 
             var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErros");
 

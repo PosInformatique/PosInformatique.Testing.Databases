@@ -47,7 +47,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
                 if (exitCode != 0)
                 {
-                    throw new SqlCmdException($"Some errors has been occurred when executing the '{fileName}'. Check the {nameof(SqlCmdException.Output)} property of the exception to retrieve the output of the sqlcmd utility.", sqlCmdProcess.Output);
+                    throw new SqlCmdException($"Some errors has been occurred when executing the '{fileName}'.{Environment.NewLine}{Environment.NewLine}-- Output --{Environment.NewLine}{sqlCmdProcess.Output}", sqlCmdProcess.Output);
                 }
             }
         }
