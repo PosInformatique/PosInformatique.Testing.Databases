@@ -47,7 +47,7 @@ jobs:
           source ~/.bashrc
 
       - name: Run tests
-        run: dotnet test PosInformatique.Testing.Databases.sln --configuration Debug --no-build --logger:"trx;LogFileName=test_results.trx"
+        run: dotnet test **/*.Tests.csproj --configuration Release --no-build
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
 
