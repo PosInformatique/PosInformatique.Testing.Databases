@@ -19,10 +19,21 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="database"><paramref name="database"/> where the script will be executed on.</param>
         /// <param name="fileName">T-SQL script to execute on the <paramref name="database"/>.</param>
         /// <param name="settings">Additional settings to run the script.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="database"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="fileName"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="FileNotFoundException">If no file exists with the specified <paramref name="fileName"/> argument.</exception>
         /// <exception cref="SqlCmdException">If an error has been occured when running the T-SQL script. Check the <see cref="SqlCmdException.Output"/>
         /// to retrieve the output result of the script execution.</exception>
         public static void RunScript(this SqlServerDatabase database, string fileName, SqlCmdRunScriptSettings? settings = null)
         {
+            ArgumentNullException.ThrowIfNull(database, nameof(database));
+            ArgumentNullException.ThrowIfNull(fileName, nameof(fileName));
+
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException($"Could not find file '{fileName}'", fileName);
+            }
+
             if (settings is null)
             {
                 settings = new SqlCmdRunScriptSettings();

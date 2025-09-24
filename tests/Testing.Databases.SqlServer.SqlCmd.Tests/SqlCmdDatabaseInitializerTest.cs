@@ -129,5 +129,48 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             // Insert a row which should not be use in other tests.
             await this.database.InsertIntoAsync("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
         }
+
+        [Fact]
+        public void Initialize_WithDatabaseArgumentNull()
+        {
+            var act = () =>
+            {
+                SqlCmdDatabaseInitializer.Initialize(null, default, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("initializer");
+        }
+
+        [Fact]
+        public void Initialize_WithFileNameArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize(null, default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("fileName");
+        }
+
+        [Fact]
+        public void Initialize_WithConnectionStringArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize("The file name", null))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("connectionString");
+        }
+
+        [Fact]
+        public void Initialize_WithFileNotFound()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize("C:/Directory/FileNotFound.sql", "The connection stirng"))
+                .Should().ThrowExactly<FileNotFoundException>()
+                .WithMessage("Could not find file 'C:/Directory/FileNotFound.sql'")
+                .Which.FileName.Should().Be("C:/Directory/FileNotFound.sql");
+        }
     }
 }

@@ -26,9 +26,22 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="fileName">Full path of the T-SQL file to execute.</param>
         /// <param name="connectionString">Connection string to the SQL Server with administrator rights.</param>
         /// <param name="settings">Additionnal settings to run the <c>sqlcmd</c> tool.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="initializer"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="fileName"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="connectionString"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="FileNotFoundException">If no file exists with the specified <paramref name="fileName"/> argument.</exception>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
         public static SqlServerDatabase Initialize(this SqlServerDatabaseInitializer initializer, string fileName, string connectionString, SqlCmdRunScriptSettings? settings = null)
         {
+            ArgumentNullException.ThrowIfNull(initializer, nameof(initializer));
+            ArgumentNullException.ThrowIfNull(fileName, nameof(fileName));
+            ArgumentNullException.ThrowIfNull(connectionString, nameof(connectionString));
+
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException($"Could not find file '{fileName}'", fileName);
+            }
+
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
 
             var server = new SqlServer(connectionString);

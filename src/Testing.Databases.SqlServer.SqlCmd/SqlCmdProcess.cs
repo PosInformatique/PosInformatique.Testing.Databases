@@ -11,9 +11,9 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
     internal sealed class SqlCmdProcess : IDisposable
     {
-        private Process? process;
+        private readonly List<string> output;
 
-        private List<string> output;
+        private Process? process;
 
         private SqlCmdProcess(string arguments)
         {

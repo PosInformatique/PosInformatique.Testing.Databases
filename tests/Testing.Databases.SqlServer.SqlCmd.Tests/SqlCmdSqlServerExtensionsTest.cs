@@ -135,5 +135,38 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             table.Rows.Should().BeEmpty();
         }
+
+        [Fact]
+        public void RunScript_WithDatabaseArgumentNull()
+        {
+            var act = () =>
+            {
+                SqlCmdSqlServerDatabaseExtensions.RunScript(null, default, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("database");
+        }
+
+        [Fact]
+        public void RunScript_WithFileNameArgumentNull()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Master.Invoking(m => m.RunScript(null, default))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("fileName");
+        }
+
+        [Fact]
+        public void RunScript_WithFileNotFound()
+        {
+            var server = new SqlServer(ConnectionString);
+
+            server.Master.Invoking(m => m.RunScript("C:/Directory/FileNotFound.sql", default))
+                .Should().ThrowExactly<FileNotFoundException>()
+                .WithMessage("Could not find file 'C:/Directory/FileNotFound.sql'")
+                .Which.FileName.Should().Be("C:/Directory/FileNotFound.sql");
+        }
     }
 }
