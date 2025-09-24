@@ -46,9 +46,17 @@ jobs:
           echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
 
       - name: Run tests
-        run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build
+        run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "junit;LogFilePath=./TestResults/junit.xml"
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
+
+      - name: Publish tests report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: PosInformatique.Testing.Databases
+          path: ./TestResults/junit.xml
+          reporter: jest-junit
 
   build-samples:
     runs-on: windows-latest
