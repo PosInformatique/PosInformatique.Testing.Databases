@@ -20,8 +20,6 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-        volumes:
-          - /tmp/other_databases_path:/tmp/other_databases_path
     steps:
       - uses: actions/checkout@v4
 
@@ -54,14 +52,14 @@ jobs:
         run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
-          SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path"
+          SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/var/opt/mssql/data/"
   
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: (!cancelled())
         with:
           files: |
-            TestResults/**/*.xml
+            TestResults/**/*.trx
 
   build-samples:
     runs-on: windows-latest
