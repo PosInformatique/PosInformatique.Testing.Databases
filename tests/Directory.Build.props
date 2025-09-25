@@ -12,12 +12,6 @@
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="xunit.v3" />
   </ItemGroup>
-  
-  <!-- Add the support Microsoft Test Platform -->
-  <PropertyGroup>
-    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-  </PropertyGroup>
 
   <!-- Add the default using directive for all tests code -->
   <ItemGroup>

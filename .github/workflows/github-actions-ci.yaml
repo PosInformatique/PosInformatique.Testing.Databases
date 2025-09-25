@@ -60,8 +60,8 @@ jobs:
           dotnet test PosInformatique.Testing.Databases.sln \
           --configuration Release \
           --no-build \
-          --results-directory ./TestResults \
-          -- MSTest.PlatformArgs="--report-trx --report-trx-filename test_results.trx" \
+          --logger "trx;LogFileName=test_results.trx" \
+          --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
           SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path/"
