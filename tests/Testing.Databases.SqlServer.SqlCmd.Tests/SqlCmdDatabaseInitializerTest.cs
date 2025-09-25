@@ -89,11 +89,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         {
             this.initializer.IsInitialized.Should().BeTrue();
 
-            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
+            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()", TestContext.Current.CancellationToken);
             currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
-            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable");
+            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(2);
 
@@ -112,11 +112,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         {
             this.initializer.IsInitialized.Should().BeTrue();
 
-            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()");
+            var currentUser = await this.database.ExecuteQueryAsync("SELECT SUSER_NAME()", TestContext.Current.CancellationToken);
             currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
-            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable");
+            var table = await this.database.ExecuteQueryAsync("SELECT * FROM MyTable", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(2);
 

@@ -227,7 +227,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            await database.ExecuteScriptAsync(@"
+            await database.ExecuteScriptAsync(
+                """
                 CREATE TABLE TableTest
                 (
                     Id          INT         NOT NULL
@@ -242,9 +243,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 UPDATE [TableTest]
                 SET [Id] = [Id] + 1
 
-                GO 10");
+                GO 10
+                """,
+                TestContext.Current.CancellationToken);
 
-            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(1);
 
@@ -258,7 +261,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            await database.ExecuteScriptAsync(@"
+            await database.ExecuteScriptAsync(
+                """
                 CREATE TABLE TableTest
                 (
                     Id          INT         NOT NULL
@@ -274,10 +278,10 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 SET [Id] = [Id] + 1
 
                 GO 10
+                """,
+                TestContext.Current.CancellationToken);
 
-                ");
-
-            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(1);
 
@@ -291,24 +295,28 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            await database.ExecuteScriptAsync(new StringReader(@"
-                CREATE TABLE TableTest
-                (
-                    Id          INT         NOT NULL
-                )
+            await database.ExecuteScriptAsync(
+                new StringReader(
+                    """
+                    CREATE TABLE TableTest
+                    (
+                        Id          INT         NOT NULL
+                    )
 
-                GO
-                GO
+                    GO
+                    GO
 
-                INSERT INTO [TableTest] ([Id]) VALUES (0)
+                    INSERT INTO [TableTest] ([Id]) VALUES (0)
 
-                GO
-                UPDATE [TableTest]
-                SET [Id] = [Id] + 1
+                    GO
+                    UPDATE [TableTest]
+                    SET [Id] = [Id] + 1
 
-                GO 10"));
+                    GO 10
+                    """),
+                TestContext.Current.CancellationToken);
 
-            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(1);
 
@@ -322,27 +330,30 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             var database = server.CreateEmptyDatabase("SqlServerDatabaseExtensionsTest");
 
-            await database.ExecuteScriptAsync(new StringReader(@"
-                CREATE TABLE TableTest
-                (
-                    Id          INT         NOT NULL
-                )
+            await database.ExecuteScriptAsync(
+                new StringReader(
+                    """
+                    CREATE TABLE TableTest
+                    (
+                        Id          INT         NOT NULL
+                    )
 
-                GO
-                GO
+                    GO
+                    GO
 
-                INSERT INTO [TableTest] ([Id]) VALUES (0)
+                    INSERT INTO [TableTest] ([Id]) VALUES (0)
 
-                GO
-                UPDATE [TableTest]
-                SET [Id] = [Id] + 1
+                    GO
+                    UPDATE [TableTest]
+                    SET [Id] = [Id] + 1
 
-                GO 10
+                    GO 10
 
 
-                "));
+                    """),
+                TestContext.Current.CancellationToken);
 
-            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]");
+            var table = await database.ExecuteQueryAsync("SELECT * FROM [TableTest]", TestContext.Current.CancellationToken);
 
             table.Rows.Should().HaveCount(1);
 

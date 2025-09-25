@@ -16,8 +16,8 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         {
             var server = new SqlServer(ConnectionString);
 
-            var sourceDatabase = Task.Run(() => server.Master.RunScript("Testing.Databases.SqlServer.Tests.Source_Create.sql"));
-            var targetDatabase = Task.Run(() => server.Master.RunScript("Testing.Databases.SqlServer.Tests.Target_Create.sql"));
+            var sourceDatabase = Task.Run(() => server.Master.RunScript("Testing.Databases.SqlServer.Tests.Source_Create.sql"), TestContext.Current.CancellationToken);
+            var targetDatabase = Task.Run(() => server.Master.RunScript("Testing.Databases.SqlServer.Tests.Target_Create.sql"), TestContext.Current.CancellationToken);
 
             await Task.WhenAll(sourceDatabase, targetDatabase);
 
@@ -30,7 +30,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 },
             };
 
-            var differences = await SqlServerDatabaseComparer.CompareAsync(server.GetDatabase("Testing.Databases.SqlServer.Tests.Source"), server.GetDatabase("Testing.Databases.SqlServer.Tests.Target"), options);
+            var differences = await SqlServerDatabaseComparer.CompareAsync(server.GetDatabase("Testing.Databases.SqlServer.Tests.Source"), server.GetDatabase("Testing.Databases.SqlServer.Tests.Target"), options, TestContext.Current.CancellationToken);
 
             // StoredProcedures
             differences.StoredProcedures.Should().HaveCount(3);

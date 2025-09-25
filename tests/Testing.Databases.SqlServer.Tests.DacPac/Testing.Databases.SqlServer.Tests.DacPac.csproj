@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Remove="coverlet.collector" />
+    <PackageReference Remove="FluentAssertions" />
+    <PackageReference Remove="xunit.v3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bin\**" />
     <None Remove="bin\**" />
   </ItemGroup>

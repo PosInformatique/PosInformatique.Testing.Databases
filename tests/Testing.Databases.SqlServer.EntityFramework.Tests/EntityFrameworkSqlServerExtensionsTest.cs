@@ -28,7 +28,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
-            var tables = await database.GetTablesAsync();
+            var tables = await database.GetTablesAsync(TestContext.Current.CancellationToken);
 
             tables.Should().HaveCount(1);
 
@@ -56,7 +56,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
-            var tables = await database.GetTablesAsync();
+            var tables = await database.GetTablesAsync(TestContext.Current.CancellationToken);
 
             tables.Should().HaveCount(1);
 
@@ -76,13 +76,13 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             using var dbContext = new DbContextTest(optionsBuilder.Options);
 
             var server = new SqlServer(ConnectionString);
-            await server.DeleteDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest));
+            await server.DeleteDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), TestContext.Current.CancellationToken);
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
-            var tables = await database.GetTablesAsync();
+            var tables = await database.GetTablesAsync(TestContext.Current.CancellationToken);
 
             tables.Should().HaveCount(1);
 
@@ -102,15 +102,15 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             using var dbContext = new DbContextTest(optionsBuilder.Options);
 
             var server = new SqlServer(ConnectionString);
-            var emptyDatabase = await server.CreateEmptyDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest));
+            var emptyDatabase = await server.CreateEmptyDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), default, TestContext.Current.CancellationToken);
 
-            await emptyDatabase.ExecuteNonQueryAsync("CREATE TABLE [MustBeDeleted] ([Id] INT)");
+            await emptyDatabase.ExecuteNonQueryAsync("CREATE TABLE [MustBeDeleted] ([Id] INT)", TestContext.Current.CancellationToken);
 
             var database = await server.CreateDatabaseAsync(nameof(EntityFrameworkSqlServerExtensionsTest), dbContext);
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("EntityFrameworkSqlServerExtensionsTest"));
 
-            var tables = await database.GetTablesAsync();
+            var tables = await database.GetTablesAsync(TestContext.Current.CancellationToken);
 
             tables.Should().HaveCount(1);
 

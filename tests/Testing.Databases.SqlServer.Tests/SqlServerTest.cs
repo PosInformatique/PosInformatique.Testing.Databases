@@ -40,13 +40,13 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB"));
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB'", TestContext.Current.CancellationToken);
             table.Rows.Should().HaveCount(1);
 
             // Delete the database
             server.DeleteDatabase("CreateAndDeleteDB");
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB'", TestContext.Current.CancellationToken);
             table.Rows.Should().BeEmpty();
         }
 
@@ -66,7 +66,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB_WithSpecificDataFileName"));
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'", TestContext.Current.CancellationToken);
             table.Rows.Should().HaveCount(1);
 
             // Check the location of the database
@@ -88,7 +88,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             // Delete the database
             server.DeleteDatabase("CreateAndDeleteDB_WithSpecificDataFileName");
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileName'", TestContext.Current.CancellationToken);
             table.Rows.Should().BeEmpty();
         }
 
@@ -101,13 +101,13 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDBAsync"));
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDBAsync'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDBAsync'", TestContext.Current.CancellationToken);
             table.Rows.Should().HaveCount(1);
 
             // Delete the database
             await server.DeleteDatabaseAsync("CreateAndDeleteDBAsync", CancellationToken.None);
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDBAsync'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDBAsync'", TestContext.Current.CancellationToken);
             table.Rows.Should().BeEmpty();
         }
 
@@ -123,11 +123,11 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 DataFileName = Path.Combine(otherDataPath.Path, "TheSpecificDataFileNameAsync.mdf"),
             };
 
-            var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync", settings);
+            var database = await server.CreateEmptyDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync", settings, TestContext.Current.CancellationToken);
 
             database.ConnectionString.Should().Be(ConnectionStrings.Get("CreateAndDeleteDB_WithSpecificDataFileNameAsync"));
 
-            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
+            var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'", TestContext.Current.CancellationToken);
             table.Rows.Should().HaveCount(1);
 
             // Check the location of the database
@@ -147,9 +147,9 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
             // Delete the database
-            await server.DeleteDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync");
+            await server.DeleteDatabaseAsync("CreateAndDeleteDB_WithSpecificDataFileNameAsync", TestContext.Current.CancellationToken);
 
-            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
+            table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'", TestContext.Current.CancellationToken);
             table.Rows.Should().BeEmpty();
         }
     }
