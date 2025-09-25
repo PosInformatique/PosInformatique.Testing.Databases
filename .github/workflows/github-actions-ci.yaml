@@ -56,10 +56,7 @@ jobs:
           docker exec --user root $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /tmp/other_databases_path
 
       - name: Run tests
-        run: dotnet run --project tests/PosInformatique.Testing.Databases/PosInformatique.Testing.Databases.csproj -- \
-          --report-trx \
-          --report-trx-filename test_results.trx \
-          --results-directory ./TestResults
+        run: dotnet test PosInformatique.Testing.Databases.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
           SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path/"
