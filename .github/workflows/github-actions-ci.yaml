@@ -57,7 +57,7 @@ jobs:
 
       - name: Run tests
         run: | 
-          dotnet test PosInformatique.Testing.Databases.sln \ 
+          dotnet test PosInformatique.Testing.Databases.sln \
           --configuration Release \
           --no-build \
           --logger "trx;LogFileName=test_results.trx" \
