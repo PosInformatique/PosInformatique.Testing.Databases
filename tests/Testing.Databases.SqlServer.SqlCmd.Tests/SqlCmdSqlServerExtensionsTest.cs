@@ -82,7 +82,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             server.Master.RunScript(temporaryFile.FileName, settings);
 
-            var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript");
+            var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithVariables");
 
             var table = database.ExecuteQuery("SELECT * FROM MyTable");
 
@@ -90,17 +90,17 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         }
 
         [Fact]
-        public void RunScript_WithErros()
+        public void RunScript_WithErrors()
         {
             var server = new SqlServer(ConnectionString);
 
-            server.DeleteDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErros");
+            server.DeleteDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErrors");
 
             var settings = new SqlCmdRunScriptSettings()
             {
                 Variables =
                 {
-                    { "DatabaseName", "SqlCmdSqlServerExtensionsTest_RunScript_WithErros" },
+                    { "DatabaseName", "SqlCmdSqlServerExtensionsTest_RunScript_WithErrors" },
                     { "TableName", "MyTable" },
                 },
             };
@@ -125,14 +125,14 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             exception.Which.Output.Should().StartWith(
                 """
                 GOOOOOO !
-                Changed database context to 'SqlCmdSqlServerExtensionsTest_RunScript_WithErros'.
+                Changed database context to 'SqlCmdSqlServerExtensionsTest_RunScript_WithErrors'.
                 Msg 102, Level 15, State 1,
                 """)
                 .And.EndWith("Incorrect syntax near 'ErrorBlabla'.");
 
             exception.Which.Message.Should().Be($"Some errors has been occurred when executing the '{temporaryFile.FileName}'.{Environment.NewLine}{Environment.NewLine}-- Output --{Environment.NewLine}{exception.Which.Output}");
 
-            var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErros");
+            var database = server.GetDatabase("SqlCmdSqlServerExtensionsTest_RunScript_WithErrors");
 
             var table = database.ExecuteQuery("SELECT * FROM sys.tables");
 
