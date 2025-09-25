@@ -16,7 +16,7 @@
   <!-- Add the support Microsoft Test Platform -->
   <PropertyGroup>
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
-    <TestingPlatformDotnetTestSupport>false</TestingPlatformDotnetTestSupport>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
   </PropertyGroup>
 
   <!-- Add the default using directive for all tests code -->
