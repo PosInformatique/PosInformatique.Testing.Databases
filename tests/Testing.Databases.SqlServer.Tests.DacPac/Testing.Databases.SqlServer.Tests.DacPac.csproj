@@ -13,6 +13,8 @@
   <ItemGroup>
     <PackageReference Remove="coverlet.collector" />
     <PackageReference Remove="FluentAssertions" />
+    <PackageReference Remove="Microsoft.NET.Test.Sdk" />
+    <PackageReference Remove="xunit.runner.visualstudio" />
     <PackageReference Remove="xunit.v3" />
   </ItemGroup>
 
