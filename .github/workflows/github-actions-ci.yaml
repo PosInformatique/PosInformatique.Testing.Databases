@@ -20,9 +20,14 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-
+        volumes:
+          - /var/opt/mssql/customdbs:/var/opt/mssql/customdbs
     steps:
       - uses: actions/checkout@v4
+
+      - name: Prepare SQL custom dir
+        run: |
+          docker exec $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /var/opt/mssql/customdbs
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
