@@ -114,7 +114,12 @@ namespace PosInformatique.Testing.Databases.SqlServer
             {
                 if (!string.IsNullOrEmpty(settings.DataFileName))
                 {
+                    var logFileName = Path.Combine(
+                        Path.GetDirectoryName(settings.DataFileName),
+                        $"{Path.GetFileNameWithoutExtension(settings.DataFileName)}_log.ldf");
+
                     sql.Append($"ON (NAME = '{name}', FILENAME = '{settings.DataFileName}')");
+                    sql.Append($"LOG ON (NAME = '{name}_log', FILENAME = '{logFileName}')");
                 }
             }
 

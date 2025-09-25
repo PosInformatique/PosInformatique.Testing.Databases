@@ -81,7 +81,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             result.Rows[0]["physical_name"].Should().Be(Path.Combine(otherDataPath.Path, "TheSpecificDataFileName.mdf"));
             result.Rows[0]["type_desc"].Should().Be("ROWS");
 
-            result.Rows[1]["name"].Should().Be("TheSpecificDataFileName_log");
+            result.Rows[1]["name"].Should().Be("CreateAndDeleteDB_WithSpecificDataFileName_log");
             result.Rows[1]["physical_name"].Should().Be(Path.Combine(otherDataPath.Path, "TheSpecificDataFileName_log.ldf"));
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
@@ -142,7 +142,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             result.Rows[0]["physical_name"].Should().Be(Path.Combine(otherDataPath.Path, "TheSpecificDataFileNameAsync.mdf"));
             result.Rows[0]["type_desc"].Should().Be("ROWS");
 
-            result.Rows[1]["name"].Should().Be("TheSpecificDataFileNameAsync_log");
+            result.Rows[1]["name"].Should().Be("CreateAndDeleteDB_WithSpecificDataFileNameAsync_log");
             result.Rows[1]["physical_name"].Should().Be(Path.Combine(otherDataPath.Path, "TheSpecificDataFileNameAsync_log.ldf"));
             result.Rows[1]["type_desc"].Should().Be("LOG");
 
