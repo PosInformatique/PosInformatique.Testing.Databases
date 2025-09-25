@@ -36,12 +36,6 @@ jobs:
       - name: Build solution
         run: dotnet build PosInformatique.Testing.Databases.sln --configuration Release --no-restore
 
-      - name: Restore samples
-        run: dotnet restore samples/PosInformatique.Testing.Databases.Samples.sln
-
-      - name: Build samples
-        run: dotnet build samples/PosInformatique.Testing.Databases.Samples.sln --configuration Debug --no-restore
-
       - name: Install SQL Server command-line tools
         run: |
           curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
@@ -81,7 +75,7 @@ jobs:
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
 
-      - name: Restore NuGet packages
+      - name: Restore NuGet packages of the samples
         run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
 
       - name: Add msbuild to PATH
