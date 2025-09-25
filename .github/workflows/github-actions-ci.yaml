@@ -56,7 +56,8 @@ jobs:
           docker exec --user root $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /tmp/other_databases_path
 
       - name: Run tests
-        run: dotnet test PosInformatique.Testing.Databases.sln \ 
+        run: | 
+          dotnet test PosInformatique.Testing.Databases.sln \ 
           --configuration Release \
           --no-build \
           --logger "trx;LogFileName=test_results.trx" \
