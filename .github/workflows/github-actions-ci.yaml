@@ -27,7 +27,7 @@ jobs:
 
       - name: Prepare SQL custom dir
         run: |
-          docker exec $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /var/opt/mssql/customdbs
+          docker exec --user root $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /var/opt/mssql/customdbs
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
