@@ -130,9 +130,6 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             var table = await server.Master.ExecuteQueryAsync("SELECT * FROM [sys].[databases] WHERE [name] = 'CreateAndDeleteDB_WithSpecificDataFileNameAsync'");
             table.Rows.Should().HaveCount(1);
 
-            var debug = string.Join(";", Directory.GetFiles(otherDataPath.Path));
-            debug.Should().BeNull();
-
             // Check the location of the database
             File.Exists(Path.Combine(otherDataPath.Path, "TheSpecificDataFileNameAsync.mdf")).Should().BeTrue();
             File.Exists(Path.Combine(otherDataPath.Path, "TheSpecificDataFileNameAsync_log.ldf")).Should().BeTrue();
