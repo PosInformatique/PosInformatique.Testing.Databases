@@ -5,7 +5,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <Description>Testing.Databases.SqlServer.SqlCmd is a library that contains a set of tools for testing Data Access Layer using SQLCMD tool to initialize the database with a SQL script.</Description>
-    <PackageTags>testing unittest sqlcmd sqlserver repository tdd dataaccesslayer</PackageTags>
+    <PackageTags>testing;unittest;sqlcmd;sqlserver;repository;tdd;dataaccesslayer</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
