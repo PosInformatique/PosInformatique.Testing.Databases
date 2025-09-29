@@ -12,7 +12,7 @@ on:
         type: string
         description: The version suffix of the library (for example rc.1)
 
-run-name: ${{ inputs.VersionPrefix }}-${{ inputs.VersionSuffix }}
+run-name: ${{ inputs.VersionSuffix && format('{0}-{1}', inputs.VersionPrefix, inputs.VersionSuffix) || inputs.VersionPrefix }}
 
 jobs:
   build:
