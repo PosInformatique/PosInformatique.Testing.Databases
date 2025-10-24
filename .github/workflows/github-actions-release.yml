@@ -7,12 +7,12 @@ on:
         type: string
         description: The version of the library
         required: true
-        default: 2.3.0
+        default: 3.0.0
       VersionSuffix:
         type: string
         description: The version suffix of the library (for example rc.1)
 
-run-name: ${{ inputs.VersionPrefix }}-${{ inputs.VersionSuffix }}
+run-name: ${{ inputs.VersionSuffix && format('{0}-{1}', inputs.VersionPrefix, inputs.VersionSuffix) || inputs.VersionPrefix }}
 
 jobs:
   build:
@@ -32,6 +32,13 @@ jobs:
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
           "src/Testing.Databases.SqlServer/Testing.Databases.SqlServer.csproj"
 
+      - name: Build Testing.Databases.SqlServer.Dac
+        run: dotnet pack 
+          --property:Configuration=Release
+          --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
+          --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
+          "src/Testing.Databases.SqlServer.Dac/Testing.Databases.SqlServer.Dac.csproj"
+
       - name: Build Testing.Databases.SqlServer.EntityFramework
         run: dotnet pack 
           --property:Configuration=Release
@@ -39,12 +46,12 @@ jobs:
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
           "src/Testing.Databases.SqlServer.EntityFramework/Testing.Databases.SqlServer.EntityFramework.csproj"
 
-      - name: Build Testing.Databases.SqlServer.Dac
+      - name: Build Testing.Databases.SqlServer.SqlCmd
         run: dotnet pack 
           --property:Configuration=Release
           --property:VersionPrefix=${{ github.event.inputs.VersionPrefix }}
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
-          "src/Testing.Databases.SqlServer.Dac/Testing.Databases.SqlServer.Dac.csproj"
+          "src/Testing.Databases.SqlServer.SqlCmd/Testing.Databases.SqlServer.SqlCmd.csproj"
 
       - name: Publish the package to nuget.org
         run: dotnet nuget push "src/**/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json

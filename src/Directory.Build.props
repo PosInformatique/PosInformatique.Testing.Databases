@@ -11,6 +11,13 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
+      3.0.0
+      - Add new PosInformatique.Testing.Databases.SqlCmd to initialize database using sqlcmd utility.
+      - For DACPAC deployment or database creation it is now possible to specify the location of the data and log files.
+
+      2.3.0
+      - Add the support to compare the seed and increment for the IDENTITY columns
+
       2.2.0
       - Add SqlServerDatabase.ClearDataAsync() method.
       - Add SqlServer.CreateDatabase() method to create database from an Entity Framework DbContext.
@@ -42,7 +49,7 @@
   </PropertyGroup>
   
   <!-- Add the InternalsVisibleToAttribute for the tests -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 	    <_Parameter1>$(AssemblyName).Tests</_Parameter1>
     </AssemblyAttribute>

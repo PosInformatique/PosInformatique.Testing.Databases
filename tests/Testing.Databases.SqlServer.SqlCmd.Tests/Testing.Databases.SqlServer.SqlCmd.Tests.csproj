@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="SqlCmdDatabaseInitializerTest.Script.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Testing.Databases.SqlServer.SqlCmd\Testing.Databases.SqlServer.SqlCmd.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Testing.Databases.SqlServer.Shared.Tests\Testing.Databases.SqlServer.Shared.Tests.projitems" Label="Shared" />
+
+</Project>

@@ -1,3 +1,6 @@
 ﻿[*.cs]
 
 ### StyleCop
+
+# SA1118: Parameter should not span multiple lines
+dotnet_diagnostic.SA1118.severity = none

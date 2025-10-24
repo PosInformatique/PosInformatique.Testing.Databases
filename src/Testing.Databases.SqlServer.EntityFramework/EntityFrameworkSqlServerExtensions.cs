@@ -21,9 +21,16 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="server"><see cref="SqlServer"/> instance where the database will be created.</param>
         /// <param name="name">Name of the database to create.</param>
         /// <param name="context"><see cref="DbContext"/> which represents the database to create.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="server"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="name"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="context"/> argument is <see langword="null"/>.</exception>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which represents the deployed database.</returns>
         public static SqlServerDatabase CreateDatabase(this SqlServer server, string name, DbContext context)
         {
+            Guard.ThrowIfNull(server, nameof(server));
+            Guard.ThrowIfNull(name, nameof(name));
+            Guard.ThrowIfNull(context, nameof(context));
+
             var database = server.GetDatabase(name);
 
             context.Database.SetConnectionString(database.ConnectionString);
@@ -41,9 +48,16 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="server"><see cref="SqlServer"/> instance where the database will be created.</param>
         /// <param name="name">Name of the database to create.</param>
         /// <param name="context"><see cref="DbContext"/> which represents the database to create.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="server"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="name"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="context"/> argument is <see langword="null"/>.</exception>
         /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains an instance of the <see cref="SqlServerDatabase"/> that represents the deployed database.</returns>
         public static async Task<SqlServerDatabase> CreateDatabaseAsync(this SqlServer server, string name, DbContext context)
         {
+            Guard.ThrowIfNull(server, nameof(server));
+            Guard.ThrowIfNull(name, nameof(name));
+            Guard.ThrowIfNull(context, nameof(context));
+
             var database = server.GetDatabase(name);
 
             context.Database.SetConnectionString(database.ConnectionString);

@@ -10,10 +10,10 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
     /// <summary>
     /// Initializer used to initialize the database for the tests.
-    /// Call the <see cref="Initialize(SqlServerDatabaseInitializer, string, string)"/> method to initialize a database from
+    /// Call the <see cref="Initialize(SqlServerDatabaseInitializer, string, string, SqlServerDacDeploymentSettings?)"/> method to initialize a database from
     /// a DACPAC file.
     /// </summary>
-    /// <remarks>The database will be created the call of the <see cref="Initialize(string, string)"/> method. For the next calls
+    /// <remarks>The database will be created the call of the <see cref="Initialize(SqlServerDatabaseInitializer, string, string, SqlServerDacDeploymentSettings?)"/> method. For the next calls
     /// the database is preserved but all the data are deleted.</remarks>
     public static class SqlServerDacDatabaseInitializer
     {
@@ -23,9 +23,23 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// <param name="initializer"><see cref="SqlServerDatabaseInitializer"/> which the initialization will be perform on.</param>
         /// <param name="packageName">Full path of the DACPAC file.</param>
         /// <param name="connectionString">Connection string to the SQL Server with administrator rights.</param>
+        /// <param name="settings">Additionnal settings for the DACPAC <paramref name="packageName"/> to deploy.</param>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="initializer"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="packageName"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">If the specified <paramref name="connectionString"/> argument is <see langword="null"/>.</exception>
+        /// <exception cref="FileNotFoundException">If no file exists with the specified <paramref name="packageName"/> argument.</exception>
         /// <returns>An instance of the <see cref="SqlServerDatabase"/> which allows to perform query to initialize the data.</returns>
-        public static SqlServerDatabase Initialize(this SqlServerDatabaseInitializer initializer, string packageName, string connectionString)
+        public static SqlServerDatabase Initialize(this SqlServerDatabaseInitializer initializer, string packageName, string connectionString, SqlServerDacDeploymentSettings? settings = null)
         {
+            Guard.ThrowIfNull(initializer, nameof(initializer));
+            Guard.ThrowIfNull(packageName, nameof(packageName));
+            Guard.ThrowIfNull(connectionString, nameof(connectionString));
+
+            if (!File.Exists(packageName))
+            {
+                throw new FileNotFoundException($"Could not find file '{packageName}'", packageName);
+            }
+
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
 
             var server = new SqlServer(connectionString);
@@ -34,7 +48,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
             if (!initializer.IsInitialized)
             {
-                database = server.DeployDacPackage(packageName, connectionStringBuilder.InitialCatalog);
+                database = server.DeployDacPackage(packageName, connectionStringBuilder.InitialCatalog, settings);
 
                 initializer.IsInitialized = true;
             }

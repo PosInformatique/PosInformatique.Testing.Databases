@@ -11,7 +11,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
     [Collection("PosInformatique.Testing.Databases.SqlServer.Tests")]
     public class EntityFrameworkDatabaseInitializerExtensionsTest : IClassFixture<SqlServerDatabaseInitializer>
     {
-        private const string ConnectionString = $"Data Source=(localDB)\\posinfo-tests; Initial Catalog={nameof(EntityFrameworkDatabaseInitializerExtensionsTest)}; Integrated Security=True";
+        private static readonly string ConnectionString = ConnectionStrings.Get(nameof(EntityFrameworkDatabaseInitializerExtensionsTest));
 
         private readonly SqlServerDatabase database;
 
@@ -36,7 +36,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         public void Test1()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
@@ -57,7 +57,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
         public void Test2()
         {
             var currentUser = this.database.ExecuteQuery("SELECT SUSER_NAME()");
-            currentUser.Rows[0][0].Should().Be($"{Environment.UserDomainName}\\{Environment.UserName}");
+            currentUser.Rows[0][0].Should().Be(ConnectionStrings.ExtractUserName(ConnectionString));
 
             // Check the constructor has been called
             var table = this.database.ExecuteQuery("SELECT * FROM MyTable");
@@ -72,6 +72,28 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
 
             // Insert a row which should not be use in other tests.
             this.database.InsertInto("MyTable", new { Id = 99, Name = "Should not be here for the next test" });
+        }
+
+        [Fact]
+        public void Initialize_WithInitializerArgumentNull()
+        {
+            var act = () =>
+            {
+                EntityFrameworkDatabaseInitializerExtensions.Initialize(null, default);
+            };
+
+            act.Should().ThrowExactly<ArgumentNullException>()
+               .WithParameterName("initializer");
+        }
+
+        [Fact]
+        public void Initialize_WithFileNameArgumentNull()
+        {
+            var initializer = new SqlServerDatabaseInitializer();
+
+            initializer.Invoking(i => i.Initialize(null))
+                .Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("context");
         }
 
         private sealed class DbContextTest : DbContext

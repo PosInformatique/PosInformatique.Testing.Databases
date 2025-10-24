@@ -8,6 +8,66 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          SA_PASSWORD: "P@ssw0rd12345!"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        volumes:
+          - /tmp/other_databases_path:/tmp/other_databases_path
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore PosInformatique.Testing.Databases.sln
+
+      - name: Build solution
+        run: dotnet build PosInformatique.Testing.Databases.sln --configuration Release --no-restore
+
+      - name: Install SQL Server command-line tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update
+          sudo apt-get install -y mssql-tools
+          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
+
+      - name: Prepare SQL databases directory
+        run: |
+          # Give the rights to the 'mssql' user to read/write in the /tmp/other_databases_path directory.
+          docker exec --user root $(docker ps -qf "ancestor=mcr.microsoft.com/mssql/server:2022-latest") chown -R mssql:mssql /tmp/other_databases_path
+
+      - name: Run tests
+        run: |
+          dotnet test PosInformatique.Testing.Databases.sln \
+          --configuration Release \
+          --no-build \
+          --logger "trx;LogFileName=test_results.trx" \
+          --results-directory ./TestResults
+        env:
+          SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
+          SQL_SERVER_UNIT_TESTS_OTHER_DATA_PATH: "/tmp/other_databases_path/"
+  
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: (!cancelled())
+        with:
+          files: |
+            TestResults/**/*.trx
+
+  build-samples:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,35 +75,11 @@ jobs:
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
 
-      - name: Restore NuGet packages
-        run: nuget restore PosInformatique.Testing.Databases.sln
-      
+      - name: Restore NuGet packages of the samples
+        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Build
-        run: msbuild "PosInformatique.Testing.Databases.sln" /p:Configuration=Debug
-        
-      - name: Restore NuGet packages
-        run: nuget restore "samples/PosInformatique.Testing.Databases.Samples.sln"
-
-      - name: Build the samples
+      - name: Build samples with Visual Studio
         run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
-
-      - name: Creates the LocalDB for the tests
-        shell: cmd
-        run: SqlLocalDB create posinfo-tests
-
-      - name: Creates the SQL Login service accounts for the tests
-        shell: cmd
-        run: sqlcmd -S "(localDB)\posinfo-tests" -Q "IF NOT EXISTS (SELECT 1 FROM [sys].[server_principals] WHERE [Name] = 'ServiceAccountLogin') CREATE LOGIN [ServiceAccountLogin] WITH PASSWORD = 'P@ssw0rd'"
-
-      # Use this fix https://github.com/microsoft/vstest-action/issues/31#issuecomment-2159463764
-      - name: Test with the dotnet CLI
-        uses: rusty-bender/vstest-action@main
-        with:
-          searchFolder: .\
-          testAssembly: |
-            /tests/**/*tests.dll
-            !./**/*TestAdapter.dll
-            !./**/obj/**

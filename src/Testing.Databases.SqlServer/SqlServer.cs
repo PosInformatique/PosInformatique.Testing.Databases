@@ -6,6 +6,7 @@
 
 namespace PosInformatique.Testing.Databases.SqlServer
 {
+    using System.Text;
     using Microsoft.Data.SqlClient;
 
     /// <summary>
@@ -42,11 +43,12 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// If the database already exists, it will be delete.
         /// </summary>
         /// <param name="name">Name of the database to create.</param>
+        /// <param name="settings">Settings of the database to create.</param>
         /// <returns>An instance of <see cref="SqlServerDatabase"/> which allows to execute SQL commands/queries.</returns>
-        public SqlServerDatabase CreateEmptyDatabase(string name)
+        public SqlServerDatabase CreateEmptyDatabase(string name, SqlDatabaseCreationSettings? settings = null)
         {
             this.DeleteDatabase(name);
-            this.Master.ExecuteNonQuery($"CREATE DATABASE [{name}]");
+            this.Master.ExecuteNonQuery(BuildCreateDatabaseSqlCommand(name, settings));
 
             return this.GetDatabase(name);
         }
@@ -56,12 +58,13 @@ namespace PosInformatique.Testing.Databases.SqlServer
         /// If the database already exists, it will be delete.
         /// </summary>
         /// <param name="name">Name of the database to create.</param>
+        /// <param name="settings">Settings of the database to create.</param>
         /// <param name="cancellationToken"><see cref="CancellationToken"/> used to cancel the asynchronous operation.</param>
         /// <returns>A <see cref="Task"/> which represents the asynchronous operation and contains an instance of <see cref="SqlServerDatabase"/> which allows to execute SQL commands/queries.</returns>
-        public async Task<SqlServerDatabase> CreateEmptyDatabaseAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<SqlServerDatabase> CreateEmptyDatabaseAsync(string name, SqlDatabaseCreationSettings? settings = null, CancellationToken cancellationToken = default)
         {
             await this.DeleteDatabaseAsync(name, cancellationToken);
-            await this.Master.ExecuteNonQueryAsync($"CREATE DATABASE [{name}]", cancellationToken);
+            await this.Master.ExecuteNonQueryAsync(BuildCreateDatabaseSqlCommand(name, settings), cancellationToken);
 
             return this.GetDatabase(name);
         }
@@ -101,6 +104,26 @@ namespace PosInformatique.Testing.Databases.SqlServer
             databaseConnectionString.InitialCatalog = name;
 
             return new SqlServerDatabase(this, databaseConnectionString.ToString());
+        }
+
+        private static string BuildCreateDatabaseSqlCommand(string name, SqlDatabaseCreationSettings? settings)
+        {
+            var sql = new StringBuilder($"CREATE DATABASE [{name}]");
+
+            if (settings is not null)
+            {
+                if (!string.IsNullOrEmpty(settings.DataFileName))
+                {
+                    var logFileName = Path.Combine(
+                        Path.GetDirectoryName(settings.DataFileName),
+                        $"{Path.GetFileNameWithoutExtension(settings.DataFileName)}_log.ldf");
+
+                    sql.Append($"ON (NAME = '{name}', FILENAME = '{settings.DataFileName}')");
+                    sql.Append($"LOG ON (NAME = '{name}_log', FILENAME = '{logFileName}')");
+                }
+            }
+
+            return sql.ToString();
         }
     }
 }

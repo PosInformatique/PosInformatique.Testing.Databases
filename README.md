@@ -1,8 +1,11 @@
 ﻿# PosInformatique.Testing.Databases
 
-[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer?label=PosInformatique.Testing.Databases.SqlServer)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer)
-[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.Dac?label=PosInformatique.Testing.Databases.SqlServer.Dac)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac)
-[![NuGet Version](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.EntityFramework?label=PosInformatique.Testing.Databases.SqlServer.EntityFramework)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework)
+| Package | NuGet |
+|---------|-------|
+| PosInformatique.Testing.Databases.SqlServer | [![NuGet](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer) |
+| PosInformatique.Testing.Databases.SqlServer.Dac | [![NuGet](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.Dac)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac) |
+| PosInformatique.Testing.Databases.SqlServer.EntityFramework | [![NuGet](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.EntityFramework)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) |
+| PosInformatique.Testing.Databases.SqlServer.SqlCmd | [![NuGet](https://img.shields.io/nuget/v/PosInformatique.Testing.Databases.SqlServer.SqlCmd)](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) |
 
 **PosInformatique.Testing.Databases** is a set of tools for testing databases.
 It simplifies writing and executing tests, helping ensure your database and data access code are reliable and bug-free.
@@ -19,7 +22,10 @@ You can also use this tools to create and run integration tests with the
 [Integration tests in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0)
 approach.
 
-Since the version 2.0.0 this tools provide a comparer to compare the schema of two SQL databases.
+### Main release improvements
+- v2.0: This tools provide a comparer to compare the schema of two SQL databases.
+- v3.0: Add new [PosInformatique.Testing.Databases.SqlServer.SqlCmd](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) which allows
+to deploy database using a T-SQL script with the SQL Server [sqlcmd utility](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-utility).
 
 ## 💡 The approach of these tools
 
@@ -46,9 +52,10 @@ Before each test (`TestMethod` or `Fact` methods):
 
 1. Create an empty database with the SQL schema of the application.
 
-   There are two ways to do this:
-   - Deploy a DACPAC file (built by a SQL Server Database project).
-   - Or create a database from a `DbContext` using Entity Framework.
+   There are three ways to do this:
+   - Deploy a DACPAC file (built by a SQL Server Database project) using [PosInformatique.Testing.Databases.SqlServer.Dac](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac) library.
+   - Create a database from a `DbContext` using Entity Framework using [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) library.
+   - Or create a database since a T-SQL script file using [PosInformatique.Testing.Databases.SqlServer.SqlCmd](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) library
 
 2. Fill the tables with the sample data needed.
 
@@ -69,19 +76,21 @@ To perform tests of a database migration, the approach is straightforward and re
 
 2. Create a secondary database with the targeted schema (*target database*).
 
-   There are two ways to do this:
-   - Deploy a DACPAC file (built by a SQL Server Database project).
-   - Or create a database from a `DbContext` using Entity Framework.
+   There are three ways to do this:
+   - Deploy a DACPAC file (built by a SQL Server Database project) using [PosInformatique.Testing.Databases.SqlServer.Dac](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.Dac) library.
+   - Create a database from a `DbContext` using Entity Framework using [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) library.
+   - Or create a database since a T-SQL script file using [PosInformatique.Testing.Databases.SqlServer.SqlCmd](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) library
 
 3. Execute your database *migration code* on the *initial database*.
 
    Your database *migration code* can be:
    - A simple SQL script file.
    - An Entity Framework migration sets executed with the `MigrateAsync()` method.
+   - Or any other way that you usually use to migrate the schema of your database.
 
 4. Compare the two databases schemas (*initial* and *target*).
 
-   If the database *migration code* works, the *initial* and *target* must have the same schema.
+   If the database *migration code* works, the *initial* and *target* must have **EXACTLY** the same schema.
 
 > **NB**: The initial database is not necessarily empty. It can be at a specific schema version X if we want to test the migration from version X to Y.
 
@@ -118,6 +127,10 @@ The [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosIn
 
 - [PosInformatique.Testing.Databases.SqlServer.EntityFramework](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.EntityFramework) NuGet package which contains:
   - Tools to deploy a SQL Server database using a DbContext.
+
+- [PosInformatique.Testing.Databases.SqlServer.SqlCmd](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) NuGet package which contains:
+  - Tools to execute T-SQL script using the SQL Server [sqlcmd utility](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-utility). This script can be use to deploy a 
+	SQL Server database.
 
 ## 🚀 Samples / Demo
 
@@ -160,3 +173,34 @@ For Entity Framework migration:
   - [Add the NuGet packages](./docs/WriteDatabaseMigrationTest.md#add-the-nuget-packages)
   - [Write test to check the migration of the database](./docs/WriteDatabaseMigrationTest.md#write-test-to-check-the-migration-of-the-database)
   - [Check the report details of the `SqlServerDatabaseComparer` tool](./docs/WriteDatabaseMigrationTest.md#check-the-report-details-of-the-sqlserverdatabasecomparer-tool)
+
+## 📦 NuGet package dependency versions
+
+These tools rely on a minimal set of NuGet dependencies to ensure broad compatibility.  
+They are built for **.NET Core 6.0** and **.NET Framework 4.6.2** but also work seamlessly with newer versions of .NET:
+
+- .NET Framework 4.6.2  
+- .NET Framework 4.7
+- .NET Framework 4.7.1
+- .NET Framework 4.7.2  
+- .NET Framework 4.8
+- .NET Framework 4.8.1
+- .NET Core 6.0  
+- .NET Core 7.0  
+- .NET Core 8.0  
+- .NET Core 9.0  
+- .NET Core 10.0  
+
+### Dependency versions
+
+All NuGet packages depend on **low baseline versions** of Microsoft libraries to remain compatible with any modern version:
+
+- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/microsoft.data.sqlclient) >= 5.0.1  
+- [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/microsoft.entityframeworkcore) >= 6.0.0  
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/microsoft.entityframeworkcore.sqlserver) >= 6.0.0  
+- [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/microsoft.entityframeworkcore.tools) >= 6.0.0  
+- [Microsoft.SqlServer.DacFx](https://www.nuget.org/packages/microsoft.sqlserver.dacfx) >= 162.1.172  
+
+### Recommendation
+
+We recommend using the **latest versions** of these libraries in your own projects to benefit from the most recent features, performance improvements, and security fixes.
