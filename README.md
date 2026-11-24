@@ -177,28 +177,23 @@ For Entity Framework migration:
 ## 📦 NuGet package dependency versions
 
 These tools rely on a minimal set of NuGet dependencies to ensure broad compatibility.  
-They are built for **.NET Core 6.0** and **.NET Framework 4.6.2** but also work seamlessly with newer versions of .NET:
+The library is now compatible with **.NET 8.0 and later versions**, including **Entity Framework Core 8.0 and later**:
 
-- .NET Framework 4.6.2  
-- .NET Framework 4.7
-- .NET Framework 4.7.1
-- .NET Framework 4.7.2  
-- .NET Framework 4.8
-- .NET Framework 4.8.1
-- .NET Core 6.0  
-- .NET Core 7.0  
-- .NET Core 8.0  
-- .NET Core 9.0  
-- .NET Core 10.0  
+- .NET 8.0
+- .NET 9.0
+- .NET 10.0
+- .NET 11.0
+
+The `Dac` and `SqlCmd` packages also provide a target for .NET Framework 4.6.2.
 
 ### Dependency versions
 
 All NuGet packages depend on **low baseline versions** of Microsoft libraries to remain compatible with any modern version:
 
-- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/microsoft.data.sqlclient) >= 5.0.1  
-- [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/microsoft.entityframeworkcore) >= 6.0.0  
-- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/microsoft.entityframeworkcore.sqlserver) >= 6.0.0  
-- [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/microsoft.entityframeworkcore.tools) >= 6.0.0  
+- [Microsoft.Data.SqlClient](https://www.nuget.org/packages/microsoft.data.sqlclient) >= 5.1.3  
+- [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/microsoft.entityframeworkcore) >= 8.0.0  
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/microsoft.entityframeworkcore.sqlserver) >= 8.0.0  
+- [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/microsoft.entityframeworkcore.tools) >= 8.0.0  
 - [Microsoft.SqlServer.DacFx](https://www.nuget.org/packages/microsoft.sqlserver.dacfx) >= 162.1.172  
 
 ### Recommendation

@@ -1,5 +1,7 @@
 # Write tests to test the persistence layer
 
+> **Requirement:** The library supports **.NET 8.0 and later versions**, including Entity Framework Core 8.0 and later.
+
 This section explain how to write the tests to test a persistence layer. The code samples
 used here can be found in the [PosInformatique.Testing.Databases.Samples](../samples/PosInformatique.Testing.Databases.Samples.sln) solution inside the `samples` directory of the repository.
 
