@@ -3,18 +3,15 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="AwesomeAssertions" Version="9.6.0" />
     <PackageVersion Include="AwesomeAssertions.DataSets" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" />
-    <PackageVersion Include="PosInformatique.Testing.Databases.SqlServer.EntityFramework" Version="2.3.0-rc.1" />
+    <PackageVersion Include="PosInformatique.Testing.Databases.SqlServer.EntityFramework" Version="4.0.0-rc.1" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
-    <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.3" />
   </ItemGroup>
 </Project>
