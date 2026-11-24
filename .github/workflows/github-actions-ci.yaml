@@ -56,7 +56,10 @@ jobs:
           dotnet test PosInformatique.Testing.Databases.slnx \
           --configuration Release \
           --no-build \
-          --logger "trx;LogFileName=test_results.trx" \
+          --coverage \
+          --coverage-output-format cobertura \
+          --coverage-settings CodeCoverage.runsettings \
+          --report-trx \
           --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
