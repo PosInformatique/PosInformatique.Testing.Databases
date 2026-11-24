@@ -23,10 +23,10 @@ jobs:
         volumes:
           - /tmp/other_databases_path:/tmp/other_databases_path
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 8.0.x
 
@@ -70,16 +70,16 @@ jobs:
   build-samples:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
+        uses: nuget/setup-nuget@v4
 
       - name: Restore NuGet packages of the samples
         run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       - name: Build samples with Visual Studio
         run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
