@@ -38,11 +38,13 @@ jobs:
 
       - name: Install SQL Server command-line tools
         run: |
-          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          set -o pipefail
+          . /etc/os-release
+          curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+          curl -fsSL "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/prod.list" | sudo tee /etc/apt/sources.list.d/msprod.list > /dev/null
           sudo apt-get update
-          sudo apt-get install -y mssql-tools
-          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18
+          echo "/opt/mssql-tools18/bin" >> "$GITHUB_PATH"
 
       - name: Prepare SQL databases directory
         run: |
