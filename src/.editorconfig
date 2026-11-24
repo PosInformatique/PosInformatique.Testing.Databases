@@ -8,6 +8,9 @@
 
 ### Visual Studio
 
+# IDE0060: Remove unused parameter
+dotnet_diagnostic.IDE0060.severity = warning
+
 # IDE0063: Use simple 'using' statement
 dotnet_diagnostic.IDE0063.severity = none
 

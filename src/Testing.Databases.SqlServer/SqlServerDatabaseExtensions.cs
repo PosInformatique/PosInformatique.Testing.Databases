@@ -167,7 +167,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
         {
             using var stringReader = new StringReader(script);
 
-            await ExecuteScriptAsync(database, stringReader);
+            await ExecuteScriptAsync(database, stringReader, cancellationToken);
         }
 
         /// <summary>
