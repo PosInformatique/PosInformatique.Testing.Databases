@@ -26,13 +26,15 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                     Boolean     BIT             NOT NULL,
                     BooleanNull BIT             NULL,
                     Binary      VARBINARY(MAX)  NULL,
+                    TinyInt     TINYINT         NOT NULL,
+                    TinyIntNull TINYINT         NULL,
                 )");
 
             database.InsertInto(
                 "TableTest",
                 false,
-                new { Name = "Name 1", Boolean = true, BooleanNull = (bool?)true, Binary = new byte[] { 1, 2 } },
-                new { Name = "Name 2", Boolean = false, BooleanNull = (bool?)null, Binary = (byte[])null });
+                new { Name = "Name 1", Boolean = true, BooleanNull = (bool?)true, Binary = new byte[] { 1, 2 }, TinyInt = 15, TinyIntNull = (byte?)10 },
+                new { Name = "Name 2", Boolean = false, BooleanNull = (bool?)null, Binary = (byte[])null, TinyInt = 30, TinyIntNull = (byte?)null });
 
             var table = database.ExecuteQuery("SELECT * FROM [TableTest] ORDER BY [Id]");
 
@@ -43,12 +45,16 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[0]["Binary"].As<byte[]>().Should().Equal([1, 2]);
             table.Rows[0]["Boolean"].As<bool>().Should().Be(true);
             table.Rows[0]["BooleanNull"].As<bool>().Should().Be(true);
+            table.Rows[0]["TinyInt"].As<byte>().Should().Be(15);
+            table.Rows[0]["TinyIntNull"].As<byte>().Should().Be(10);
 
             table.Rows[1]["Id"].Should().Be(2);
             table.Rows[1]["Name"].Should().Be("Name 2");
             table.Rows[1]["Binary"].Should().Be(DBNull.Value);
             table.Rows[1]["Boolean"].As<bool>().Should().Be(false);
             table.Rows[1]["BooleanNull"].Should().Be(DBNull.Value);
+            table.Rows[1]["TinyInt"].As<byte>().Should().Be(30);
+            table.Rows[1]["TinyIntNull"].Should().Be(DBNull.Value);
         }
 
         [Fact]
@@ -61,18 +67,20 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             database.ExecuteNonQuery(@"
                 CREATE TABLE TableTest
                 (
-                    Id      INT             NOT NULL IDENTITY(1, 1),
-                    Name    VARCHAR(50)     NOT NULL,
-                    Boolean     BIT         NOT NULL,
-                    BooleanNull BIT         NULL,
-                    Binary  VARBINARY(MAX)  NULL,
+                    Id          INT             NOT NULL IDENTITY(1, 1),
+                    Name        VARCHAR(50)     NOT NULL,
+                    Boolean     BIT             NOT NULL,
+                    BooleanNull BIT             NULL,
+                    Binary      VARBINARY(MAX)  NULL,
+                    TinyInt     TINYINT         NOT NULL,
+                    TinyIntNull TINYINT         NULL,
                 )");
 
             database.InsertInto(
                 "TableTest",
                 true,
-                new { Id = 10, Name = "Name 1", Boolean = true, BooleanNull = (bool?)true, Binary = new byte[] { 1, 2 } },
-                new { Id = 20, Name = "Name 2", Boolean = false, BooleanNull = (bool?)null, Binary = (byte[])null });
+                new { Id = 10, Name = "Name 1", Boolean = true, BooleanNull = (bool?)true, Binary = new byte[] { 1, 2 }, TinyInt = 15, TinyIntNull = (byte?)10 },
+                new { Id = 20, Name = "Name 2", Boolean = false, BooleanNull = (bool?)null, Binary = (byte[])null, TinyInt = 30, TinyIntNull = (byte?)null });
 
             var table = database.ExecuteQuery("SELECT * FROM [TableTest] ORDER BY [Id]");
 
@@ -83,12 +91,16 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             table.Rows[0]["Binary"].As<byte[]>().Should().Equal([1, 2]);
             table.Rows[0]["Boolean"].As<bool>().Should().Be(true);
             table.Rows[0]["BooleanNull"].As<bool>().Should().Be(true);
+            table.Rows[0]["TinyInt"].As<byte>().Should().Be(15);
+            table.Rows[0]["TinyIntNull"].As<byte>().Should().Be(10);
 
             table.Rows[1]["Id"].Should().Be(20);
             table.Rows[1]["Name"].Should().Be("Name 2");
             table.Rows[1]["Binary"].Should().Be(DBNull.Value);
             table.Rows[1]["Boolean"].As<bool>().Should().Be(false);
             table.Rows[1]["BooleanNull"].Should().Be(DBNull.Value);
+            table.Rows[1]["TinyInt"].As<byte>().Should().Be(30);
+            table.Rows[1]["TinyIntNull"].Should().Be(DBNull.Value);
         }
 
         [Fact]

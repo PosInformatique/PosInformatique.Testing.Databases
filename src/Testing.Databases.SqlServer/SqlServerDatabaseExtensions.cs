@@ -18,11 +18,13 @@ namespace PosInformatique.Testing.Databases.SqlServer
 
         private static readonly Type[] AuthorizedNonStringTypes =
         [
+            typeof(byte),
+            typeof(byte?),
             typeof(int),
-            typeof(double),
-            typeof(decimal),
             typeof(int?),
+            typeof(double),
             typeof(double?),
+            typeof(decimal),
             typeof(decimal?),
         ];
 
