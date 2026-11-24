@@ -23,26 +23,28 @@ jobs:
         volumes:
           - /tmp/other_databases_path:/tmp/other_databases_path
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 11.0.x
 
       - name: Restore dependencies
-        run: dotnet restore PosInformatique.Testing.Databases.sln
+        run: dotnet restore PosInformatique.Testing.Databases.slnx
 
       - name: Build solution
-        run: dotnet build PosInformatique.Testing.Databases.sln --configuration Release --no-restore
+        run: dotnet build PosInformatique.Testing.Databases.slnx --configuration Release --no-restore
 
       - name: Install SQL Server command-line tools
         run: |
-          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          set -o pipefail
+          . /etc/os-release
+          curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+          curl -fsSL "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/prod.list" | sudo tee /etc/apt/sources.list.d/msprod.list > /dev/null
           sudo apt-get update
-          sudo apt-get install -y mssql-tools
-          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18
+          echo "/opt/mssql-tools18/bin" >> "$GITHUB_PATH"
 
       - name: Prepare SQL databases directory
         run: |
@@ -51,10 +53,13 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test PosInformatique.Testing.Databases.sln \
+          dotnet test PosInformatique.Testing.Databases.slnx \
           --configuration Release \
           --no-build \
-          --logger "trx;LogFileName=test_results.trx" \
+          --coverage \
+          --coverage-output-format cobertura \
+          --coverage-settings CodeCoverage.runsettings \
+          --report-trx \
           --results-directory ./TestResults
         env:
           SQL_SERVER_UNIT_TESTS_CONNECTION_STRING: "Data Source=localhost,1433;Database=master;User Id=sa;Password=P@ssw0rd12345!;TrustServerCertificate=True;"
@@ -70,16 +75,16 @@ jobs:
   build-samples:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
+        uses: nuget/setup-nuget@v4
 
       - name: Restore NuGet packages of the samples
-        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
+        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.slnx
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       - name: Build samples with Visual Studio
-        run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
+        run: msbuild "samples/PosInformatique.Testing.Databases.Samples.slnx" /p:Configuration=Debug

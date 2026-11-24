@@ -1,0 +1,49 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="CodeCoverage.runsettings" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="stylecop.json" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/" />
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/github-actions-ci.yaml" />
+    <File Path=".github/workflows/github-actions-release.yaml" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/">
+    <File Path="docs/WriteDatabaseMigrationTest.md" />
+    <File Path="docs/WriteTest.md" />
+  </Folder>
+  <Folder Name="/Solution Items/src/">
+    <File Path="src/.editorconfig" />
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/Solution Items/tests/">
+    <File Path="tests/.editorconfig" />
+    <File Path="tests/Directory.Build.props" />
+  </Folder>
+  <Project Path="src/Testing.Databases.SqlServer.Dac/Testing.Databases.SqlServer.Dac.csproj" />
+  <Project Path="src/Testing.Databases.SqlServer.EntityFramework/Testing.Databases.SqlServer.EntityFramework.csproj" />
+  <Project Path="src/Testing.Databases.SqlServer.Shared/Testing.Databases.SqlServer.Shared.shproj" />
+  <Project Path="src/Testing.Databases.SqlServer.SqlCmd/Testing.Databases.SqlServer.SqlCmd.csproj" />
+  <Project Path="src/Testing.Databases.SqlServer/Testing.Databases.SqlServer.csproj" />
+  <Project Path="tests/Testing.Databases.SqlServer.Dac.Tests/Testing.Databases.SqlServer.Dac.Tests.csproj" />
+  <Project Path="tests/Testing.Databases.SqlServer.EntityFramework.Tests/Testing.Databases.SqlServer.EntityFramework.Tests.csproj" />
+  <Project Path="tests/Testing.Databases.SqlServer.Shared.Tests/Testing.Databases.SqlServer.Shared.Tests.shproj" />
+  <Project Path="tests/Testing.Databases.SqlServer.SqlCmd.Tests/Testing.Databases.SqlServer.SqlCmd.Tests.csproj" />
+  <Project Path="tests/Testing.Databases.SqlServer.Tests.DacPac/Testing.Databases.SqlServer.Tests.DacPac.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="tests/Testing.Databases.SqlServer.Tests.Source/Testing.Databases.SqlServer.Tests.Source.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="tests/Testing.Databases.SqlServer.Tests.Target/Testing.Databases.SqlServer.Tests.Target.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="tests/Testing.Databases.SqlServer.Tests/Testing.Databases.SqlServer.Tests.csproj" />
+</Solution>

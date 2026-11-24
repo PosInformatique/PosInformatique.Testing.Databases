@@ -6,7 +6,7 @@
 
 namespace PosInformatique.DemoApp.DataAccessLayer.Tests
 {
-    using FluentAssertions;
+    using AwesomeAssertions;
     using PosInformatique.Testing.Databases.SqlServer;
 
     [Collection(DatabaseName)]

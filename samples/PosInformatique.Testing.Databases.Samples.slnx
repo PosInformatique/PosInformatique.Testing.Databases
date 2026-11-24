@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="DemoApp.DataAccessLayer.Migrations.Tests/DemoApp.DataAccessLayer.Migrations.Tests.csproj" />
+  <Project Path="DemoApp.DataAccessLayer.Migrations/DemoApp.DataAccessLayer.Migrations.csproj" />
+  <Project Path="DemoApp.DataAccessLayer.Tests/DemoApp.DataAccessLayer.Tests.csproj" />
+  <Project Path="DemoApp.DataAccessLayer/DemoApp.DataAccessLayer.csproj" />
+  <Project Path="DemoApp.Domain/DemoApp.Domain.csproj" />
+</Solution>

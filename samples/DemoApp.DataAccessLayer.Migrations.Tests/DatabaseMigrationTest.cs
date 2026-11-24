@@ -6,7 +6,7 @@
 
 namespace PosInformatique.DemoApp.DataAccessLayer.Migrations.Tests
 {
-    using FluentAssertions;
+    using AwesomeAssertions;
     using Microsoft.EntityFrameworkCore;
     using PosInformatique.Testing.Databases;
     using PosInformatique.Testing.Databases.SqlServer;
@@ -51,7 +51,7 @@ namespace PosInformatique.DemoApp.DataAccessLayer.Migrations.Tests
                 },
             };
 
-            var differences = await SqlServerDatabaseComparer.CompareAsync(initialDatabase.Result, targetDatabase.Result, comparerOptions);
+            var differences = await SqlServerDatabaseComparer.CompareAsync(initialDatabase.Result, targetDatabase.Result, comparerOptions, TestContext.Current.CancellationToken);
 
             differences.IsIdentical.Should().BeTrue(differences.ToString());
         }
