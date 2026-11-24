@@ -63,7 +63,7 @@ Before each test (`TestMethod` or `Fact` methods):
 
 4. Assert the results of the executed code.
 
-   - If the tested method returns data (performs a SELECT query), assert the returned objects using your favorite assertion framework (e.g., FluentAssertions).
+   - If the tested method returns data (performs a SELECT query), assert the returned objects using your favorite assertion framework (e.g., AwesomeAssertions).
    - If the method inserts, updates, or deletes data, assert the content of the tables to check that all data is stored correctly.
 
 To write a test using this approach with the [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosInformatique.Testing.Databases) tools, see the [ Write tests to test the persistence layer](./docs/WriteTest.md) page.

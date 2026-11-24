@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Remove="FluentAssertions" />
+    <PackageReference Remove="AwesomeAssertions" />
     <PackageReference Remove="Microsoft.Testing.Extensions.CodeCoverage" />
     <PackageReference Remove="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Remove="StyleCop.Analyzers" />

@@ -5,7 +5,8 @@
   
   <!-- Common NuGet packages -->
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="AwesomeAssertions" />
+    <PackageReference Include="AwesomeAssertions.DataSets" />
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport"/>
     <PackageReference Update="xunit.analyzers">
@@ -17,7 +18,7 @@
 
   <!-- Add the default using directive for all tests code -->
   <ItemGroup>
-    <Using Include="FluentAssertions" />
+    <Using Include="AwesomeAssertions" />
     <Using Include="Xunit" />
   </ItemGroup>
 

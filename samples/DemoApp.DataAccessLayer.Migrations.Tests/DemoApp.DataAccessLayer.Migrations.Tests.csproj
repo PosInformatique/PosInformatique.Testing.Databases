@@ -14,7 +14,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="AwesomeAssertions" />
+    <PackageReference Include="AwesomeAssertions.DataSets" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="PosInformatique.Testing.Databases.SqlServer.EntityFramework" />
     <PackageReference Include="xunit" />

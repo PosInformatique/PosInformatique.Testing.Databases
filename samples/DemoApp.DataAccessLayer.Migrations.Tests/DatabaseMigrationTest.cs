@@ -6,7 +6,7 @@
 
 namespace PosInformatique.DemoApp.DataAccessLayer.Migrations.Tests
 {
-    using FluentAssertions;
+    using AwesomeAssertions;
     using Microsoft.EntityFrameworkCore;
     using PosInformatique.Testing.Databases;
     using PosInformatique.Testing.Databases.SqlServer;

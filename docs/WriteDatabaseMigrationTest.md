@@ -123,7 +123,7 @@ The `IsIdentical` allows to determine if there is the database have the same sch
 
 Instead of querying recursively the difference between the two database using the `SqlDatabaseComparisonResults`, the `ToString()`
 method can be and contains a detailed report of the difference. This why in the previous code, we use in a `because` parameter of the
-FluentAssertions `BeTrue()` assertion, to display the detailed report when the test has been failed.
+AwesomeAssertions `BeTrue()` assertion, to display the detailed report when the test has been failed.
 
 ### Check the report details of the `SqlServerDatabaseComparer` tool.
 
