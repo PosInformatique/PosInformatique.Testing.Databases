@@ -17,6 +17,9 @@ run-name: ${{ inputs.VersionSuffix && format('{0}-{1}', inputs.VersionPrefix, in
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v7
 
@@ -53,5 +56,15 @@ jobs:
           --property:VersionSuffix=${{ github.event.inputs.VersionSuffix }}
           "src/Testing.Databases.SqlServer.SqlCmd/Testing.Databases.SqlServer.SqlCmd.csproj"
 
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: nuget_login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Publish the package to nuget.org
-        run: dotnet nuget push "src/**/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
+        run: 
+          dotnet nuget push "src/**/bin/Release/*.nupkg" \
+          --api-key "${{steps.nuget_login.outputs.NUGET_API_KEY}}" \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
