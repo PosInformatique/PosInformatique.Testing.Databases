@@ -31,10 +31,10 @@ jobs:
           dotnet-version: 11.0.x
 
       - name: Restore dependencies
-        run: dotnet restore PosInformatique.Testing.Databases.sln
+        run: dotnet restore PosInformatique.Testing.Databases.slnx
 
       - name: Build solution
-        run: dotnet build PosInformatique.Testing.Databases.sln --configuration Release --no-restore
+        run: dotnet build PosInformatique.Testing.Databases.slnx --configuration Release --no-restore
 
       - name: Install SQL Server command-line tools
         run: |
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run tests
         run: |
-          dotnet test PosInformatique.Testing.Databases.sln \
+          dotnet test PosInformatique.Testing.Databases.slnx \
           --configuration Release \
           --no-build \
           --logger "trx;LogFileName=test_results.trx" \
@@ -76,10 +76,10 @@ jobs:
         uses: nuget/setup-nuget@v4
 
       - name: Restore NuGet packages of the samples
-        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.sln
+        run: nuget restore samples/PosInformatique.Testing.Databases.Samples.slnx
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v3
 
       - name: Build samples with Visual Studio
-        run: msbuild "samples/PosInformatique.Testing.Databases.Samples.sln" /p:Configuration=Debug
+        run: msbuild "samples/PosInformatique.Testing.Databases.Samples.slnx" /p:Configuration=Debug
