@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Remove="coverlet.collector" />
     <PackageReference Remove="FluentAssertions" />
-    <PackageReference Remove="Microsoft.NET.Test.Sdk" />
+    <PackageReference Remove="Microsoft.Testing.Extensions.CodeCoverage" />
+    <PackageReference Remove="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Remove="StyleCop.Analyzers" />
-    <PackageReference Remove="xunit.runner.visualstudio" />
-    <PackageReference Remove="xunit.v3" />
+    <PackageReference Remove="xunit.analyzers" />
+    <PackageReference Remove="xunit.v3.core.mtp-v2" />
   </ItemGroup>
 
   <ItemGroup>
