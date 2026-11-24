@@ -13,7 +13,7 @@
   <Folder Name="/Solution Items/.github/" />
   <Folder Name="/Solution Items/.github/workflows/">
     <File Path=".github/workflows/github-actions-ci.yaml" />
-    <File Path=".github/workflows/github-actions-release.yaml" />
+    <File Path=".github/workflows/github-actions-release.yml" />
   </Folder>
   <Folder Name="/Solution Items/docs/">
     <File Path="docs/WriteDatabaseMigrationTest.md" />
