@@ -20,6 +20,7 @@ namespace PosInformatique.Testing.Databases.SqlServer
             this.Password = connectionString.Password;
             this.Server = connectionString.DataSource;
             this.TrustedConnection = connectionString.IntegratedSecurity;
+            this.TrustServerCertificate = connectionString.TrustServerCertificate;
 
             this.variables = new Dictionary<string, string>();
         }
@@ -35,6 +36,8 @@ namespace PosInformatique.Testing.Databases.SqlServer
         public string? Server { get; set; }
 
         public bool TrustedConnection { get; set; }
+
+        public bool TrustServerCertificate { get; set; }
 
         public IReadOnlyDictionary<string, string> Variables => this.variables;
 
@@ -70,6 +73,11 @@ namespace PosInformatique.Testing.Databases.SqlServer
             if (this.TrustedConnection)
             {
                 parameters.Append($"-E ");
+            }
+
+            if (this.TrustServerCertificate)
+            {
+                parameters.Append($"-C ");
             }
 
             if (!string.IsNullOrEmpty(this.Server))

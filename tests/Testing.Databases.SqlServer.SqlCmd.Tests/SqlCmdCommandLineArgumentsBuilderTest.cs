@@ -18,6 +18,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
                 DataSource = "The data source",
                 InitialCatalog = "The initial catalog",
                 IntegratedSecurity = true,
+                TrustServerCertificate = true,
                 Password = "The password",
                 UserID = "The login",
             };
@@ -30,6 +31,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             argumentsBuilder.Password.Should().Be("The password");
             argumentsBuilder.Server.Should().Be("The data source");
             argumentsBuilder.TrustedConnection.Should().BeTrue();
+            argumentsBuilder.TrustServerCertificate.Should().BeTrue();
             argumentsBuilder.Variables.Should().BeEmpty();
         }
 
@@ -46,6 +48,7 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             argumentsBuilder.Password.Should().BeEmpty();
             argumentsBuilder.Server.Should().BeEmpty();
             argumentsBuilder.TrustedConnection.Should().BeFalse();
+            argumentsBuilder.TrustServerCertificate.Should().BeFalse();
             argumentsBuilder.Variables.Should().BeEmpty();
         }
 
@@ -119,6 +122,18 @@ namespace PosInformatique.Testing.Databases.SqlServer.Tests
             argumentsBuilder.TrustedConnection = true;
 
             argumentsBuilder.TrustedConnection.Should().BeTrue();
+        }
+
+        [Fact]
+        public void TrustServerCertificate_ValueChanged()
+        {
+            var connectionString = new SqlConnectionStringBuilder();
+
+            var argumentsBuilder = new SqlCmdCommandLineArgumentsBuilder(connectionString);
+
+            argumentsBuilder.TrustServerCertificate = true;
+
+            argumentsBuilder.TrustServerCertificate.Should().BeTrue();
         }
 
         [Fact]

@@ -130,7 +130,7 @@ The [PosInformatique.Testing.Databases](https://github.com/PosInformatique/PosIn
 
 - [PosInformatique.Testing.Databases.SqlServer.SqlCmd](https://www.nuget.org/packages/PosInformatique.Testing.Databases.SqlServer.SqlCmd) NuGet package which contains:
   - Tools to execute T-SQL script using the SQL Server [sqlcmd utility](https://learn.microsoft.com/en-us/sql/tools/sqlcmd/sqlcmd-utility). This script can be use to deploy a 
-	SQL Server database.
+	SQL Server database. The connection string's `TrustServerCertificate` option is forwarded to `sqlcmd` as `-C`.
 
 ## 🚀 Samples / Demo
 
